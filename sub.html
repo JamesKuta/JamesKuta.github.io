@@ -9,32 +9,35 @@
 <title> James' Subtraction Game </title>
 </head>
 
-<body class = "gradient">
+<body>
     <!-- <div class = "nav-wrapper"><ul class = "nav">
         <li onclick="addGame()"><a href="#add">Addition</a></li>
         <li onclick="subGame()"><a href="#sub">Subtraction</a></li>
         </ul></div> -->
-    <div class="menu"><a href="index.html">Game Menu</a></div>
-    
-    <div><h1>James Subtraction Game</h1>
+    <header><div class="left"><a href="index.html">Game Menu</a></div></header>
+<div class="center">
     <div class = "wrapper">
-        <p id="equation" class="lgText">&nbsp; - &nbsp</p>&nbsp;
-        <p class="eqText">=</p>
-        <p id="sum" class="lgText">&nbsp;</p>
+        <h1>James' Subtraction Game</h1>
+        <span id="equation">-</span>
+        <span>=</span>
+        <form>
+            <input id="equals" type="text" autofocus autocomplete="off">
+        </form>
+        <!--span class="eqText">=</span>-->
+        <span id="sum" class=></span>
+        <h2 id="result">Correct! Nice Job James!</h2>
+        <button class="btn" onclick="reloadPage()">New</button>
+        <button class="btn" onclick="answer()">Submit</button>
     </div>
-    <div class="btn-wrapper">
-        <button class="btn" onclick="createEquation()">New</button>
-        <button class="btn" onclick="answer()">Solve</button>
-    </div>
-    <div>
-        <h2 id ="result"></h2>
-    </div>
+    
+</div>   
+        
         
         
     
 
 <script src="js/script2.js"></script>
-    </div>
+
 </body>
 </html>
 
