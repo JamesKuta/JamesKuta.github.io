@@ -37,6 +37,8 @@ function answer() {
         
     } else {
         document.getElementById("result").innerHTML = "TRY AGAIN, JAMES!";
+        document.getElementById('equals').focus();
+        document.getElementById('equals').select();
     }
     }
 
