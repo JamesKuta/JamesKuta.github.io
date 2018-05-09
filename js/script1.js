@@ -7,15 +7,19 @@ var numSum = undefined;
 
 //Create the left side of the equation var num1 + var num2 store total in var numSum
 
-function reloadPage() {
-    location.reload();
-}
+//function reloadPage() {
+  //  location.reload();
+//}
 createEquation();
-
+    
 function createEquation() {
    // num1 = num2 = numSum = undefined;
     document.getElementById('result').innerHTML = "YOU CAN DO IT, JAMES!";
     //document.getElementById('equals').value = "";
+    document.getElementById("equals").value ='';
+    document.getElementById('equals').focus();
+    document.getElementById('equals').select();
+    
     num1 = Math.floor((Math.random() * 9));
     //do {
         num2 = Math.floor((Math.random() * 9));
@@ -40,6 +44,8 @@ function answer() {
         document.getElementById('equals').focus();
         document.getElementById('equals').select();
     }
-    }
+    
+
+}
 
 
