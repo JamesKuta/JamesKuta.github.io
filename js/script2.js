@@ -21,6 +21,7 @@ function createEquation() {
     document.getElementById("equals").value ='';
     document.getElementById('equals').focus();
     document.getElementById('equals').select();
+    document.getElementById("equals").style.backgroundColor ="white";
     num1 = Math.floor((Math.random() * 9));
     do {
         num2 = Math.floor((Math.random() * 9));
@@ -39,12 +40,14 @@ function answer() {
     if (correctAnswer == numSum) {
         //document.getElementById("sum").innerHTML = numSum;
         document.getElementById("result").innerHTML = "CORRECT! NICE JOB, JAMES!";
+        document.getElementById("equals").style.backgroundColor ="green";
         
         
     } else {
         document.getElementById("result").innerHTML = "TRY AGAIN, JAMES!";
         document.getElementById("equals").focus();
         document.getElementById("equals").select();
+        document.getElementById("equals").style.backgroundColor ="red";
     }
     }
 
