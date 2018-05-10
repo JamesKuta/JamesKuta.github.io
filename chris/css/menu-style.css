@@ -1,0 +1,52 @@
+body {
+    background: linear-gradient(to right , black, gray);
+    font-family: sans-serif;
+    
+}
+
+
+div {
+    margin: auto;
+    width: 75%;
+    text-align: center;
+    margin-bottom: 40px;
+    
+}
+
+h1 {
+    font-size: 400%;
+    color:white;
+   
+    
+}
+
+
+
+.btn-section{
+    margin-bottom: 40px;
+    
+}
+
+a {
+    background-color: #db3939;
+    padding:5px;
+    border-style: solid;
+    border-bottom-color: #050505;
+    border-radius: 30px;
+    font-size: 300%;
+    text-decoration:none;
+    color:black;
+}
+
+a:visited {
+    text-decoration: none;
+    
+}
+
+a:hover {
+   background-color: #f4f4f4;  
+}
+
+.pos {
+    margin-top: 10%;
+}

@@ -1,0 +1,326 @@
+html {
+   background: linear-gradient(to bottom , gray, white); 
+   height: 100%;
+}
+
+body{
+    font-family: sans-serif;
+    padding-top:10px;
+}
+
+
+
+div.center {
+    width:75%;
+    margin:auto;
+    text-align: center;
+}
+
+
+div a {
+    text-decoration: none;
+    border-style: solid;
+    border-color: black;
+    font-size: 125%;
+    padding:5px;
+    border-radius: 50px;
+    
+        
+}
+
+div.wrapper {
+    padding: 50px;
+    font-size:300%;
+    background: radial-gradient(circle, #ffffff, #aca6a6, #909090);
+    
+ 
+        
+}
+
+a:visited {
+    color: black;
+}
+
+a:hover {
+    background-color: #c9c9c9;
+    color:white;
+}
+
+h1{
+    color:#ffffff;
+    /* font-size: 200% */
+    font-size: 100%;
+}
+
+h2 {
+    font-size: 50%;
+    color:rgb(118, 118, 118);
+        
+}
+
+
+.btn {
+    background-color: gray;
+    color:white;
+    padding:5px 20px;
+    /*font-size: 120%;*/
+    border: none;
+        
+}
+
+.btn:hover {
+    background-color: #c7c7c7;
+    color:#020202;
+}
+
+form {
+    display: inline-block;
+}
+
+form input {
+    text-align: center;
+    font-size:100%;
+    width: 50px;
+    padding: 10px
+        
+}
+
+.btn, .small {
+    width:auto;
+    font-size: 50%;
+ 
+        
+}
+
+.section1 {
+    font-size: 100%;
+}
+
+.btn-selection {
+    color:white;
+    padding:10px 30px;
+    /*font-size: 120%;*/
+    border-radius: 0px; 
+    margin:20px;
+    
+}
+
+
+/* For Smaller Screen Sizes */
+
+@media only screen and (max-width: 900px) {
+    
+.section1 {
+    font-size: 75%;
+}
+
+ .btn-selection {
+    color:white;
+    padding:10px 30px;
+    font-size: 50%;
+    border-radius: 0px; 
+    margin:20px;
+    
+} 
+
+@media only screen and (max-width: 600px) {
+
+.section1 {
+    font-size: 50%;
+}
+    
+ .btn-selection {
+    color:white;
+    padding:10px 30px;
+    font-size: 25%;
+    border-radius: 0px; 
+    margin:20px;
+    
+} 
+    
+@media only screen and (max-width: 440px) {
+    
+.section1 {
+    font-size: 25;
+}
+
+ .btn-selection {
+    color:white;
+    padding:10px 30px;
+    font-size: 20%;
+    border-radius: 0px; 
+    margin:20px;
+    
+} 
+
+@media only screen and (max-width: 400px) {
+    
+.section1 {
+    font-size: 25%;
+}
+
+ .btn-selection {
+    color:white;
+    padding:10px 30px;
+    font-size: 10%;
+    border-radius: 0px; 
+    margin:20px;
+    
+} 
+    
+@media only screen and (max-width: 325px) {
+    
+.section1 {
+    font-size: 25%;
+}
+
+ .btn-selection {
+    color:white;
+    padding:10px 30px;
+    font-size: 10%;
+    border-radius: 0px; 
+    margin:5px;
+    
+} 
+    }
+
+/*
+h1 {
+    font-style: italic;
+    text-align: center;
+    font-size: 600%;
+    color:#ffffff;
+    //border-color: aliceblue;
+    //border-style: solid;
+    //background-color: gray;
+        
+}
+
+h2 {
+   font-style: italic;
+   text-align: center;
+    color: #ffffff;
+    font-size: 300%;
+    
+    
+    
+}
+#equation {
+    display: inline-block;
+    border-color: white;
+    border-style: solid;
+    border-width: 2px;
+    padding: 10px; 
+}
+
+#sum {
+    display: inline-block;
+    border-color: red;
+    border-style: solid;
+    border-width: 2px;
+    padding: 10px;
+}
+
+.wrapper {
+    text-align: center;
+    margin-bottom: %;
+    
+}
+
+.lgText {
+    font-size: 500%;
+    font-weight: 800;
+}
+
+.btn {
+    padding-left: 5px;
+    padding-right: 10px;
+    margin:5px;
+    background-color: #db3939;
+    border-radius: 5px;
+    border-style: solid;
+    border-color: #050505;
+    font-size: 200%;
+    
+}
+
+.btn:hover {
+    background-color: #f4f4f4;
+}
+
+.btn-wrapper{
+    margin:1%;
+    margin-left: 25%;
+    margin-right: 25%;
+    text-align: center;
+}
+
+.eqText{
+    display: inline-block;
+    font-size: 500%;
+    font-weight: 800;
+}
+
+.gradient {
+    width: 100%;
+    height: 100%;
+    background: linear-gradient(to right , black, gray);
+}
+
+ul {
+list-style-type: none;
+display: inline;
+width:275px;
+}
+
+li {
+    color:white;
+    border-right-style: solid;
+    border-style: solid;
+    font-size: 200%;
+    display:inline;
+    text-align: center;
+    padding:10px;
+    
+}
+
+li:hover {
+    background-color: gray;
+}
+
+
+}
+
+.top-nav {
+    background-color:#716c6c;
+    color:black;
+}
+
+.top-nav:hover {
+    background-color:black;
+}
+
+.nav-wrapper {
+    margin-top: 20px;
+}
+
+a {
+    text-decoration: none;
+    color:white;
+    border-style: solid;
+    float: left;
+    
+
+
+
+    
+    
+}
+
+a:link {
+    text-decoration: none;
+}
+
+*/
+
+
