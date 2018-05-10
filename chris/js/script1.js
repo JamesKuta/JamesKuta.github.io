@@ -21,9 +21,9 @@ function createEquation() {
     document.getElementById('equals').select();
     document.getElementById("equals").style.backgroundColor ="white";
     
-    num1 = Math.floor((Math.random() * 49));
+    num1 = Math.floor((Math.random() * 100));
     //do {
-        num2 = Math.floor((Math.random() * 49));
+        num2 = Math.floor((Math.random() * 100));
     
     //while (num2 > num1);
     document.getElementById("equation").innerHTML = num1 + ' + ' + num2;
@@ -37,7 +37,7 @@ function answer() {
     //document.getElementById("sum").innerHTML = numSum;
     if (correctAnswer == numSum) {
         //document.getElementById("sum").innerHTML = numSum;
-        document.getElementById("result").innerHTML = "You probably should not be to excited!";
+        document.getElementById("result").innerHTML = "You shouldn't be too excited!";
         document.getElementById("equals").style.backgroundColor ="green";
         setTimeout(createEquation, 2000);
         

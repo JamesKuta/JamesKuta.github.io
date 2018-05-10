@@ -22,9 +22,9 @@ function createEquation() {
     document.getElementById('equals').focus();
     document.getElementById('equals').select();
     document.getElementById("equals").style.backgroundColor ="white";
-    num1 = Math.floor((Math.random() * 49));
+    num1 = Math.floor((Math.random() * 100));
     do {
-        num2 = Math.floor((Math.random() * 49));
+        num2 = Math.floor((Math.random() * 100));
     }
     
     while (num2 > num1);
