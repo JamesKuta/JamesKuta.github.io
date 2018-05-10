@@ -14,7 +14,7 @@ createEquation();
     
 function createEquation() {
    // num1 = num2 = numSum = undefined;
-    document.getElementById('result').innerHTML = "YOU CAN DO IT, JAMES!";
+    document.getElementById('result').innerHTML = "You Can Do It, James!";
     //document.getElementById('equals').value = "";
     document.getElementById("equals").value ='';
     document.getElementById('equals').focus();

@@ -16,15 +16,15 @@ document.getElementById
 
 function createEquation() {
    // num1 = num2 = numSum = undefined;
-    document.getElementById('result').innerHTML = "YOU CAN DO IT, JAMES!";
+    document.getElementById('result').innerHTML = "Don't F This Up, Chris!";
     //document.getElementById('equals').value = "";
     document.getElementById("equals").value ='';
     document.getElementById('equals').focus();
     document.getElementById('equals').select();
     document.getElementById("equals").style.backgroundColor ="white";
-    num1 = Math.floor((Math.random() * 9));
+    num1 = Math.floor((Math.random() * 49));
     do {
-        num2 = Math.floor((Math.random() * 9));
+        num2 = Math.floor((Math.random() * 49));
     }
     
     while (num2 > num1);
@@ -39,12 +39,13 @@ function answer() {
     //document.getElementById("sum").innerHTML = numSum;
     if (correctAnswer == numSum) {
         //document.getElementById("sum").innerHTML = numSum;
-        document.getElementById("result").innerHTML = "CORRECT! NICE JOB, JAMES!";
+        document.getElementById("result").innerHTML = "Yay! My sister can subtract.";
         document.getElementById("equals").style.backgroundColor ="green";
+        setTimeout(createEquation, 2000);
         
         
     } else {
-        document.getElementById("result").innerHTML = "TRY AGAIN, JAMES!";
+        document.getElementById("result").innerHTML = "Seriously? Insert Face Palm Here.";
         document.getElementById("equals").focus();
         document.getElementById("equals").select();
         document.getElementById("equals").style.backgroundColor ="red";

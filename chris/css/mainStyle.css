@@ -24,7 +24,7 @@ div.wrapper {
     margin-top: 20px;
     }
 
-a {
+a, button {
     text-decoration: none;
     color: white;
     /*border-radius:20px;*/
@@ -57,6 +57,13 @@ form input {
 
 span {
     font-size: 200%;
+}
+
+#equals {
+    font-size: 200%;
+    width:35px;
+    
+        
 }
 
 /*.btn {

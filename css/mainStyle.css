@@ -59,6 +59,26 @@ span {
     font-size: 200%;
 }
 
+#equals {
+    font-size: 200%;
+    width:35px;
+    
+        
+}
+
+button {
+    text-decoration: none;
+    color: white;
+    /*border-radius:20px;*/
+    border-bottom-style: solid;
+    border-width: 1px;
+    border-color: black;
+    background-color: #747474;
+    margin-bottom: 20px;
+    display: inline-block;
+    padding:10px;
+}
+
 /*.btn {
     background-color: gray;
     color:white;
