@@ -45,6 +45,7 @@ function answer() {
         
     } else {
         document.getElementById("result").innerHTML = "How many degrees do you have?";
+        document.getElementById("equals").value ='';
         document.getElementById('equals').focus();
         document.getElementById('equals').select();
         document.getElementById("equals").style.backgroundColor ="red";

@@ -49,6 +49,7 @@ function answer() {
         document.getElementById("equals").focus();
         document.getElementById("equals").select();
         document.getElementById("equals").style.backgroundColor ="red";
+        document.getElementById("equals").value ='';
     }
     }
 
