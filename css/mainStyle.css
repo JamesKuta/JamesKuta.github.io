@@ -53,16 +53,21 @@ a:hover
 */
     
         
-}
 
-@media only screen and (max-width: 400px) {
-    
-div.wrapper {
+
+@media only screen and (max-width: 600px) {
+            
+    div.wrapper {
     /*background: radial-gradient(circle, #ffffff, #aca6a6, #909090);*/
     margin: auto;
     text-align: center;
     width: 75%;
     padding: 50px;
     }
+    
+    h1 {
+    font-size: 150%;
+    }
+
     
 } 
