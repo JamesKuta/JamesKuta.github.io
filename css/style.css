@@ -105,7 +105,82 @@ form input {
     
 }
 
+/* For Smaller Screen Sizes */
 
+@media only screen and (max-width: 900px) {
+    
+.section1 {
+    font-size: 75%;
+}
+
+ .btn-selection {
+    color:white;
+    padding:10px 30px;
+    font-size: 50%;
+    border-radius: 0px; 
+    margin:20px;
+    
+} 
+
+@media only screen and (max-width: 600px) {
+
+.section1 {
+    font-size: 50%;
+}
+    
+ .btn-selection {
+    color:white;
+    padding:10px 30px;
+    font-size: 25%;
+    border-radius: 0px; 
+    margin:20px;
+    
+} 
+    
+@media only screen and (max-width: 440px) {
+    
+.section1 {
+    font-size: 25;
+}
+
+ .btn-selection {
+    color:white;
+    padding:10px 30px;
+    font-size: 20%;
+    border-radius: 0px; 
+    margin:20px;
+    
+} 
+
+@media only screen and (max-width: 400px) {
+    
+.section1 {
+    font-size: 25%;
+}
+
+ .btn-selection {
+    color:white;
+    padding:10px 30px;
+    font-size: 10%;
+    border-radius: 0px; 
+    margin:20px;
+    
+} 
+    
+@media only screen and (max-width: 325px) {
+    
+.section1 {
+    font-size: 25%;
+}
+
+ .btn-selection {
+    color:white;
+    padding:10px 30px;
+    font-size: 10%;
+    border-radius: 0px; 
+    margin:5px;
+    
+} 
 
 /*
 h1 {
