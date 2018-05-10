@@ -43,6 +43,22 @@ a:hover
     background-color: #ebebeb;
 }
 
+form {
+    display: inline-block;
+}
+
+form input {
+    text-align: center;
+    font-size:100%;
+    width: 20px;
+    padding: 10px;
+        
+}
+
+span {
+    font-size: 200%;
+}
+
 /*.btn {
     background-color: gray;
     color:white;
@@ -68,6 +84,8 @@ a:hover
     h1 {
     font-size: 150%;
     }
-
+    h2 {
+        font-size: 150%;
+    }
     
 } 
