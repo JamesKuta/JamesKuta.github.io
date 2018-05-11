@@ -3,7 +3,8 @@
 var num1 = undefined;
 var num2 = undefined;
 var numSum = undefined;
-
+var soundCorrect = document.getElementById("correctSound");
+var soundWrong = document.getElementById("wrongSound");
 
 //Create the left side of the equation var num1 + var num2 store total in var numSum
 
@@ -49,6 +50,7 @@ function answer() {
         //document.getElementById("sum").innerHTML = numSum;
         document.getElementById("result").innerHTML = "You shouldn't be too excited!";
         document.getElementById("equals").style.backgroundColor ="green";
+        soundCorrect.play();
         setTimeout(createEquation, 2000);
         
         
@@ -59,6 +61,7 @@ function answer() {
         document.getElementById('equals').focus();
         document.getElementById('equals').select();
         document.getElementById("equals").style.backgroundColor ="red";
+        soundWrong.play();
     }
     
 

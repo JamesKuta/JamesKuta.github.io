@@ -3,19 +3,28 @@
 var num1 = undefined;
 var num2 = undefined;
 var numSum = undefined;
-var soundYay = document.getElementById("myAudioCorrect");
-var soundWrong = document.getElementById("myAudioWrong");
+var soundCorrect = document.getElementById("correctSound");
+var soundWrong = document.getElementById("wrongSound");
 
 //Create the left side of the equation var num1 + var num2 store total in var numSum
 
 //function reloadPage() {
   //  location.reload();
 //}
+
+/*var eKey = document.getElementById("equals");
+eKey.addEventListener("keyup", function(event) {
+    event.preventDefault();
+    if (event.keyCode === 13) {
+        document.getElementById("subBtn").click();
+    }
+}); */
+
 createEquation();
     
 function createEquation() {
    // num1 = num2 = numSum = undefined;
-    document.getElementById('result').innerHTML = "YOU CAN DO IT, JAMES!";
+    document.getElementById('result').innerHTML = "You can do it, James!";
     //document.getElementById('equals').value = "";
     document.getElementById("equals").value ='';
     document.getElementById('equals').focus();
@@ -35,16 +44,20 @@ function createEquation() {
 
 function answer() {
    var correctAnswer = document.getElementById("equals").value;
+    console.log(correctAnswer);
     //document.getElementById("sum").innerHTML = numSum;
     if (correctAnswer == numSum) {
         //document.getElementById("sum").innerHTML = numSum;
-        document.getElementById("result").innerHTML = "CORRECT! NICE JOB, JAMES!";
+        document.getElementById("result").innerHTML = "Yay! Way to go, James!";
         document.getElementById("equals").style.backgroundColor ="green";
-        soundYay.play();
+        soundCorrect.play();
+        setTimeout(createEquation, 4000);
+        
         
         
     } else {
-        document.getElementById("result").innerHTML = "TRY AGAIN, JAMES!";
+        document.getElementById("result").innerHTML = "Try again, James.";
+        document.getElementById("equals").value ='';
         document.getElementById('equals').focus();
         document.getElementById('equals').select();
         document.getElementById("equals").style.backgroundColor ="red";
