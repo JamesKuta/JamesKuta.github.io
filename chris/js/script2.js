@@ -16,7 +16,7 @@ document.getElementById
 
 function createEquation() {
    // num1 = num2 = numSum = undefined;
-    document.getElementById('result').innerHTML = "Don't F This Up, Chris!";
+    document.getElementById('result').innerHTML = "Don't 'F' this up, Chris!";
     //document.getElementById('equals').value = "";
     document.getElementById("equals").value ='';
     document.getElementById('equals').focus();
@@ -45,7 +45,7 @@ function answer() {
         
         
     } else {
-        document.getElementById("result").innerHTML = "Seriously? Insert Face Palm Here.";
+        document.getElementById("result").innerHTML = "Seriously? Insert face palm here.";
         document.getElementById("equals").focus();
         document.getElementById("equals").select();
         document.getElementById("equals").style.backgroundColor ="red";

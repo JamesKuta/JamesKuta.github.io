@@ -10,11 +10,20 @@ var numSum = undefined;
 //function reloadPage() {
   //  location.reload();
 //}
+
+/*var eKey = document.getElementById("equals");
+eKey.addEventListener("keyup", function(event) {
+    event.preventDefault();
+    if (event.keyCode === 13) {
+        document.getElementById("subBtn").click();
+    }
+}); */
+
 createEquation();
     
 function createEquation() {
    // num1 = num2 = numSum = undefined;
-    document.getElementById('result').innerHTML = "Don't F This Up, Chris!";
+    document.getElementById('result').innerHTML = "Don't 'F' this up, Chris!";
     //document.getElementById('equals').value = "";
     document.getElementById("equals").value ='';
     document.getElementById('equals').focus();
@@ -34,6 +43,7 @@ function createEquation() {
 
 function answer() {
    var correctAnswer = document.getElementById("equals").value;
+    console.log(correctAnswer);
     //document.getElementById("sum").innerHTML = numSum;
     if (correctAnswer == numSum) {
         //document.getElementById("sum").innerHTML = numSum;
