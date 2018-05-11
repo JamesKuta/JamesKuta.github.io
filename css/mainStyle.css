@@ -43,42 +43,6 @@ a:hover
     background-color: #ebebeb;
 }
 
-form {
-    display: inline-block;
-}
-
-form input {
-    text-align: center;
-    font-size:100%;
-    width: 20px;
-    padding: 10px;
-        
-}
-
-span {
-    font-size: 200%;
-}
-
-#equals {
-    font-size: 200%;
-    width:35px;
-    
-        
-}
-
-button {
-    text-decoration: none;
-    color: white;
-    /*border-radius:20px;*/
-    border-bottom-style: solid;
-    border-width: 1px;
-    border-color: black;
-    background-color: #747474;
-    margin-bottom: 20px;
-    display: inline-block;
-    padding:10px;
-}
-
 /*.btn {
     background-color: gray;
     color:white;
@@ -89,23 +53,16 @@ button {
 */
     
         
+}
 
-
-@media only screen and (max-width: 600px) {
-            
-    div.wrapper {
+@media only screen and (max-width: 400px) {
+    
+div.wrapper {
     /*background: radial-gradient(circle, #ffffff, #aca6a6, #909090);*/
     margin: auto;
     text-align: center;
     width: 75%;
     padding: 50px;
-    }
-    
-    h1 {
-    font-size: 150%;
-    }
-    h2 {
-        font-size: 150%;
     }
     
 } 

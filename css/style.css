@@ -105,7 +105,6 @@ form input {
     
 }
 
-
 /* For Smaller Screen Sizes */
 
 @media only screen and (max-width: 900px) {
@@ -182,7 +181,6 @@ form input {
     margin:5px;
     
 } 
-    }
 
 /*
 h1 {

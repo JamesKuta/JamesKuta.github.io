@@ -3,7 +3,8 @@
 var num1 = undefined;
 var num2 = undefined;
 var numSum = undefined;
-
+var soundYay = document.getElementById("myAudioCorrect");
+var soundWrong = document.getElementById("myAudioWrong");
 
 //Create the left side of the equation var num1 + var num2 store total in var numSum
 
@@ -14,7 +15,7 @@ createEquation();
     
 function createEquation() {
    // num1 = num2 = numSum = undefined;
-    document.getElementById('result').innerHTML = "You Can Do It, James!";
+    document.getElementById('result').innerHTML = "YOU CAN DO IT, JAMES!";
     //document.getElementById('equals').value = "";
     document.getElementById("equals").value ='';
     document.getElementById('equals').focus();
@@ -39,6 +40,7 @@ function answer() {
         //document.getElementById("sum").innerHTML = numSum;
         document.getElementById("result").innerHTML = "CORRECT! NICE JOB, JAMES!";
         document.getElementById("equals").style.backgroundColor ="green";
+        soundYay.play();
         
         
     } else {
@@ -46,6 +48,7 @@ function answer() {
         document.getElementById('equals').focus();
         document.getElementById('equals').select();
         document.getElementById("equals").style.backgroundColor ="red";
+        soundWrong.play();
     }
     
 
