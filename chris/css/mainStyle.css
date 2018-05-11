@@ -66,6 +66,10 @@ span {
         
 }
 
+i {
+    font-size: 200%;
+}
+
 /*.btn {
     background-color: gray;
     color:white;

@@ -13,7 +13,13 @@ var soundWrong = document.getElementById("wrongSound");
 //}
 createEquation();
 
-document.getElementById
+function uniKeyCode(event) {
+    var key = event.keyCode;
+    if (key == 13) {
+        event.preventDefault()
+        answer();
+    }
+}
 
 function createEquation() {
    // num1 = num2 = numSum = undefined;

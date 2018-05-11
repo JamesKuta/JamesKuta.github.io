@@ -8,20 +8,18 @@ var soundWrong = document.getElementById("wrongSound");
 
 //Create the left side of the equation var num1 + var num2 store total in var numSum
 
-//function reloadPage() {
-  //  location.reload();
-//}
-
-/*var eKey = document.getElementById("equals");
-eKey.addEventListener("keyup", function(event) {
-    event.preventDefault();
-    if (event.keyCode === 13) {
-        document.getElementById("subBtn").click();
-    }
-}); */
 
 createEquation();
-    
+
+
+function uniKeyCode(event) {
+    var key = event.keyCode;
+    if (key == 13) {
+        event.preventDefault()
+        answer();
+    }
+}
+
 function createEquation() {
    // num1 = num2 = numSum = undefined;
     document.getElementById('result').innerHTML = "You can do it, James!";

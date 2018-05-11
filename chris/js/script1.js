@@ -21,6 +21,14 @@ eKey.addEventListener("keyup", function(event) {
 }); */
 
 createEquation();
+
+function uniKeyCode(event) {
+    var key = event.keyCode;
+    if (key == 13) {
+        event.preventDefault()
+        answer();
+    }
+}
     
 function createEquation() {
    // num1 = num2 = numSum = undefined;
