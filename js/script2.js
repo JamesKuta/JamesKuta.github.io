@@ -48,7 +48,7 @@ function answer() {
         //document.getElementById("sum").innerHTML = numSum;
         document.getElementById("result").innerHTML = "Yay! Way to go, James!";
         document.getElementById("equals").style.backgroundColor = "green";
-        soundCorrect.play();
+        soundWrong.play();
         setTimeout(createEquation, 4000);
 
 
@@ -58,6 +58,6 @@ function answer() {
         document.getElementById("equals").select();
         document.getElementById("equals").style.backgroundColor = "red";
         document.getElementById("equals").value = '';
-        soundWrong.play();
+        soundCorrect.play();
     }
 }
