@@ -1,52 +1,55 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<meta http-equiv="X-UA-Compatible" content="ie=edge">
-<link rel="stylesheet" href="css/mainStyle.css">
-    
-<title> James' Subtraction Game </title>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <link rel="stylesheet" href="css/mainStyle.css">
+
+    <title> James' Subtraction Game </title>
 </head>
 
 <body>
 
-<audio id="correctSound">
+    <audio id="correctSound">
     <source src="sounds/dingCorrect.mp3" type="audio/mpeg">
 </audio>
-    
-<audio id="wrongSound">
+
+    <audio id="wrongSound">
     <source src="sounds/failFart.mp3" type="audio/mpeg">
     </audio>
-    
+
     <!-- <div class = "nav-wrapper"><ul class = "nav">
         <li onclick="addGame()"><a href="#add">Addition</a></li>
         <li onclick="subGame()"><a href="#sub">Subtraction</a></li>
         </ul></div> -->
-    <header><div class="left"><a href="index.html">Game Menu</a></div></header>
-<div class="center">
-    <div class = "wrapper">
-        <h1>Subtraction Time!</h1>
-        <span id="equation">-</span>
-        <span>=</span>
-        <form>
-            <input id="equals" type="number" onkeypress="uniKeyCode(event)" autofocus autocomplete="off">
-        </form>
-        <!--span class="eqText">=</span>-->
-        <span id="sum" class=></span>
-        <h2 id="result">Correct! Nice Job James!</h2>
-        <button class="btn" onclick="createEquation()">New</button>
-        <button class="btn" onclick="answer()">Submit</button>
-    </div>
-    
-</div>   
-        
-        
-        
-    
+    <header>
+        <div class="left"><a href="index.html">Game Menu</a></div>
+    </header>
+    <div class="center">
+        <div class="wrapper">
+            <h1>Subtraction Time!</h1>
+            <span id="equation">-</span>
+            <span>=</span>
+            <form>
+                <input id="equals" type="number" onkeypress="uniKeyCode(event)" autofocus autocomplete="off">
+            </form>
 
-<script src="js/script2.js"></script>
+            <span id="sum" class=></span>
+            <h2 id="result">Correct! Nice Job James!</h2>
+            <button class="btn" onclick="createEquation()">New</button>
+            <button class="btn" onclick="answer()">Submit</button>
+        </div>
+
+    </div>
+
+
+
+
+
+    <script src="js/script2.js"></script>
 
 </body>
-</html>
 
+</html>
