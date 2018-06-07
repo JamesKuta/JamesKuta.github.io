@@ -1,0 +1,111 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <title>Space</title>
+</head>
+
+<body>
+    <canvas height="500" width="500" style="border: 1px solid black" id="canvas"></canvas>
+
+
+
+    <script type="text/javascript">
+        let canvas = document.getElementById('canvas');
+        let ctx = canvas.getContext("2d");
+        let fValue = .05;
+
+
+        let ship = {
+            xPos: canvas.width / 2 - 10,
+            yPos: canvas.height / 2 - 5,
+            xSpeed: 0,
+            ySpeed: 0,
+            shipWidth: 20,
+            shipHeight: 10,
+            color: '#00c300'
+
+        }
+
+        function clearCanvas() {
+            ctx.clearRect(0, 0, canvas.width, canvas.height);
+        }
+
+        function checkCollision() {
+            if (ship.xPos > canvas.width) {
+                ship.xPos = 0;
+            } else if (ship.xPos < 0) {
+                ship.xPos = 500;
+            } else if (ship.yPos > canvas.height) {
+                ship.yPos = 0;
+            } else if (ship.yPos < 0) {
+                ship.yPos = 500;
+            }
+        }
+
+        function accelerateShip() {
+            ship.xPos = ship.xPos + ship.xSpeed;
+            ship.yPos = ship.yPos + ship.ySpeed;
+        }
+
+        function friction() {
+            if (!ship.xSpeed == 0) {
+                if (ship.xSpeed > 0) {
+                    ship.xSpeed -= fValue;
+                } else if (ship.xSpeed < 0) {
+                    ship.xSpeed += fValue;
+                }
+            }
+
+            if (!ship.ySpeed == 0) {
+                if (ship.ySpeed > 0) {
+                    ship.ySpeed -= fValue;
+                } else if (ship.ySpeed < 0) {
+                    ship.ySpeed += fValue;
+                }
+            }
+
+        }
+
+        function drawShip() {
+            ctx.save();
+            ctx.fillStyle = "ship.color";
+            ctx.fillRect(ship.xPos, ship.yPos, ship.shipWidth, ship.shipHeight);
+            ctx.restore();
+
+        }
+
+
+
+        document.onkeydown = function(event) {
+            if (event.keyCode == 39 || event.keyCode == 68) {
+                ship.xSpeed += .25;
+            } else if (event.keyCode == 37 || event.keyCode == 65) {
+                ship.xSpeed -= .25;
+            } else if (event.keyCode == 38 || event.keyCode == 87) {
+                ship.ySpeed -= .25;
+            } else if (event.keyCode == 40 || event.keyCode == 83) {
+                ship.ySpeed += .25;
+            }
+        }
+
+
+        function updateGame() {
+            clearCanvas();
+
+            checkCollision();
+            accelerateShip();
+            friction();
+            drawShip();
+            //console.log(ship.xSpeed);
+
+
+        }
+
+        //run the game
+        setInterval(updateGame, 20);
+
+    </script>
+</body>
+
+</html>
