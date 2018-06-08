@@ -6,7 +6,7 @@
 </head>
 
 <body>
-    <canvas height="600" width="800" style="border: 1px solid black" id="canvas"></canvas>
+    <canvas height="506" width="900" style="border: 1px solid black" id="canvas"></canvas>
 
 
 
@@ -15,7 +15,9 @@
         let ctx = canvas.getContext("2d");
         sValue = .10;
         let fValue = .05;
+        let bMoveValue = 1;
         let keys = [];
+        let bulletList = [];
 
         // The ship object
         let ship = {
@@ -23,23 +25,17 @@
             yPos: canvas.height / 2 - 5,
             xSpeed: 0,
             ySpeed: 0,
-            shipWidth: 20,
-            shipHeight: 10,
+            shipWidth: canvas.width / 40,
+            shipHeight: canvas.width / 80,
             color: '#00c300'
 
-        }
+        };
 
-        //        //The bullet object
-        //        let bullet = {
-        //            xPos: ship.xPos / ship.shipWidth,
-        //            yPos: ship.yPos / ship.shipHeight,
-        //            ySpeed: 5,
-        //            bulletWidth: 2,
-        //            bulletHeigt: 5,
-        //            color: '#f50000'
-        //
-        //        }
-
+        let bullet = {
+            bulletWidth: canvas.width / 80,
+            bulletHeight: canvas.width / 60,
+            color: '#ff0000'
+        };
 
         function clearCanvas() {
             ctx.clearRect(0, 0, canvas.width, canvas.height);
@@ -100,11 +96,37 @@
 
         }
 
+        function createBullet() {
+            if (keys[32]) {
+                bulletList.push({
+                    xPos: ship.xPos / 2,
+                    yPos: ship.yPos / 2
+                });
+            }
+        }
+
+        function moveBullet() {
+            for (let i = 0; i < bulletList.length; i++) {
+                bulletList[i].yPos -= bMoveValue;
+
+            }
+        }
+
 
         function drawShip() {
             ctx.save();
             ctx.fillStyle = "ship.color";
             ctx.fillRect(ship.xPos, ship.yPos, ship.shipWidth, ship.shipHeight);
+            ctx.restore();
+
+        }
+
+        function drawBullet() {
+            ctx.save();
+            ctx.fillStyle = "bullet.color";
+            for (let i = 0; i < bulletList.length; i++) {
+                ctx.fillRect(bulletList[i].xPos, bulletList[i].yPos, bullet.bulletWidth, bullet.bulletHeight);
+            }
             ctx.restore();
 
         }
@@ -135,6 +157,9 @@
             accelerateShip();
             friction();
             moveShip();
+            createBullet();
+            drawBullet();
+            moveBullet();
             drawShip();
 
 
