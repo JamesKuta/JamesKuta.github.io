@@ -1,0 +1,98 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta http-equiv="X-UA-Compatible" content="ie=edge">
+	<title> rotate example </title>
+    <style>
+    body{
+	margin:0;
+	padding:0;
+	overflow:hidden;
+	
+	}
+    </style>
+</head>
+
+	
+<body>
+    <canvas width="500" height="500" id="pageCanvas" style="display:block">
+        You do not have a canvas enabled browser. Better kill yourself.
+    </canvas>
+
+<script>
+
+    window.addEventListener('keydown', doKeyDown, true);
+    window.addEventListener('keyup', doKeyUp, true);
+
+    var keys = new Array();
+
+    function doKeyDown(evt) {
+        keys[evt.keyCode] = true;
+    }
+
+    function doKeyUp(evt) {
+        keys[evt.keyCode] = false;
+    }
+
+    function convertToRadians(degree) {
+        return degree * (Math.PI / 180);
+    }
+
+    function incrementAngle() {
+        angle += 5;
+        if (angle > 360) {
+            angle -= 360;
+        }
+    }
+
+    function decrementAngle() {
+        angle -= 5;
+        if (angle < 0) {
+            angle += 360;
+        }
+    }
+
+    function drawRandomlyColoredRectangle() {
+
+        if (37 in keys && keys[37]) {
+            decrementAngle();
+            console.log("lewo");
+        };
+
+        if (39 in keys && keys[39]) { //right
+            //x += dx/5;
+            //rotacja w prawo
+            incrementAngle();
+            console.log("prawo");
+        };
+
+        context.save();
+        context.clearRect(0, 0, 500, 500);
+
+        fillStyle = "#000000";
+        context.fillRect(0, 0, 500, 500);
+
+        context.translate(200, 200);
+        context.rotate(convertToRadians(angle));
+
+        context.fillStyle = "green";
+        context.fillRect(-25, -25, 50, 50);
+
+        context.restore();
+    }
+
+
+    var context = document.getElementById('pageCanvas').getContext('2d');
+    var angle = 0;
+
+    setInterval(drawRandomlyColoredRectangle, 20);
+
+</script>
+
+</body>
+</html>
+
+
+<
