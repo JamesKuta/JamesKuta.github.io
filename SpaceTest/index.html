@@ -19,6 +19,7 @@
         let keys = [];
         let bulletList = [];
 
+
         // The ship object
         let ship = {
             xPos: canvas.width / 2 - 10,
@@ -99,9 +100,10 @@
         function createBullet() {
             if (keys[32]) {
                 bulletList.push({
-                    xPos: ship.xPos / 2,
-                    yPos: ship.yPos / 2
+                    xPos: ship.xPos + ((canvas.width / 40) / 2) - ((canvas.width / 80) / 2),
+                    yPos: ship.yPos
                 });
+                console.log(bulletList[0]);
             }
         }
 
