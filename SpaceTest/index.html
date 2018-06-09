@@ -6,18 +6,22 @@
 </head>
 
 <body>
-    <canvas height="506" width="900" style="border: 1px solid black" id="canvas"></canvas>
+    <canvas height="506" width="900" style="border: 5px solid #837f7f" id="canvas"></canvas>
 
 
 
     <script type="text/javascript">
         let canvas = document.getElementById('canvas');
         let ctx = canvas.getContext("2d");
-        sValue = .10;
+        let sValue = .10;
         let fValue = .05;
         let bMoveValue = 1;
         let keys = [];
         let bulletList = [];
+        let timer = true;
+        let fireFreq = 300;
+
+
 
 
         // The ship object
@@ -33,8 +37,10 @@
         };
 
         let bullet = {
-            bulletWidth: canvas.width / 80,
-            bulletHeight: canvas.width / 60,
+            //bulletWidth: canvas.width / 150,
+            //bulletHeight: canvas.width / 100,
+            bulletWidth: 2,
+            bulletHeight: 8,
             color: '#ff0000'
         };
 
@@ -97,13 +103,20 @@
 
         }
 
+        function canFire() {
+            timer = true;
+        }
+
         function createBullet() {
-            if (keys[32]) {
+            if (keys[32] && timer == true) {
                 bulletList.push({
                     xPos: ship.xPos + ((canvas.width / 40) / 2) - ((canvas.width / 80) / 2),
-                    yPos: ship.yPos
+                    yPos: ship.yPos,
+
                 });
-                console.log(bulletList[0]);
+                timer = false;
+                setTimeout(canFire, fireFreq); // How often can I fire a bullet
+                //console.log(bulletList[0]);
             }
         }
 
@@ -117,7 +130,7 @@
 
         function drawShip() {
             ctx.save();
-            ctx.fillStyle = "ship.color";
+            ctx.fillStyle = ship.color;
             ctx.fillRect(ship.xPos, ship.yPos, ship.shipWidth, ship.shipHeight);
             ctx.restore();
 
@@ -125,13 +138,23 @@
 
         function drawBullet() {
             ctx.save();
-            ctx.fillStyle = "bullet.color";
+            ctx.fillStyle = bullet.color;
             for (let i = 0; i < bulletList.length; i++) {
                 ctx.fillRect(bulletList[i].xPos, bulletList[i].yPos, bullet.bulletWidth, bullet.bulletHeight);
             }
             ctx.restore();
 
         }
+
+        function cleanUpBullets() {
+            for (let i = 0; i < bulletList.length; i++) {
+                if (bulletList[i].yPos < -10) {
+                    bulletList.shift();
+                    console.log(bulletList);
+                }
+            }
+        }
+
 
 
         //Can use Arrow Keys or WASD
@@ -154,7 +177,6 @@
         //The game manager
         function updateGame() {
             clearCanvas();
-
             checkCollision();
             accelerateShip();
             friction();
@@ -162,15 +184,12 @@
             createBullet();
             drawBullet();
             moveBullet();
+            cleanUpBullets();
             drawShip();
-
-
-
         }
 
         //run the game
-        setInterval(updateGame, 17);
-
+        setInterval(updateGame, 20);
     </script>
 </body>
 
