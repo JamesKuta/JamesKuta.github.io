@@ -41,8 +41,8 @@ function updateTouchPosition(evt) {
 	let rect = canvas.getBoundingClientRect();
 	let root = document.documentElement;
 
-	mouseX = evt.touches[0].clientX - rect.left - root.scrollLeft;
-	mouseY = evt.touches[0].clientY - rect.top - root.scrollTop;
+	mouseX = evt.changedTouches[0].clientX - rect.left - root.scrollLeft;
+	mouseY = evt.changedTouches[0].clientY - rect.top - root.scrollTop;
 
 	paddleX = mouseX - PADDLE_WIDTH/2;
 
