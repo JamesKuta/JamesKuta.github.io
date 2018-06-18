@@ -3,8 +3,8 @@ document.body.scroll = 'no';
 let canvas = document.getElementById('gameCanvas');
 let canvasContext = canvas.getContext('2d');
 
-screenWidth = window.innerWidth - 5;
-screenHeight = window.innerHeight - 5;
+screenWidth = window.innerWidth;
+screenHeight = window.innerWidth / 1.78; // 16 x 9 ratio
 console.log(screenWidth);
 
 let ballX = 75;
@@ -13,7 +13,7 @@ let ballSpeedX = 3;
 let ballSpeedY = 5;
 
 
-const BRICK_H = 20;
+const BRICK_H = screenWidth * .02;
 const BRICK_GAP = 2;
 const BRICK_COLS = 10;
 const BRICK_W = screenWidth *.10;
@@ -32,8 +32,8 @@ let mouseX = 0;
 let mouseY = 0;
 
 function canvasSize(){
-	screenWidth = window.innerWidth - 5;
-	screenHeight = window.innerHeight - 5;
+	//screenWidth = window.innerWidth - 5;
+	//screenHeight = window.innerHeight - 5;
 	canvasContext.canvas.width = screenWidth;
 	canvasContext.canvas.height = screenHeight;
 	console.log(screenWidth);
@@ -111,6 +111,9 @@ function updateAll() {
 function ballReset() {
 	ballX = canvas.width/2;
 	ballY = canvas.height/2;
+
+	ballSpeedX = 0;
+	ballSpeedY = 5;
 }
 
 function ballMove() {
