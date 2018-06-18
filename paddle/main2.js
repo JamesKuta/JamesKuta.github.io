@@ -1,8 +1,11 @@
+document.documentElement.style.overflow = 'hidden';
+document.body.scroll = 'no';
 let canvas = document.getElementById('gameCanvas');
 let canvasContext = canvas.getContext('2d');
 
-screenWidth = 800;
-screenHeight = 600;
+screenWidth = window.innerWidth - 5;
+screenHeight = window.innerHeight - 5;
+console.log(screenWidth);
 
 let ballX = 75;
 let ballY = 75;
@@ -13,7 +16,7 @@ let ballSpeedY = 5;
 const BRICK_H = 20;
 const BRICK_GAP = 2;
 const BRICK_COLS = 10;
-const BRICK_W = screenWidth / BRICK_COLS;
+const BRICK_W = screenWidth *.10;
 const BRICK_ROWS = 14;
 let brickGrid = new Array(BRICK_COLS * BRICK_ROWS);
 let bricksLeft = 0;
@@ -33,6 +36,7 @@ function canvasSize(){
 	screenHeight = window.innerHeight - 5;
 	canvasContext.canvas.width = screenWidth;
 	canvasContext.canvas.height = screenHeight;
+	console.log(screenWidth);
 	
 }
 
