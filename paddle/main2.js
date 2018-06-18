@@ -1,25 +1,40 @@
+let canvas = document.getElementById('gameCanvas');
+let canvasContext = canvas.getContext('2d');
+
+screenWidth = 800;
+screenHeight = 600;
+
 let ballX = 75;
 let ballY = 75;
 let ballSpeedX = 3;
 let ballSpeedY = 5;
 
-const BRICK_W = 80;
+
 const BRICK_H = 20;
 const BRICK_GAP = 2;
 const BRICK_COLS = 10;
+const BRICK_W = screenWidth / BRICK_COLS;
 const BRICK_ROWS = 14;
 let brickGrid = new Array(BRICK_COLS * BRICK_ROWS);
 let bricksLeft = 0;
 
-const PADDLE_WIDTH = 100;
-const PADDLE_THICKNESS = 10;
-const PADDLE_DIST_FROM_EDGE = 60;
+const PADDLE_WIDTH = screenWidth *.10;
+const PADDLE_THICKNESS = screenHeight *.01;
+const PADDLE_DIST_FROM_EDGE = screenHeight *0.1;
 let paddleX = 400;
 
-let canvas, canvasContext;
+
 
 let mouseX = 0;
 let mouseY = 0;
+
+function canvasSize(){
+	screenWidth = window.innerWidth - 5;
+	screenHeight = window.innerHeight - 5;
+	canvasContext.canvas.width = screenWidth;
+	canvasContext.canvas.height = screenHeight;
+	
+}
 
 function updateMousePos(evt) {
 	let rect = canvas.getBoundingClientRect();
@@ -66,15 +81,19 @@ function brickReset() {
 } // end of brickReset func
 
 window.onload = function() {
-	canvas = document.getElementById('gameCanvas');
-	canvasContext = canvas.getContext('2d');
+	// canvas = document.getElementById('gameCanvas');
+	// canvasContext = canvas.getContext('2d');
 
 	let framesPerSecond = 60;
 	setInterval(updateAll, 1000/framesPerSecond);
 
+	window.addEventListener('resize', canvasSize);
+
 	canvas.addEventListener('mousemove', updateMousePos);
 
 	canvas.addEventListener('touchmove', updateTouchPosition);
+
+	canvasSize();
 
 	brickReset();
 	ballReset();
@@ -194,6 +213,8 @@ function moveAll() {
 function rowColToArrayIndex(col, row) {
 	return col + BRICK_COLS * row;
 }
+
+
 
 function drawBricks() {
 
