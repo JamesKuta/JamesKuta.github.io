@@ -4,7 +4,7 @@ let canvas = document.getElementById('gameCanvas');
 let canvasContext = canvas.getContext('2d');
 
 screenWidth = window.innerWidth;
-screenHeight = window.innerWidth / 1.78; // 16 x 9 ratio
+screenHeight = window.innerWidth / 1.78 + 200; // 16 x 9 ratio
 console.log(screenWidth);
 
 let ballX = 75;
@@ -23,7 +23,7 @@ let bricksLeft = 0;
 
 const PADDLE_WIDTH = screenWidth *.10;
 const PADDLE_THICKNESS = screenHeight *.01;
-const PADDLE_DIST_FROM_EDGE = screenHeight *0.1;
+const PADDLE_DIST_FROM_EDGE = screenHeight *0.2;
 let paddleX = 400;
 
 
