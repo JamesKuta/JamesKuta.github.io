@@ -62,6 +62,7 @@ function updateTouchPosition(evt) {
 
 	mouseX = evt.changedTouches[0].clientX - rect.left - root.scrollLeft;
 	mouseY = evt.changedTouches[0].clientY - rect.top - root.scrollTop;
+	evt.preventDefault();
 
 	paddleX = mouseX - PADDLE_WIDTH/2;
 
