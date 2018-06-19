@@ -4,14 +4,14 @@ let canvas = document.getElementById('gameCanvas');
 let canvasContext = canvas.getContext('2d');
 
 screenWidth = window.innerWidth;
-screenHeight = window.innerWidth / 1.78 + 100;
+screenHeight = window.innerWidth / 1.78 + 400;
 console.log(screenWidth);
 console.log(screenHeight);
 
 let ballX = 75;
 let ballY = 75;
-let ballSpeedX = 2;
-let ballSpeedY = 4;
+let ballSpeedX = 1;
+let ballSpeedY = 2;
 
 
 const BRICK_H = screenWidth * .01;
@@ -24,7 +24,7 @@ let bricksLeft = 0;
 
 const PADDLE_WIDTH = screenWidth *.10;
 const PADDLE_THICKNESS = screenHeight *.01;
-const PADDLE_DIST_FROM_EDGE = 160;
+const PADDLE_DIST_FROM_EDGE = 430;
 let paddleX = 400;
 
 let mouseX = 0;
@@ -109,16 +109,17 @@ function updateAll() {
 
 function ballReset() {
 	ballX = canvas.width/2;
-	ballY = canvas.height/2;
+	ballY = PADDLE_DIST_FROM_EDGE - 30;
 
-	ballSpeedX = 0;
-	ballSpeedY = 5;
+	ballSpeedX = Math.floor(Math.random() * 2);
+	ballSpeedY = -3;
 }
 
 function ballMove() {
 	ballX += ballSpeedX;
 	ballY += ballSpeedY;
-
+console.log(PADDLE_DIST_FROM_EDGE);
+console.log(ballY);
 	if(ballX < 0 && ballSpeedX < 0.0) { //left
 		ballSpeedX *= -1;
 	}
@@ -128,7 +129,7 @@ function ballMove() {
 	if(ballY < 0 && ballSpeedY < 0.0) { // top
 		ballSpeedY *= -1;
 	}
-	if(ballY > canvas.height) { // bottom
+	if(ballY > 660) { // bottom
 		ballReset();
 		brickReset();
 	}
@@ -229,7 +230,7 @@ function drawBricks() {
 
 			if(brickGrid[arrayIndex]) {
 				colorRect(BRICK_W*eachCol,BRICK_H*eachRow,
-					BRICK_W-BRICK_GAP,BRICK_H-BRICK_GAP, 'blue');
+					BRICK_W-BRICK_GAP,BRICK_H-BRICK_GAP, 'orange');
 			} // end of is this brick here
 		} // end of for each brick
 	} // end of for each row
@@ -237,12 +238,15 @@ function drawBricks() {
 } // end of drawBricks func
 
 function drawAll() {
-	colorRect(0,0, canvas.width,canvas.height, 'black'); // clear screen
+	colorRect(0,0, canvas.width,canvas.height, 'grey'); // clear screen
 
-	colorCircle(ballX,ballY, 10, 'white'); // draw ball
+	colorCircle(ballX,ballY, 10, 'yellow'); // draw ball
+
+	colorRect(0, 650, canvas.width, 30, 'red');
 
 	colorRect(paddleX, canvas.height-PADDLE_DIST_FROM_EDGE,
-				PADDLE_WIDTH, PADDLE_THICKNESS, 'white');
+				PADDLE_WIDTH, PADDLE_THICKNESS, 'blue');
+
 
 	drawBricks();
 }
