@@ -3,7 +3,7 @@ document.body.scroll = 'no';
 let canvas = document.getElementById('gameCanvas');
 let canvasContext = canvas.getContext('2d');
 
-alert(window.innerWidth);
+alert(window.innerWidth +' X ' + window.innerHeight);
 
 let ballX = 75;
 let ballY = 75;
