@@ -3,6 +3,7 @@ document.body.scroll = 'no';
 let canvas = document.getElementById('gameCanvas');
 let canvasContext = canvas.getContext('2d');
 
+alert(window.innerWidth);
 
 let ballX = 75;
 let ballY = 75;
@@ -10,11 +11,11 @@ let ballSpeedX = 1;
 let ballSpeedY = 2;
 
 
-const BRICK_H = 20;
+const BRICK_H = 30;
 const BRICK_GAP = 2;
 const BRICK_COLS = 10;
-const BRICK_W = 80;
-const BRICK_ROWS = 14;
+const BRICK_W = 90;
+const BRICK_ROWS = 10;
 let brickGrid = new Array(BRICK_COLS * BRICK_ROWS);
 let bricksLeft = 0;
 
@@ -238,8 +239,11 @@ function drawBricks() {
 } // end of drawBricks func
 
 function drawAll() {
-	colorRect(0,0, canvas.width,canvas.height, 'grey'); // clear screen
+	colorRect(0,0, canvas.width,canvas.height, '#000000'); // clear screen
 
+
+	colorText('Lives: 10', 800,50, 'white');
+	
 	colorCircle(ballX,ballY, 10, 'white'); // draw ball
 
 	colorRect(0, canvas.height - 100, canvas.width, 20, 'red');
@@ -264,6 +268,7 @@ function colorCircle(centerX,centerY, radius, fillColor) {
 }
 
 function colorText(showWords, textX,textY, fillColor) {
+	
 	canvasContext.fillStyle = fillColor;
 	canvasContext.fillText(showWords, textX, textY);
 }
