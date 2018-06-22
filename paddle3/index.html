@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta content="text/html;charset=utf-8" http-equiv="Content-Type">
+	<meta content="utf-8" http-equiv="encoding">
+</head>
+
+<body>
+	<style>
+		body {
+			margin: 0px;
+			background-color: #817f7e;
+		}
+
+		canvas {
+			padding-left: 0;
+			padding-right: 0;
+			margin-left: auto;
+			margin-right: auto;
+			display: block;
+		}
+	</style>
+
+	<audio id="paddle">
+    	<source src="ballPaddle.mp3" type="audio/mpeg">
+	</audio>
+
+    <audio id="brick">
+    	<source src="brickHit.mp3" type="audio/mpeg">
+	</audio>
+	<audio id="life">
+    	<source src="lostLife.mp3" type="audio/mpeg">
+	</audio>	
+<canvas id="gameCanvas" width="900" height="1300" style="border:20px solid rgb(10, 221, 73);"></canvas>
+
+<script src="main2.js"></script>
+
+</body>
+</html>
