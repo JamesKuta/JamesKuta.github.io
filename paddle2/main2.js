@@ -13,6 +13,13 @@ alert('Drag a finger left or right inside the Finger Swipe Area to move the padd
 let jamesImage = new Image();
 jamesImage.src = 'cm2.jpg';
 
+let paddleSound;
+paddleSound = document.getElementById("paddle"); 
+let brickSound; 
+brickSound= document.getElementById("brick");
+let lifeSound; 
+lifeSound= document.getElementById("life");
+
 let ballX = 75;
 let ballY = 75;
 let ballSpeedX = 10;
@@ -139,6 +146,7 @@ function ballMove() {
 	}
 	if(ballY > canvas.height - 400) {
 		console.log('ball: ', ballY); // bottom
+		lifeSound.play();
 		ballReset();
 		lives--
 		if (lives === -1){
@@ -170,6 +178,7 @@ function ballBrickHandling() {
 		if(isBrickAtColRow( ballBrickCol,ballBrickRow )) {
 			brickGrid[brickIndexUnderBall] = false;
 			bricksLeft--;
+			brickSound.play();
 			//console.log(bricksLeft);
 
 			let prevBallX = ballX - ballSpeedX;
@@ -183,18 +192,21 @@ function ballBrickHandling() {
 				if(isBrickAtColRow(prevBrickCol, ballBrickRow) == false) {
 					ballSpeedX *= -1;
 					bothTestsFailed = false;
+					brickSound.play();
 				}
 			}
 			if(prevBrickRow != ballBrickRow) {
 				if(isBrickAtColRow(ballBrickCol, prevBrickRow) == false) {
 					ballSpeedY *= -1;
 					bothTestsFailed = false;
+					brickSound.play();
 				}
 			}
 
 			if(bothTestsFailed) { // armpit case, prevents ball from going through
 				ballSpeedX *= -1;
 				ballSpeedY *= -1;
+				brickSound.play();
 			}
 
 		} // end of brick found
@@ -212,6 +224,7 @@ function ballPaddleHandling() {
 		ballX < paddleRightEdgeX) { // left of the left side of paddle
 		
 		ballSpeedY *= -1;
+		paddleSound.play();
 
 		let centerOfPaddleX = paddleX+PADDLE_WIDTH/2;
 		let ballDistFromPaddleCenterX = ballX - centerOfPaddleX;
