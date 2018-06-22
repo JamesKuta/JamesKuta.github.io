@@ -42,7 +42,7 @@ let paddleX = (300 / 2) - (PADDLE_THICKNESS / 2);
 let mouseX = 0;
 let mouseY = 0;
 
-let lives = 3;
+let lives = 2;
 
 window.onload = function() {
 	// canvas = document.getElementById('gameCanvas');
@@ -151,7 +151,7 @@ function ballMove() {
 		lives--
 		if (lives === -1){
 		alert('You were unable to defend the earth from the swarm of attacking alien brick things! Everyone you know is now enslaved! Good thing for all of us this is just a game! Go ahead and try again. The people of the Earth need you!');
-		lives = 3;
+		lives = 2;
 		brickReset();
 		}
 	}
@@ -276,7 +276,7 @@ function drawAll() {
 
 	colorText('Finger Swipe Area', canvas.width / 2-200, canvas.height - 200, 'white', 
 				'50px Arial');	
-	colorText('Lives: ' + lives, 800,50, 'white', '25px Arial');
+	colorText('Lives Remaining : ' + lives, 675,50, 'white', '25px Arial');
 	
 	colorCircle(ballX,ballY, 10, 'white'); // draw ball
 
