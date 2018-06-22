@@ -142,6 +142,7 @@ function ballMove() {
 		ballReset();
 		lives--
 		if (lives === -1){
+		alert('You were unable to defend the earth from the swarm of attacking alien brick things! Everyone you know is now enslaved! Good thing for all of us this is just a game! Go ahead and try again. The people of the Earth need you!');
 		lives = 3;
 		brickReset();
 		}
@@ -217,6 +218,7 @@ function ballPaddleHandling() {
 		ballSpeedX = ballDistFromPaddleCenterX * 0.30;
 
 		if(bricksLeft == 0) {
+			alert('The alien brick things are defeated! Many songs will be sung of your deeds this day! Oh know, the aliens sent reinforcements! You must defend the Earth once again!');
 			brickReset();
 		} // out of bricks
 	} // ball center inside paddle
