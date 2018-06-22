@@ -1,14 +1,22 @@
+//My Breakout Style Game for James
+//Created By James Kuta 06/22/2018
+//Version 1.0
+
 document.documentElement.style.overflow = 'hidden';
 document.body.scroll = 'no';
 let canvas = document.getElementById('gameCanvas');
 let canvasContext = canvas.getContext('2d');
 
-alert(window.innerWidth +' X ' + window.innerHeight);
+//alert(window.innerWidth +' X ' + window.innerHeight);
+alert('Drag a finger left or right inside the Finger Swipe Area to move the paddle');
+
+let jamesImage = new Image();
+jamesImage.src = 'cm2.jpg';
 
 let ballX = 75;
 let ballY = 75;
-let ballSpeedX = 1;
-let ballSpeedY = 2;
+let ballSpeedX = 10;
+let ballSpeedY = 10;
 
 
 const BRICK_H = 30;
@@ -21,23 +29,22 @@ let bricksLeft = 0;
 
 const PADDLE_WIDTH = 160;
 const PADDLE_THICKNESS = 20;
-const PADDLE_DIST_FROM_EDGE = 200;
+const PADDLE_DIST_FROM_EDGE = 500;
 let paddleX = (300 / 2) - (PADDLE_THICKNESS / 2);
 
 let mouseX = 0;
 let mouseY = 0;
 
+let lives = 3;
+
 window.onload = function() {
 	// canvas = document.getElementById('gameCanvas');
 	// canvasContext = canvas.getContext('2d');
-
-
-
-
-	let framesPerSecond = 60;
-	setInterval(updateAll, 1000/framesPerSecond);
-
+	//let framesPerSecond = 60;
+	//setInterval(updateAll, 1000/framesPerSecond);
 	//window.addEventListener('resize', canvasSize);
+	
+
 	canvas.addEventListener('mousemove', updateMousePos);
 	canvas.addEventListener('touchmove', updateTouchPosition);
 
@@ -45,6 +52,7 @@ window.onload = function() {
 	//drawAll();
 	brickReset();
 	ballReset();
+	requestAnimationFrame(updateAll);
 }
 
 // function canvasSize(){
@@ -104,6 +112,7 @@ function brickReset() {
 function updateAll() {
 	moveAll();
 	drawAll();
+	requestAnimationFrame(updateAll);
 }
 
 function ballReset() {
@@ -112,7 +121,7 @@ function ballReset() {
 	console.log('ballY: ', ballY);
 
 	ballSpeedX = Math.floor(Math.random() * 10);
-	ballSpeedY = -3;
+	ballSpeedY = -5;
 }
 
 function ballMove() {
@@ -128,11 +137,14 @@ function ballMove() {
 	if(ballY < 0 && ballSpeedY < 0.0) { // top
 		ballSpeedY *= -1;
 	}
-	if(ballY > canvas.height - 100) {
-		console.log('Padlle: ', PADDLE_DIST_FROM_EDGE);
-console.log('ball: ', ballY); // bottom
+	if(ballY > canvas.height - 400) {
+		console.log('ball: ', ballY); // bottom
 		ballReset();
+		lives--
+		if (lives === -1){
+		lives = 3;
 		brickReset();
+		}
 	}
 }
 
@@ -202,7 +214,7 @@ function ballPaddleHandling() {
 
 		let centerOfPaddleX = paddleX+PADDLE_WIDTH/2;
 		let ballDistFromPaddleCenterX = ballX - centerOfPaddleX;
-		ballSpeedX = ballDistFromPaddleCenterX * 0.25;
+		ballSpeedX = ballDistFromPaddleCenterX * 0.30;
 
 		if(bricksLeft == 0) {
 			brickReset();
@@ -216,6 +228,9 @@ function moveAll() {
 	ballBrickHandling();
 	
 	ballPaddleHandling();
+
+	console.log('paddlePos: ', PADDLE_DIST_FROM_EDGE);
+	
 }
 
 function rowColToArrayIndex(col, row) {
@@ -241,12 +256,16 @@ function drawBricks() {
 function drawAll() {
 	colorRect(0,0, canvas.width,canvas.height, '#000000'); // clear screen
 
+	canvasContext.drawImage(jamesImage, canvas.width /2 - jamesImage.width/2, canvas.height / 2
+							-jamesImage.height/2 - 100);
 
-	colorText('Lives: 10', 800,50, 'white');
+	colorText('Finger Swipe Area', canvas.width / 2-200, canvas.height - 200, 'white', 
+				'50px Arial');	
+	colorText('Lives: ' + lives, 800,50, 'white', '25px Arial');
 	
 	colorCircle(ballX,ballY, 10, 'white'); // draw ball
 
-	colorRect(0, canvas.height - 100, canvas.width, 20, 'red');
+	colorRect(0, canvas.height - 400, canvas.width, 20, 'red');
 
 	colorRect(paddleX, canvas.height-PADDLE_DIST_FROM_EDGE,
 				PADDLE_WIDTH, PADDLE_THICKNESS, 'blue');
@@ -260,15 +279,17 @@ function colorRect(topLeftX,topLeftY, boxWidth,boxHeight, fillColor) {
 	canvasContext.fillRect(topLeftX,topLeftY, boxWidth,boxHeight);
 }
 
-function colorCircle(centerX,centerY, radius, fillColor) {
+function colorCircle(centerX,centerY, radius, fillColor,) {
 	canvasContext.fillStyle = fillColor;
 	canvasContext.beginPath();
 	canvasContext.arc(centerX,centerY, radius, 0,Math.PI*2, true);
 	canvasContext.fill();
 }
 
-function colorText(showWords, textX,textY, fillColor) {
-	
+function colorText(showWords, textX,textY, fillColor, fontStyle) {
+	canvasContext.save();
+	canvasContext.font = fontStyle;
 	canvasContext.fillStyle = fillColor;
 	canvasContext.fillText(showWords, textX, textY);
+	canvasContext.restore();
 }
