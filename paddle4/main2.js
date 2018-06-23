@@ -14,11 +14,11 @@ let jamesImage = new Image();
 jamesImage.src = 'cm2.jpg';
 
 let paddleSound;
-paddleSound = document.getElementById("paddle"); 
+//paddleSound = document.getElementById("paddle"); 
 let brickSound; 
-brickSound= document.getElementById("brick");
+//brickSound= document.getElementById("brick");
 let lifeSound; 
-lifeSound= document.getElementById("life");
+//lifeSound= document.getElementById("life");
 
 let ballX = 75;
 let ballY = 75;
@@ -45,13 +45,19 @@ let mouseY = 0;
 
 let lives = 2;
 
-window.onload = function() {
+//window.onload = function() {
 	// canvas = document.getElementById('gameCanvas');
 	// canvasContext = canvas.getContext('2d');
 	//let framesPerSecond = 60;
 	//setInterval(updateAll, 1000/framesPerSecond);
 	//window.addEventListener('resize', canvasSize);
-	
+	function startGame() {
+	paddleSound = document.getElementById("paddle");
+	brickSound= document.getElementById("brick");
+	lifeSound= document.getElementById("life");
+
+	document.getElementById('menu').style.visibility = 'hidden';
+	document.getElementById('text').style.visibility = 'hidden';
 
 	canvas.addEventListener('mousemove', updateMousePos);
 	canvas.addEventListener('touchmove', updateTouchPosition);
