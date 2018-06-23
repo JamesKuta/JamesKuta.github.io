@@ -8,7 +8,7 @@ let canvas = document.getElementById('gameCanvas');
 let canvasContext = canvas.getContext('2d');
 
 //alert(window.innerWidth +' X ' + window.innerHeight);
-alert('Drag a finger left or right inside the Finger Swipe Area to move the paddle');
+//alert('Drag a finger left or right inside the Finger Swipe Area to move the paddle');
 
 let jamesImage = new Image();
 jamesImage.src = 'cm2.jpg';
@@ -55,7 +55,12 @@ let lives = 2;
 	paddleSound = document.getElementById("paddle");
 	brickSound= document.getElementById("brick");
 	lifeSound= document.getElementById("life");
-
+	lifeSound.play();
+	//lifeSound.stop();
+	paddleSound.play();
+	//paddleSound.stop();
+	brickSound.play();
+	//brickSound.stop();
 	document.getElementById('menu').style.visibility = 'hidden';
 	document.getElementById('text').style.visibility = 'hidden';
 
