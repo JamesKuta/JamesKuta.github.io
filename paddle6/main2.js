@@ -51,6 +51,7 @@ let lives = 2;
 	//let framesPerSecond = 60;
 	//setInterval(updateAll, 1000/framesPerSecond);
 	//window.addEventListener('resize', canvasSize);
+	
 	function startGame() {
 	paddleSound = document.getElementById("paddle");
 	brickSound= document.getElementById("brick");
@@ -61,8 +62,8 @@ let lives = 2;
 	//paddleSound.stop();
 	brickSound.play();
 	//brickSound.stop();
-	document.getElementById('menu').style.visibility = 'hidden';
-	document.getElementById('text').style.visibility = 'hidden';
+	document.getElementById('menu-text').style.visibility = 'hidden';
+	document.getElementById('menu-text').style.visibility = 'hidden';
 
 	canvas.addEventListener('mousemove', updateMousePos);
 	canvas.addEventListener('touchmove', updateTouchPosition);

@@ -7,40 +7,60 @@
 
 <body>
 	<style>
-		body {
-			margin: 0px;
-			background-color: #817f7e;
+		* {
+			margin: 0;
+			padding: 0;
+			box-sizing: border-box;
+			
+			
+				
 		}
 
-		canvas {
-			padding-left: 0;
-			padding-right: 0;
+		body {
 			margin-left: auto;
 			margin-right: auto;
-			display: block;
+			font: 1em sans-serif;
+			color: rgb(252, 252, 252);
+			background-image: url('stars.jpg');
+			
 		}
-		#menu {
-			display: inline-block;
-			position: absolute;
-			top: 900px;
-			left: 375px;
-			font-size: 20px;
-		}
-		#text {
-			display: inline-block;
-			position: absolute;
+
+		.container {
+			width:900px;
+			margin-left: auto;
+			margin-right: auto;
+			position: relative;
 			text-align: center;
-			font-size: 20px;
-			top:300px;;
-			left:5px;
-			color: white;
+					}
+		
+		#menu-text {
+			position: absolute;
+			top: 50px;
+			left: 20px;
+			right:20px;
+			font-size: 40px;
+			
 		}
 
 		button {
+			margin-top: 100px;
 			font-size: 50px;
-			color: red;
+			color: rgb(255, 255, 255);
+			background-color: rgba(88, 88, 88, 0);
+			padding: 10px;
+			border-radius: 30px;
+
 		}
-		
+
+		button:hover {
+		cursor: pointer;
+		}
+
+		h1{
+			font-size: 60px;
+			margin-bottom: 75px;
+		}
+	
 	</style>
 
 	<audio id="paddle">
@@ -53,17 +73,18 @@
 	<audio id="life">
     	<source src="lostLife.mp3" type="audio/mpeg">
 	</audio>	
-	<div id='text'><h1>Alien brick things are hovering in the night sky!<br>
-		Fear grips the people of Earth. Are they friendly or hostile?<br>
-		We can't afford to wait and see.<br>
-		You have been sent to blow their brick behinds from the sky!<br>
-		Do you have what it takes to save all of humanity?<br><br>
-		<span style="color:red;">Use the Finger Swipe Area to move your ship.<br>We're all counting on you!</h1></div>
-		<div><canvas id="gameCanvas" width="900" height="1300" style="border:20px solid rgb(10, 221, 73);"></canvas>
-		<div id='menu'><button type="button" onclick="startGame();">Start Game</button></div>
+	<div class="container">
+		<div id='menu-text'><h1>James' Breakout Style Game</h1>
+			<p>Alien brick things are hovering in the night sky!<br><br>
+			Fear grips the people of Earth.<br><br>Are they friendly or hostile?<br><br>
+			We can't afford to wait and see.<br><br>
+			You have been sent to blow their brick behinds from the sky!<br><br>
+			Do you have what it takes to save all of humanity?<br><br>
+			<br><em>Use the Finger Swipe Area to move your ship.<br>We're all counting on you!</em></p>
+			<button type="button" onclick="startGame();">Start Game</button></div>
+		<canvas id="gameCanvas" width="900" height="1300" style="border:5px solid rgb(10, 221, 73);"></canvas>
+	</div>	
 	
-		
-	</div>
 <script src="main2.js"></script>
 
 </body>
