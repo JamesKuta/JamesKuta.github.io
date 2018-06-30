@@ -1,0 +1,100 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta content="text/html;charset=utf-8" http-equiv="Content-Type">
+	<meta content="utf-8" http-equiv="encoding">
+</head>
+
+<body>
+	<style>
+		* {
+			margin: 0;
+			padding: 0;
+			box-sizing: border-box;
+			
+			
+				
+		}
+
+		body {
+			margin-left: auto;
+			margin-right: auto;
+			font: 1em sans-serif;
+			color: rgb(252, 252, 252);
+			background-image: url('stars.jpg');
+			
+		}
+
+		.container {
+			width:900px;
+			margin-left: auto;
+			margin-right: auto;
+			position: relative;
+			text-align: center;
+					}
+		
+		#menu-text {
+			position: absolute;
+			top: 50px;
+			left: 20px;
+			right:20px;
+			font-size: 40px;
+			
+		}
+
+		button {
+			margin-top: 100px;
+			font-size: 50px;
+			color: rgb(255, 255, 255);
+			background-color: rgba(141, 5, 5, 0.4);
+			padding: 10px;
+			border-radius: 30px;
+
+		}
+
+		button:hover {
+		cursor: pointer;
+		}
+
+		h1{
+			font-size: 60px;
+			margin-bottom: 75px;
+		}
+
+		canvas {
+			border: 2px solid green;
+		}
+	
+	</style>
+
+	<audio id="paddle">
+    	<source src="ballPaddle.mp3" type="audio/mpeg">
+	</audio>
+
+    <audio id="brick">
+    	<source src="brickHit.mp3" type="audio/mpeg">
+	</audio>
+	<audio id="life">
+    	<source src="lostLife.mp3" type="audio/mpeg">
+	</audio>	
+	<div class="container">
+		<div id='menu-text'> 
+		</div>
+		<canvas id="gameCanvas" width="900" height="1300" style="border:5px solid rgb(10, 221, 73);"></canvas>
+	</div>	
+	
+<script src="main2.js"></script>
+
+</body>
+</html>
+
+<!--<h1>James' Breakout Style Game</h1>
+			<p>Alien brick things are hovering in the night sky!<br><br>
+			Fear grips the people of Earth.<br><br>Are they friendly or hostile?<br><br>
+			We can't afford to wait and see.<br><br>
+			You have been sent to blow their brick behinds from the sky!<br><br>
+			Do you have what it takes to save all of humanity?<br><br>
+			<br><em>Use the Finger Swipe Area to move your ship.<br>We're all counting on you!</em></p>
+
+			<button type="button" onclick="startGame();">Start Game</button>
+			<canvas id="gameCanvas" width="900" height="1300" style="border:5px solid rgb(10, 221, 73);"></canvas>
