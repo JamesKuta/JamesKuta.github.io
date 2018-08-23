@@ -35,8 +35,8 @@ let brickRows = 10;
 let brickGap = 2;
 
 //TEXT Drawning Const
-const BOTTOM_LINE_HEIGHT = canvas.height * .75;
-const TEXT_VERTICAL_POS = canvas.height * .80;
+const BOTTOM_LINE_HEIGHT = canvas.height * .65;
+const TEXT_VERTICAL_POS = canvas.height * .70;
 
 //Ball Variables
 let ballXPos = 400;
@@ -55,7 +55,7 @@ let mouseY = 0;
 
 // Paddle Variables
 
-let paddleYPos = canvas.height * .70;
+let paddleYPos = canvas.height * .60;
 let paddleWidth = 160;
 let paddleHeight = 10;
 let paddleXPos = 0;
@@ -387,6 +387,9 @@ function ballStart() {
 
 function endGame() {
     animationState = false;
+    canvasContext.fillStyle = 'black';
+    canvasContext.fillRect(0, 0, canvas.width, canvas.height);
+
     canvasContext.font = "100px Comic Sans MS";
     canvasContext.fillStyle = 'red';
     canvasContext.textAlign = 'center';
@@ -468,10 +471,14 @@ function goToNextLevel() {
 
     animationState = false; // pause the animation frame requests
     ballStart(); // reset the ball position
-    setTimeout(loadGame, 3000); // wait 3 seconds and then start the new level
+    setTimeout(loadGame, 5000); // wait 5 seconds and then start the new level
 }
 
 function levelStartText(){
+
+    canvasContext.fillStyle = 'black';
+    canvasContext.fillRect(0, 0, canvas.width, canvas.height);
+
     if (levelIndex === 0){
         canvasContext.font = "45px Comic Sans MS";
         canvasContext.strokeStyle = 'white';
@@ -492,7 +499,7 @@ function levelStartText(){
         canvasContext.font = "45px Comic Sans MS";
         canvasContext.strokeStyle = 'white';
         canvasContext.textAlign = 'center';
-        canvasContext.strokeText("Level 3: Destroy their Energy Shield!", canvas.width / 2, canvas.height/2);
+        canvasContext.strokeText("Level 3: Destroy Their Energy Shield!", canvas.width / 2, canvas.height/2);
         
     }
 }// end levelStart func
