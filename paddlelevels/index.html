@@ -16,12 +16,34 @@
     #main {
         text-align: center;
     }
+
+    #StartGame {
+        position: absolute;
+        top: 600px;
+        left: 400px;
+        font-size: 30px;
+        font-family: Arial, Helvetica, sans-serif;    
+    }
     </style>
+    <audio id="paddle">
+    	<source src="ballPaddle.mp3" type="audio/mpeg">
+	</audio>
+
+    <audio id="brick">
+    	<source src="brickHit.mp3" type="audio/mpeg">
+	</audio>
+	<audio id="life">
+    	<source src="lostLife.mp3" type="audio/mpeg">
+    </audio>
+    <audio id="over">
+    	<source src="gameOver1.mp3" type="audio/mpeg">
+	</audio>
 </head>
 <body>
     
     <div id ="main">
     <canvas id ="canvas" width="800" height="1000"></canvas>
+    <button id ="StartGame" onclick="loadGame()">Start Game</button>
     <script src="main.js"></script>
     </div>
     

@@ -11,6 +11,8 @@
 let canvas = document.getElementById('canvas');
 let canvasContext = canvas.getContext('2d');
 let animationState = true;
+let startGame = document.getElementById("StartGame");
+
 
 //Game Level Variables
 let levelIndex = 0; // What level is the player on? Increase by one at end of each level.
@@ -32,7 +34,7 @@ const TEXT_VERTICAL_POS = canvas.height * .80;
 //Ball Variables
 let ballXPos = 400;
 let ballYPos = 500;
-let ballRadius = 10;
+let ballRadius = 7;
 let ballXSpeed = 3;
 let ballYSpeed = -3;
 
@@ -60,6 +62,7 @@ let score = 0;
 //event listeners for Mouse, Touch and Keyboard commands
 canvas.addEventListener('mousemove', updateMousePos);
 canvas.addEventListener('touchmove', updateTouchPos);
+
 
 
 
@@ -346,7 +349,14 @@ function moveBall() {
     }
 
     if (ballYPos > BOTTOM_LINE_HEIGHT){
+        //only play life lost sound if lives are not 0
+        if (lives > 0){
+            lifeSound.play();
+        } else {
+            gameOverSound.play();
+        }
         loseALife();
+        
     }
 }
 
@@ -387,6 +397,7 @@ function whatDidBallHit() {
 
     if (ballYSpeed > 0 && ballYPos > paddleTop && ballYPos < paddleBottom && ballXPos > paddleLeftEdge && ballXPos < paddleRightEdge) {
         ballYSpeed *= -1;
+        paddleSound.play();
 
         // figure out what X direction and speed to send the ball based on center offset 
         let ballHitFromCenterOfPaddle = ballXPos - paddleCenter;
@@ -412,6 +423,7 @@ function whatDidBallHit() {
             activeLevel[brickIndexUnderBall] = 0; // Disappear the hit brick
             brickCount--; //Remove one brick from our count. 
             score += 10;
+            brickSound.play();
 
             // what side did I hit the brick from?
 
@@ -489,6 +501,18 @@ function playGame() {
 }
 
 function loadGame() {
+    paddleSound = document.getElementById("paddle");
+	brickSound= document.getElementById("brick");
+    lifeSound= document.getElementById("life");
+    gameOverSound = document.getElementById("over")
+	lifeSound.play();
+	//lifeSound.stop();
+	paddleSound.play();
+	//paddleSound.stop();
+	brickSound.play();
+	//brickSound.stop();
+
+    startGame.style.display = 'none';
     loadLevel();
     playGame();
 
@@ -517,9 +541,11 @@ function initializeGame() {
     canvasContext.font = "40px Comic Sans MS";
     canvasContext.fillStyle = 'white';
     canvasContext.textAlign = 'center';
-    canvasContext.fillText("Get Ready to Fight The Alien Things!", canvas.width / 2, canvas.height/2);
-    setTimeout(loadGame, 4000);
+    canvasContext.fillText("Are You Ready to Fight The Alien Things?", canvas.width / 2, canvas.height/2);
+    //startGame.style.display = 'inline';
+    startGame.style.display = 'inline';
 }
+
 //goToNextLevel();
 initializeGame();
 //loadGame();
