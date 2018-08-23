@@ -7,11 +7,18 @@
 //use for testing the size of windows on phones. Remove before release!
 //alert(window.innerWidth +' X ' + window.innerHeight);
 
+//James' Image File loads
+
+
 //Drawing Canvas Variables
 let canvas = document.getElementById('canvas');
 let canvasContext = canvas.getContext('2d');
 let animationState = true;
 let startGame = document.getElementById("StartGame");
+let jamesImage = new Image();
+jamesImage.src = "cm2.jpg";
+let jamesImage1 = new Image();
+jamesImage1.src = "cm3.jpg";
 
 
 //Game Level Variables
@@ -77,8 +84,8 @@ function updateMousePos(evt) {
     paddleXPos = mouseX - paddleWidth / 2;
 
     //just to make testing easier. Will be commented out before final
-    //ballXPos = mouseX;
-    //ballYPos = mouseY;
+    ballXPos = mouseX;
+    ballYPos = mouseY;
 }
 
 function updateTouchPos(evt) {
@@ -237,6 +244,8 @@ function drawLevel() {
     canvasContext.fillStyle = 'black';
     canvasContext.fillRect(0, 0, canvas.width, canvas.height);
 
+    canvasContext.drawImage(jamesImage1, canvas.width /2 - jamesImage1.width/2, canvas.height / 2 - jamesImage1.height/2 - 100);
+
     // All Ball Draws
 
     canvasContext.beginPath();
@@ -378,8 +387,8 @@ function ballStart() {
 
 function endGame() {
     animationState = false;
-    canvasContext.font = "40px Comic Sans MS";
-    canvasContext.fillStyle = 'white';
+    canvasContext.font = "100px Comic Sans MS";
+    canvasContext.fillStyle = 'red';
     canvasContext.textAlign = 'center';
     canvasContext.fillText("Game Over!", canvas.width / 2, canvas.height/2);
     setTimeout(initializeGame, 5000);
@@ -463,27 +472,27 @@ function goToNextLevel() {
 }
 
 function levelStartText(){
-    if (levelIndex === 1){
-        canvasContext.font = "40px Comic Sans MS";
-        canvasContext.fillStyle = 'white';
+    if (levelIndex === 0){
+        canvasContext.font = "45px Comic Sans MS";
+        canvasContext.strokeStyle = 'white';
         canvasContext.textAlign = 'center';
-        canvasContext.fillText("Level 2: The Face of the Enemy", canvas.width / 2, canvas.height/2);
+        canvasContext.strokeText("Level 1: The Alien Ship is Here!", canvas.width / 2, canvas.height/2);
+        
+    }
+    
+    if (levelIndex === 1){
+        canvasContext.font = "50px Comic Sans MS";
+        canvasContext.strokeStyle = 'white';
+        canvasContext.textAlign = 'center';
+        canvasContext.strokeText("Level 2: The Face of the Enemy!", canvas.width / 2, canvas.height/2);
         
     }
 
     if (levelIndex === 2){
-        canvasContext.font = "40px Comic Sans MS";
-        canvasContext.fillStyle = 'white';
+        canvasContext.font = "45px Comic Sans MS";
+        canvasContext.strokeStyle = 'white';
         canvasContext.textAlign = 'center';
-        canvasContext.fillText("Level 3: Destroy the Energy Shield", canvas.width / 2, canvas.height/2);
-        
-    }
-
-    if (levelIndex === 3){
-        canvasContext.font = "40px Comic Sans MS";
-        canvasContext.fillStyle = 'white';
-        canvasContext.textAlign = 'center';
-        canvasContext.fillText("Level 4: The Face of the Enemy", canvas.width / 2, canvas.height/2);
+        canvasContext.strokeText("Level 3: Destroy their Energy Shield!", canvas.width / 2, canvas.height/2);
         
     }
 }// end levelStart func
@@ -504,7 +513,8 @@ function loadGame() {
     paddleSound = document.getElementById("paddle");
 	brickSound= document.getElementById("brick");
     lifeSound= document.getElementById("life");
-    gameOverSound = document.getElementById("over")
+    gameOverSound = document.getElementById("over");
+    gameStartSound = document.getElementById("start");
 	lifeSound.play();
 	lifeSound.pause();
 	paddleSound.play();
@@ -513,6 +523,8 @@ function loadGame() {
     brickSound.pause();
     gameOverSound.play();
     gameOverSound.pause();
+    gameStartSound.play();
+
 	
 
     startGame.style.display = 'none';
@@ -541,14 +553,21 @@ function initializeGame() {
     score = 0;
 
     //Display Start Game Message and then load the game
-    canvasContext.font = "40px Comic Sans MS";
+    canvasContext.font = "60px arial sans-serif";
+    canvasContext.strokeStyle = 'white';
+    canvasContext.textAlign = 'center';
+    canvasContext.strokeText("James' Breakout Style Game", canvas.width / 2, canvas.height * .10);
+    
+    canvasContext.font = "30px Comic Sans MS";
     canvasContext.fillStyle = 'white';
     canvasContext.textAlign = 'center';
     canvasContext.fillText("Are You Ready to Fight The Alien Things?", canvas.width / 2, canvas.height/2);
     //startGame.style.display = 'inline';
     startGame.style.display = 'inline';
-}
 
+    canvasContext.drawImage(jamesImage, canvas.width/2 - 200, canvas.height *.12, canvas.width /2, canvas.height/3);
+    //canvasContext.drawImage(jamesImage, 100, 400, 100, 400);
+}
 //goToNextLevel();
 initializeGame();
 //loadGame();
