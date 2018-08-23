@@ -57,7 +57,7 @@ let mouseY = 0;
 
 let paddleYPos = canvas.height * .60;
 let paddleWidth = 160;
-let paddleHeight = 10;
+let paddleHeight = 15;
 let paddleXPos = 0;
 
 //Player Lives Variables
@@ -84,17 +84,17 @@ function updateMousePos(evt) {
     paddleXPos = mouseX - paddleWidth / 2;
 
     //just to make testing easier. Will be commented out before final
-    ballXPos = mouseX;
-    ballYPos = mouseY;
+    //ballXPos = mouseX;
+    //ballYPos = mouseY;
 }
 
 function updateTouchPos(evt) {
-	let rect = canvas.getBoundingClientRect();
-	let root = document.documentElement;
+    let rect = canvas.getBoundingClientRect();
+    let root = document.documentElement;
 
-	mouseX = evt.changedTouches[0].clientX - rect.left - root.scrollLeft;
-	mouseY = evt.changedTouches[0].clientY - rect.top - root.scrollTop;
-	evt.preventDefault();
+    mouseX = evt.changedTouches[0].clientX - rect.left - root.scrollLeft;
+    mouseY = evt.changedTouches[0].clientY - rect.top - root.scrollTop;
+    evt.preventDefault();
 
     paddleXPos = mouseX - paddleWidth / 2;
 }
@@ -109,16 +109,19 @@ function loadLevel() {
 
     if (levelIndex === 0) {
         currentLevel = [
-            0, 0, 0, 0, 0, 0, 0, 0, 0, 0,
-            0, 0, 0, 0, 2, 1, 0, 0, 0, 0,
-            0, 0, 0, 2, 1, 2, 1, 0, 0, 0,
-            0, 0, 2, 1, 2, 1, 2, 1, 0, 0,
-            0, 5, 1, 2, 1, 2, 1, 2, 5, 0,
-            5, 4, 4, 4, 4, 4, 4, 4, 4, 5,
-            0, 5, 3, 3, 3, 3, 3, 3, 5, 0,
-            0, 0, 3, 3, 3, 3, 3, 3, 0, 0,
-            0, 0, 0, 3, 3, 3, 3, 0, 0, 0,
-            0, 0, 0, 0, 3, 3, 0, 0, 0, 0,
+            1, 0, 3, 0, 5, 0, 2, 0, 4, 0,
+            0, 2, 0, 4, 0, 1, 0, 3, 0, 5,
+            4, 0, 2, 0, 5, 0, 3, 0, 1, 0,
+            0, 3, 0, 1, 0, 4, 0, 2, 0, 0,
+            5, 0, 2, 0, 4, 0, 1, 0, 3, 0,
+            0, 1, 0, 3, 0, 5, 0, 2, 0, 4,
+            3, 0, 1, 0, 4, 0, 2, 0, 5, 0,
+            0, 2, 0, 5, 0, 3, 0, 1, 0, 0,
+            4, 0, 1, 0, 3, 0, 5, 0, 2, 0,
+            0, 5, 0, 2, 0, 4, 0, 1, 0, 3,
+
+
+
 
         ];
 
@@ -143,16 +146,16 @@ function loadLevel() {
 
     if (levelIndex === 2) {
         currentLevel = [
-            1, 0, 3, 0, 5, 0, 2, 0, 4, 0,
-            0, 2, 0, 4, 0, 1, 0, 3, 0, 5,
-            4, 0, 2, 0, 5, 0, 3, 0, 1, 0,
-            0, 3, 0, 1, 0, 4, 0, 2, 0, 0,
-            5, 0, 2, 0, 4, 0, 1, 0, 3, 0,
-            0, 1, 0, 3, 0, 5, 0, 2, 0, 4,
-            3, 0, 1, 0, 4, 0, 2, 0, 5, 0,
-            0, 2, 0, 5, 0, 3, 0, 1, 0, 0,
-            4, 0, 1, 0, 3, 0, 5, 0, 2, 0,
-            0, 5, 0, 2, 0, 4, 0, 1, 0, 3,
+            0, 0, 0, 0, 0, 0, 0, 0, 0, 0,
+            0, 0, 0, 0, 2, 1, 0, 0, 0, 0,
+            0, 0, 0, 2, 1, 2, 1, 0, 0, 0,
+            0, 0, 2, 1, 2, 1, 2, 1, 0, 0,
+            0, 5, 1, 2, 1, 2, 1, 2, 5, 0,
+            5, 4, 4, 4, 4, 4, 4, 4, 4, 5,
+            0, 5, 3, 3, 3, 3, 3, 3, 5, 0,
+            0, 0, 3, 3, 3, 3, 3, 3, 0, 0,
+            0, 0, 0, 3, 3, 3, 3, 0, 0, 0,
+            0, 0, 0, 0, 3, 3, 0, 0, 0, 0,
 
         ];
 
@@ -239,12 +242,12 @@ function copyCurrentLevelToActiveLevel() {
 // ********** Draw Everything Section ***********
 
 function drawLevel() {
-    
+
     //Redraw Canvas Background to clear screen each frame
     canvasContext.fillStyle = 'black';
     canvasContext.fillRect(0, 0, canvas.width, canvas.height);
 
-    canvasContext.drawImage(jamesImage1, canvas.width /2 - jamesImage1.width/2, canvas.height / 2 - jamesImage1.height/2 - 100);
+    canvasContext.drawImage(jamesImage1, canvas.width / 2 - jamesImage1.width / 2, canvas.height / 2 - jamesImage1.height / 2 - 100);
 
     // All Ball Draws
 
@@ -261,8 +264,8 @@ function drawLevel() {
     canvasContext.fillRect(paddleXPos, paddleYPos, paddleWidth, paddleHeight);
 
     //All Brick Draws
-    
-    
+
+
     for (let row = 0; row < brickRows; row++) {
 
         for (let col = 0; col < brickColumns; col++) { //loop through level array
@@ -357,32 +360,32 @@ function moveBall() {
         ballYSpeed *= -1
     }
 
-    if (ballYPos > BOTTOM_LINE_HEIGHT){
+    if (ballYPos > BOTTOM_LINE_HEIGHT) {
         //only play life lost sound if lives are not 0
-        if (lives > 0){
+        if (lives > 0) {
             lifeSound.play();
         } else {
             gameOverSound.play();
         }
         loseALife();
-        
+
     }
 }
 
-function loseALife () {
+function loseALife() {
     lives--;
     if (lives < 0) {
         endGame();
     } else {
-    ballStart();
+        ballStart();
     }
-    
+
 }
 
 function ballStart() {
     ballXPos = 400;
     ballYPos = 500;
-    ballYSpeed = -5;
+    ballYSpeed *=-1;
 }
 
 function endGame() {
@@ -393,7 +396,7 @@ function endGame() {
     canvasContext.font = "100px Comic Sans MS";
     canvasContext.fillStyle = 'red';
     canvasContext.textAlign = 'center';
-    canvasContext.fillText("Game Over!", canvas.width / 2, canvas.height/2);
+    canvasContext.fillText("Game Over!", canvas.width / 2, canvas.height / 2);
     setTimeout(initializeGame, 5000);
 }
 
@@ -407,7 +410,10 @@ function whatDidBallHit() {
 
     let paddleCenter = (paddleXPos + paddleRightEdge) / 2;
 
-    if (ballYSpeed > 0 && ballYPos > paddleTop && ballYPos < paddleBottom && ballXPos > paddleLeftEdge && ballXPos < paddleRightEdge) {
+    if (ballYSpeed > 0 && ballYPos > paddleTop &&
+        ballYPos < paddleBottom && ballXPos > paddleLeftEdge
+        && ballXPos < paddleRightEdge) {
+
         ballYSpeed *= -1;
         paddleSound.play();
 
@@ -418,7 +424,6 @@ function whatDidBallHit() {
         //increase bounceCount after X bounces off paddle increase speed of ball
         bounceCount++;
         if (bounceCount % INCREASE_SPEED_FACTOR === 0) {
-            //ballXSpeed--;
             ballYSpeed--;
         }// bounceCount
     } // end Ball Paddle Collision
@@ -462,7 +467,7 @@ function whatDidBallHit() {
 function goToNextLevel() {
     levelIndex++;
 
-   //What if we run out of levels?
+    //What if we run out of levels?
     if (levelIndex > 2) { // change based on the number of levels available 0 based index
         levelIndex = 0;
     }
@@ -470,56 +475,58 @@ function goToNextLevel() {
     levelStartText();
 
     animationState = false; // pause the animation frame requests
+    ballYSpeed = 5; //Positive here becuase it is going to be flipped by ballStart();
     ballStart(); // reset the ball position
     setTimeout(loadGame, 5000); // wait 5 seconds and then start the new level
+
 }
 
-function levelStartText(){
+function levelStartText() {
 
     canvasContext.fillStyle = 'black';
     canvasContext.fillRect(0, 0, canvas.width, canvas.height);
 
-    if (levelIndex === 0){
-        
-        canvasContext.font = "45px Comic Sans MS";
-        canvasContext.fillStyle = 'blue';
-        canvasContext.textAlign = 'center';
-        canvasContext.fillText("Level 1", canvas.width / 2, canvas.height/2 - 100);
-        
-        
-        canvasContext.font = "45px Comic Sans MS";
-        canvasContext.fillStyle = 'blue';
-        canvasContext.textAlign = 'center';
-        canvasContext.fillText("The Alien Ship is Here!", canvas.width / 2, canvas.height/2);
-        
-    }
-    
-    if (levelIndex === 1){
+    if (levelIndex === 0) {
 
         canvasContext.font = "45px Comic Sans MS";
         canvasContext.fillStyle = 'blue';
         canvasContext.textAlign = 'center';
-        canvasContext.fillText("Level 2", canvas.width / 2, canvas.height/2 - 100);
+        canvasContext.fillText("Level 1", canvas.width / 2, canvas.height / 2 - 100);
+
+
+        canvasContext.font = "45px Comic Sans MS";
+        canvasContext.fillStyle = 'blue';
+        canvasContext.textAlign = 'center';
+        canvasContext.fillText("Destroy Their Energy Shield!", canvas.width / 2, canvas.height / 2);
+
+    }
+
+    if (levelIndex === 1) {
+
+        canvasContext.font = "45px Comic Sans MS";
+        canvasContext.fillStyle = 'blue';
+        canvasContext.textAlign = 'center';
+        canvasContext.fillText("Level 2", canvas.width / 2, canvas.height / 2 - 100);
 
         canvasContext.font = "50px Comic Sans MS";
         canvasContext.fillStyle = 'blue';
         canvasContext.textAlign = 'center';
-        canvasContext.fillText("The Face of the Enemy!", canvas.width / 2, canvas.height/2);
-        
+        canvasContext.fillText("The Face of the Enemy!", canvas.width / 2, canvas.height / 2);
+
     }
 
-    if (levelIndex === 2){
+    if (levelIndex === 2) {
 
         canvasContext.font = "45px Comic Sans MS";
         canvasContext.fillStyle = 'blue';
         canvasContext.textAlign = 'center';
-        canvasContext.fillText("Level 3", canvas.width / 2, canvas.height/2 - 100);
+        canvasContext.fillText("Level 3", canvas.width / 2, canvas.height / 2 - 100);
 
         canvasContext.font = "45px Comic Sans MS";
         canvasContext.fillStyle = 'blue';
         canvasContext.textAlign = 'center';
-        canvasContext.fillText("Destroy Their Energy Shield!", canvas.width / 2, canvas.height/2);
-        
+        canvasContext.fillText("The Alien Ship is Here!", canvas.width / 2, canvas.height / 2);
+
     }
 }// end levelStart func
 
@@ -532,26 +539,26 @@ function playGame() {
     // use to pause the game.
     if (animationState) {
         requestAnimationFrame(playGame);
-    } 
+    }
 }
 
 function loadGame() {
     paddleSound = document.getElementById("paddle");
-	brickSound= document.getElementById("brick");
-    lifeSound= document.getElementById("life");
+    brickSound = document.getElementById("brick");
+    lifeSound = document.getElementById("life");
     gameOverSound = document.getElementById("over");
     gameStartSound = document.getElementById("start");
-	lifeSound.play();
-	lifeSound.pause();
-	paddleSound.play();
-	paddleSound.pause();
+    lifeSound.play();
+    lifeSound.pause();
+    paddleSound.play();
+    paddleSound.pause();
     brickSound.play();
     brickSound.pause();
     gameOverSound.play();
     gameOverSound.pause();
     gameStartSound.play();
 
-	
+
 
     startGame.style.display = 'none';
     loadLevel();
@@ -583,15 +590,15 @@ function initializeGame() {
     canvasContext.strokeStyle = 'white';
     canvasContext.textAlign = 'center';
     canvasContext.strokeText("James' Breakout Style Game", canvas.width / 2, canvas.height * .10);
-    
+
     canvasContext.font = "30px Comic Sans MS";
     canvasContext.fillStyle = 'white';
     canvasContext.textAlign = 'center';
-    canvasContext.fillText("Are You Ready to Fight The Alien Things?", canvas.width / 2, canvas.height/2);
+    canvasContext.fillText("Are You Ready to Fight The Alien Things?", canvas.width / 2, canvas.height / 2);
     //startGame.style.display = 'inline';
     startGame.style.display = 'inline';
 
-    canvasContext.drawImage(jamesImage, canvas.width/2 - 200, canvas.height *.12, canvas.width /2, canvas.height/3);
+    canvasContext.drawImage(jamesImage, canvas.width / 2 - 200, canvas.height * .12, canvas.width / 2, canvas.height / 3);
     //canvasContext.drawImage(jamesImage, 100, 400, 100, 400);
 }
 //goToNextLevel();
