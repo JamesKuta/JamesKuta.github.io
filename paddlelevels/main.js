@@ -4,6 +4,8 @@
 
 // ********** Set Global Variables ***********
 
+//use for testing the size of windows on phones. Remove before release!
+alert(window.innerWidth +' X ' + window.innerHeight);
 
 //Drawing Canvas Variables
 let canvas = document.getElementById('canvas');
@@ -47,6 +49,9 @@ let paddleXPos = 0;
 
 //Player Lives Variables
 let lives = 3;
+
+//Game Score varialbes
+let score = 0;
 
 //event listeners for Mouse, Touch and Keyboard commands
 canvas.addEventListener('mousemove', updateMousePos);
@@ -280,22 +285,34 @@ function drawLevel() {
 
 
     //Mouse Coordinate Draws
-    let mouseBrickCol = Math.floor(mouseX / brickWidth);
-    let mouseBrickRow = Math.floor(mouseY / brickHeight);
-    let brickIndexUnderMouse = brickIndex(mouseBrickRow, mouseBrickCol);
-    canvasContext.font = "10px Arial";
-    canvasContext.fillStyle = 'white';
-    canvasContext.fillText(mouseBrickCol + ', ' + mouseBrickRow + ', ' + brickIndexUnderMouse, mouseX, mouseY);
+    // let mouseBrickCol = Math.floor(mouseX / brickWidth);
+    // let mouseBrickRow = Math.floor(mouseY / brickHeight);
+    // let brickIndexUnderMouse = brickIndex(mouseBrickRow, mouseBrickCol);
+    // canvasContext.font = "10px Arial";
+    // canvasContext.fillStyle = 'white';
+    // canvasContext.fillText(mouseBrickCol + ', ' + mouseBrickRow + ', ' + brickIndexUnderMouse, mouseX, mouseY);
 
     //Test brick removal under mouse. This is for testing and will be commented out later.
     // if(brickIndexUnderMouse >= 0 && brickIndexUnderMouse < brickColumns * brickRows){
     //     activeLevel[brickIndexUnderMouse] = 0;
     // }
 
+    //Draw End Line
+    canvasContext.fillStyle = 'grey'
+    canvasContext.fillRect(0, canvas.height * .90, canvas.width, brickHeight);
+
     //Draw Player Lives
-    canvasContext.font = "10px Arial";
+    canvasContext.font = "20px Arial";
     canvasContext.fillStyle = 'white';
-    canvasContext.fillText('Lives: ' + lives, 750, 750);
+    canvasContext.textAlign = 'right';
+    canvasContext.fillText('Lives Remaining: ' + lives, canvas.width, canvas.height * .95);
+
+    //Draw Game Score
+    canvasContext.font = "20px Arial";
+    canvasContext.fillStyle = 'white';
+    canvasContext.textAlign = 'left';
+    canvasContext.fillText('Score: ' + score, 0, canvas.height * .95);
+
 
     //What to do if the brickCount hits 0
     //I put this here because I want the last brick to go away before pausing
@@ -324,14 +341,14 @@ function moveBall() {
         ballYSpeed *= -1
     }
 
-    if (ballYPos > canvas.height){
+    if (ballYPos > canvas.height * .90){
         loseALife();
     }
 }
 
 function loseALife () {
     lives--;
-    if (lives === 0) {
+    if (lives < 0) {
         endGame();
     } else {
     ballStart();
@@ -390,6 +407,7 @@ function whatDidBallHit() {
         if (activeLevel[brickIndexUnderBall]) { // only do anything when index is not 0
             activeLevel[brickIndexUnderBall] = 0; // Disappear the hit brick
             brickCount--; //Remove one brick from our count. 
+            score += 10;
 
             // what side did I hit the brick from?
 
@@ -417,7 +435,7 @@ function goToNextLevel() {
     levelIndex++;
 
    //What if we run out of levels?
-    if (levelIndex > 10) {
+    if (levelIndex > 2) { // change based on the number of levels available 0 based index
         levelIndex = 0;
     }
 
@@ -486,7 +504,10 @@ function initializeGame() {
     levelIndex = 0;
 
     //set the number of lives
-    lives = 3;
+    lives = 2;
+
+    //set the score to 0
+    score = 0;
 
     //Display Start Game Message and then load the game
     canvasContext.font = "40px Comic Sans MS";
