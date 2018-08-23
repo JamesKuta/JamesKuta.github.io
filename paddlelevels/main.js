@@ -5,7 +5,7 @@
 // ********** Set Global Variables ***********
 
 //use for testing the size of windows on phones. Remove before release!
-alert(window.innerWidth +' X ' + window.innerHeight);
+//alert(window.innerWidth +' X ' + window.innerHeight);
 
 //Drawing Canvas Variables
 let canvas = document.getElementById('canvas');
@@ -25,8 +25,9 @@ let brickColumns = 10;
 let brickRows = 10;
 let brickGap = 2;
 
-//bottom line variables
+//TEXT Drawning Const
 const BOTTOM_LINE_HEIGHT = canvas.height * .75;
+const TEXT_VERTICAL_POS = canvas.height * .80;
 
 //Ball Variables
 let ballXPos = 400;
@@ -305,16 +306,16 @@ function drawLevel() {
     canvasContext.fillRect(0, BOTTOM_LINE_HEIGHT, canvas.width, brickHeight);
 
     //Draw Player Lives
-    canvasContext.font = "20px Arial";
-    canvasContext.fillStyle = 'white';
-    canvasContext.textAlign = 'right';
-    canvasContext.fillText('Lives Remaining: ' + lives, canvas.width, canvas.height * .85);
-
-    //Draw Game Score
-    canvasContext.font = "20px Arial";
+    canvasContext.font = "30px Arial";
     canvasContext.fillStyle = 'white';
     canvasContext.textAlign = 'left';
-    canvasContext.fillText('Score: ' + score, 0, canvas.height * .85);
+    canvasContext.fillText('Lives Remaining: ' + lives, 0, TEXT_VERTICAL_POS);
+
+    //Draw Game Score
+    canvasContext.font = "30px Arial";
+    canvasContext.fillStyle = 'white';
+    canvasContext.textAlign = 'right';
+    canvasContext.fillText('Score: ' + score, canvas.width, TEXT_VERTICAL_POS);
 
 
     //What to do if the brickCount hits 0
