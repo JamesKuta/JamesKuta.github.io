@@ -25,6 +25,9 @@ let brickColumns = 10;
 let brickRows = 10;
 let brickGap = 2;
 
+//bottom line variables
+const BOTTOM_LINE_HEIGHT = canvas.height * .75;
+
 //Ball Variables
 let ballXPos = 400;
 let ballYPos = 500;
@@ -42,7 +45,7 @@ let mouseY = 0;
 
 // Paddle Variables
 
-let paddleYPos = 600;
+let paddleYPos = canvas.height * .70;
 let paddleWidth = 160;
 let paddleHeight = 10;
 let paddleXPos = 0;
@@ -299,19 +302,19 @@ function drawLevel() {
 
     //Draw End Line
     canvasContext.fillStyle = 'grey'
-    canvasContext.fillRect(0, canvas.height * .90, canvas.width, brickHeight);
+    canvasContext.fillRect(0, BOTTOM_LINE_HEIGHT, canvas.width, brickHeight);
 
     //Draw Player Lives
     canvasContext.font = "20px Arial";
     canvasContext.fillStyle = 'white';
     canvasContext.textAlign = 'right';
-    canvasContext.fillText('Lives Remaining: ' + lives, canvas.width, canvas.height * .95);
+    canvasContext.fillText('Lives Remaining: ' + lives, canvas.width, canvas.height * .85);
 
     //Draw Game Score
     canvasContext.font = "20px Arial";
     canvasContext.fillStyle = 'white';
     canvasContext.textAlign = 'left';
-    canvasContext.fillText('Score: ' + score, 0, canvas.height * .95);
+    canvasContext.fillText('Score: ' + score, 0, canvas.height * .85);
 
 
     //What to do if the brickCount hits 0
@@ -341,7 +344,7 @@ function moveBall() {
         ballYSpeed *= -1
     }
 
-    if (ballYPos > canvas.height * .90){
+    if (ballYPos > BOTTOM_LINE_HEIGHT){
         loseALife();
     }
 }
