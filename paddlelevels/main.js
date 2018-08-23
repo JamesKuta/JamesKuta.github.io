@@ -32,7 +32,7 @@ const TEXT_VERTICAL_POS = canvas.height * .80;
 //Ball Variables
 let ballXPos = 400;
 let ballYPos = 500;
-let ballRadius = 5;
+let ballRadius = 10;
 let ballXSpeed = 3;
 let ballYSpeed = -3;
 
