@@ -482,43 +482,43 @@ function levelStartText(){
     if (levelIndex === 0){
         
         canvasContext.font = "45px Comic Sans MS";
-        canvasContext.strokeStyle = 'blue';
+        canvasContext.fillStyle = 'blue';
         canvasContext.textAlign = 'center';
-        canvasContext.strokeText("Level 1", canvas.width / 2, canvas.height/2 - 100);
+        canvasContext.fillText("Level 1", canvas.width / 2, canvas.height/2 - 100);
         
         
         canvasContext.font = "45px Comic Sans MS";
-        canvasContext.strokeStyle = 'blue';
+        canvasContext.fillStyle = 'blue';
         canvasContext.textAlign = 'center';
-        canvasContext.strokeText("The Alien Ship is Here!", canvas.width / 2, canvas.height/2);
+        canvasContext.fillText("The Alien Ship is Here!", canvas.width / 2, canvas.height/2);
         
     }
     
     if (levelIndex === 1){
 
         canvasContext.font = "45px Comic Sans MS";
-        canvasContext.strokeStyle = 'blue';
+        canvasContext.fillStyle = 'blue';
         canvasContext.textAlign = 'center';
-        canvasContext.strokeText("Level 2", canvas.width / 2, canvas.height/2 - 100);
+        canvasContext.fillText("Level 2", canvas.width / 2, canvas.height/2 - 100);
 
         canvasContext.font = "50px Comic Sans MS";
-        canvasContext.strokeStyle = 'blue';
+        canvasContext.fillStyle = 'blue';
         canvasContext.textAlign = 'center';
-        canvasContext.strokeText("The Face of the Enemy!", canvas.width / 2, canvas.height/2);
+        canvasContext.fillText("The Face of the Enemy!", canvas.width / 2, canvas.height/2);
         
     }
 
     if (levelIndex === 2){
 
         canvasContext.font = "45px Comic Sans MS";
-        canvasContext.strokeStyle = 'blue';
+        canvasContext.fillStyle = 'blue';
         canvasContext.textAlign = 'center';
-        canvasContext.strokeText("Level 3", canvas.width / 2, canvas.height/2 - 100);
+        canvasContext.fillText("Level 3", canvas.width / 2, canvas.height/2 - 100);
 
         canvasContext.font = "45px Comic Sans MS";
-        canvasContext.strokeStyle = 'blue';
+        canvasContext.fillStyle = 'blue';
         canvasContext.textAlign = 'center';
-        canvasContext.strokeText("Destroy Their Energy Shield!", canvas.width / 2, canvas.height/2);
+        canvasContext.fillText("Destroy Their Energy Shield!", canvas.width / 2, canvas.height/2);
         
     }
 }// end levelStart func
