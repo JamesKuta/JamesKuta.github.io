@@ -506,11 +506,14 @@ function loadGame() {
     lifeSound= document.getElementById("life");
     gameOverSound = document.getElementById("over")
 	lifeSound.play();
-	//lifeSound.stop();
+	lifeSound.pause();
 	paddleSound.play();
-	//paddleSound.stop();
-	brickSound.play();
-	//brickSound.stop();
+	paddleSound.pause();
+    brickSound.play();
+    brickSound.pause();
+    gameOverSound.play();
+    gameOverSound.pause();
+	
 
     startGame.style.display = 'none';
     loadLevel();
