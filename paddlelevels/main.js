@@ -495,13 +495,13 @@ function levelStartText() {
     if (levelIndex === 0) {
 
         canvasContext.font = "45px Comic Sans MS";
-        canvasContext.fillStyle = 'blue';
+        canvasContext.fillStyle = 'white';
         canvasContext.textAlign = 'center';
         canvasContext.fillText("Level 1", canvas.width / 2, canvas.height / 2 - 100);
 
 
         canvasContext.font = "45px Comic Sans MS";
-        canvasContext.fillStyle = 'blue';
+        canvasContext.fillStyle = 'white';
         canvasContext.textAlign = 'center';
         canvasContext.fillText("Destroy Their Energy Shield!", canvas.width / 2, canvas.height / 2);
 
@@ -515,7 +515,7 @@ function levelStartText() {
         canvasContext.fillText("Level 2", canvas.width / 2, canvas.height / 2 - 100);
 
         canvasContext.font = "50px Comic Sans MS";
-        canvasContext.fillStyle = 'blue';
+        canvasContext.fillStyle = 'white';
         canvasContext.textAlign = 'center';
         canvasContext.fillText("The Face of the Enemy!", canvas.width / 2, canvas.height / 2);
 
@@ -524,12 +524,12 @@ function levelStartText() {
     if (levelIndex === 2) {
 
         canvasContext.font = "45px Comic Sans MS";
-        canvasContext.fillStyle = 'blue';
+        canvasContext.fillStyle = 'white';
         canvasContext.textAlign = 'center';
         canvasContext.fillText("Level 3", canvas.width / 2, canvas.height / 2 - 100);
 
         canvasContext.font = "45px Comic Sans MS";
-        canvasContext.fillStyle = 'blue';
+        canvasContext.fillStyle = 'white';
         canvasContext.textAlign = 'center';
         canvasContext.fillText("The Alien Ship is Here!", canvas.width / 2, canvas.height / 2);
 
@@ -600,11 +600,11 @@ function initializeGame() {
     canvasContext.font = "30px Comic Sans MS";
     canvasContext.fillStyle = 'white';
     canvasContext.textAlign = 'center';
-    canvasContext.fillText("Are You Ready to Fight The Alien Things?", canvas.width / 2, canvas.height / 2);
+    canvasContext.fillText("Are You Ready to Fight The Alien Things?", canvas.width / 2, canvas.height / 2 + 50);
     //startGame.style.display = 'inline';
     startGame.style.display = 'inline';
 
-    canvasContext.drawImage(jamesImage, canvas.width / 2 - 200, canvas.height * .12, canvas.width / 2, canvas.height / 3);
+    canvasContext.drawImage(jamesImage1, canvas.width / 2 - jamesImage1.width / 2, canvas.height / 2 - jamesImage1.height);;
     //canvasContext.drawImage(jamesImage, 100, 400, 100, 400);
 }
 //goToNextLevel();
