@@ -112,9 +112,9 @@ function loadLevel() {
 
     animationState = true; //start drawing the animation frames
 
-    if (levelIndex === 0) {
+    if (levelIndex === 2) {
         currentLevel = [
-            1, 0, 3, 0, 5, 0, 2, 0, 4, 0,
+            0, 0, 0, 0, 0, 0, 0, 0, 0, 0,
             0, 2, 0, 4, 0, 1, 0, 3, 0, 5,
             4, 0, 2, 0, 5, 0, 3, 0, 1, 0,
             0, 3, 0, 1, 0, 4, 0, 2, 0, 0,
@@ -132,7 +132,7 @@ function loadLevel() {
 
     } // end level 0
 
-    if (levelIndex === 1) {
+    if (levelIndex === 0) {
         currentLevel = [
             0, 2, 0, 0, 0, 0, 0, 0, 2, 0,
             0, 0, 2, 0, 1, 1, 0, 2, 0, 0,
@@ -149,7 +149,7 @@ function loadLevel() {
 
     } // end level 1
 
-    if (levelIndex === 2) {
+    if (levelIndex === 1) {
         currentLevel = [
             0, 0, 0, 0, 0, 0, 0, 0, 0, 0,
             0, 0, 0, 0, 2, 1, 0, 0, 0, 0,
@@ -267,7 +267,7 @@ function drawLevel() {
     //canvasContext.stroke();
 
     // All Paddle Draws
-    canvasContext.fillStyle = 'purple'
+    canvasContext.fillStyle = 'white'
     canvasContext.fillRect(paddleXPos, paddleYPos, paddleWidth, paddleHeight);
 
     //All Brick Draws
@@ -410,7 +410,7 @@ function endGame() {
     canvasContext.fillStyle = 'black';
     canvasContext.fillRect(0, 0, canvas.width, canvas.height);
 
-    canvasContext.font = "100px Comic Sans MS";
+    canvasContext.font = "125px Comic Sans MS";
     canvasContext.fillStyle = 'red';
     canvasContext.textAlign = 'center';
     canvasContext.fillText("Game Over!", canvas.width / 2, canvas.height / 2);
@@ -503,12 +503,12 @@ function levelStartText() {
     canvasContext.fillStyle = 'black';
     canvasContext.fillRect(0, 0, canvas.width, canvas.height);
 
-    if (levelIndex === 0) {
+    if (levelIndex === 2) {
 
         canvasContext.font = "45px Comic Sans MS";
         canvasContext.fillStyle = 'white';
         canvasContext.textAlign = 'center';
-        canvasContext.fillText("Level 1", canvas.width / 2, canvas.height / 2 - 100);
+        canvasContext.fillText("Level 3", canvas.width / 2, canvas.height / 2 - 100);
 
 
         canvasContext.font = "45px Comic Sans MS";
@@ -518,12 +518,12 @@ function levelStartText() {
 
     }
 
-    if (levelIndex === 1) {
+    if (levelIndex === 0) {
 
         canvasContext.font = "45px Comic Sans MS";
         canvasContext.fillStyle = 'white';
         canvasContext.textAlign = 'center';
-        canvasContext.fillText("Level 2", canvas.width / 2, canvas.height / 2 - 100);
+        canvasContext.fillText("Level 1", canvas.width / 2, canvas.height / 2 - 100);
 
         canvasContext.font = "50px Comic Sans MS";
         canvasContext.fillStyle = 'white';
@@ -532,12 +532,12 @@ function levelStartText() {
 
     }
 
-    if (levelIndex === 2) {
+    if (levelIndex === 1) {
 
         canvasContext.font = "45px Comic Sans MS";
         canvasContext.fillStyle = 'white';
         canvasContext.textAlign = 'center';
-        canvasContext.fillText("Level 3", canvas.width / 2, canvas.height / 2 - 100);
+        canvasContext.fillText("Level 2", canvas.width / 2, canvas.height / 2 - 100);
 
         canvasContext.font = "45px Comic Sans MS";
         canvasContext.fillStyle = 'white';
