@@ -510,7 +510,7 @@ function levelStartText() {
     if (levelIndex === 1) {
 
         canvasContext.font = "45px Comic Sans MS";
-        canvasContext.fillStyle = 'blue';
+        canvasContext.fillStyle = 'white';
         canvasContext.textAlign = 'center';
         canvasContext.fillText("Level 2", canvas.width / 2, canvas.height / 2 - 100);
 
