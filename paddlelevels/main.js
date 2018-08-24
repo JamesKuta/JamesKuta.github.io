@@ -38,9 +38,10 @@ let brickColumns = 10;
 let brickRows = 10;
 let brickGap = 2;
 
-//TEXT Drawning Const
+//TEXT Drawning variables
 const BOTTOM_LINE_HEIGHT = canvas.height * .65;
 const TEXT_VERTICAL_POS = canvas.height * .70;
+const FINGER_SWIPE_AREA = canvas.height * .75;
 
 //Ball Variables
 let ballXPos = 400;
@@ -309,7 +310,7 @@ function drawLevel() {
     //calculate the index position of each brick
 
 
-    //Mouse Coordinate Draws
+    //Mouse Coordinate Draws for testing the grid locations This will be commented out.
     // let mouseBrickCol = Math.floor(mouseX / brickWidth);
     // let mouseBrickRow = Math.floor(mouseY / brickHeight);
     // let brickIndexUnderMouse = brickIndex(mouseBrickRow, mouseBrickCol);
@@ -317,7 +318,7 @@ function drawLevel() {
     // canvasContext.fillStyle = 'white';
     // canvasContext.fillText(mouseBrickCol + ', ' + mouseBrickRow + ', ' + brickIndexUnderMouse, mouseX, mouseY);
 
-    //Test brick removal under mouse. This is for testing and will be commented out later.
+    //Test brick removal if mouse hits. This is for testing and will be commented out.
     // if(brickIndexUnderMouse >= 0 && brickIndexUnderMouse < brickColumns * brickRows){
     //     activeLevel[brickIndexUnderMouse] = 0;
     // }
@@ -337,6 +338,16 @@ function drawLevel() {
     canvasContext.fillStyle = 'white';
     canvasContext.textAlign = 'right';
     canvasContext.fillText('Score: ' + score, canvas.width, TEXT_VERTICAL_POS);
+
+    //Draw Finger Swipe Area
+    canvasContext.fillStyle = '#bebebe';
+    canvasContext.fillRect(0, FINGER_SWIPE_AREA, canvas.width, canvas.height);
+    
+    canvasContext.font = "45px Arial";
+    canvasContext.strokeStyle = 'black';
+    canvasContext.textAlign ='center';
+    canvasContext.strokeText('Slide Finger Here to Control Paddle', canvas.width/2, FINGER_SWIPE_AREA +140);
+
 
 
     //What to do if the brickCount hits 0
@@ -442,10 +453,10 @@ function whatDidBallHit() {
     if (ballBrickCol >= 0 && ballBrickCol < brickColumns &&
         ballBrickRow >= 0 && ballBrickRow < brickRows) {
 
-        if (activeLevel[brickIndexUnderBall]) { // only do anything when index is not 0
+        if (activeLevel[brickIndexUnderBall]) { // only do something when index is not 0
             activeLevel[brickIndexUnderBall] = 0; // Disappear the hit brick
-            brickCount--; //Remove one brick from our count. 
-            score += 10;
+            brickCount--; //Remove one brick from the brick count. 
+            score += 10; // add 10 to the current scrore
             brickSound.play();
 
             // what side did I hit the brick from?
@@ -536,7 +547,6 @@ function levelStartText() {
     }
 }// end levelStart func
 
-
 function playGame() {
     drawLevel();
     moveBall();
@@ -563,8 +573,6 @@ function loadGame() {
     gameOverSound.play();
     gameOverSound.pause();
     gameStartSound.play();
-
-
 
     startGame.style.display = 'none';
     loadLevel();
