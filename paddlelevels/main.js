@@ -15,10 +15,14 @@ let canvas = document.getElementById('canvas');
 let canvasContext = canvas.getContext('2d');
 let animationState = true;
 let startGame = document.getElementById("StartGame");
-let jamesImage = new Image();
-jamesImage.src = "cm2.jpg";
-let jamesImage1 = new Image();
-jamesImage1.src = "cm3.jpg";
+
+
+//preload the images
+
+    let jamesImage = new Image();
+    jamesImage.src = "cm2.jpg";
+    let jamesImage1 = new Image();
+    jamesImage1.src = "cm3.jpg";
 
 
 //Game Level Variables
@@ -196,6 +200,8 @@ function loadLevel() {
     } // end level 4
 
     copyCurrentLevelToActiveLevel(); // copy the template grid to an active grid for use during the game
+    
+
 
     /* This is here to make creating new grids easier
 
