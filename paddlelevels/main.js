@@ -15,6 +15,19 @@ let canvas = document.getElementById('canvas');
 let canvasContext = canvas.getContext('2d');
 let animationState = true;
 let startGame = document.getElementById("StartGame");
+let stars = [];
+
+//create 500 randomly placed stars with attributes in an array.
+for (var i = 0; i < 500; i++) {
+    stars[i] = {
+      x: Math.random() * canvas.width,
+      y: Math.random() * canvas.height,
+      radius: Math.sqrt(Math.random() * 2),
+      alpha: 1.0,
+      decreasing: true,
+      dRatio: Math.random()*0.05,
+    };
+  }
 
 
 //preload the images
@@ -254,6 +267,35 @@ function drawLevel() {
     canvasContext.fillStyle = 'black';
     canvasContext.fillRect(0, 0, canvas.width, canvas.height);
 
+ //Draw Stars
+  
+
+  canvasContext.save();
+  canvasContext.fillStyle = "#111"
+  canvasContext.fillRect(0, 0, canvas.width, canvas.height);
+  for (var i = 0; i < stars.length; i++) {
+    var star = stars[i];
+    canvasContext.beginPath();
+    canvasContext.arc(star.x, star.y, star.radius, 0, 2*Math.PI);
+    canvasContext.closePath();
+    canvasContext.fillStyle = "rgba(255, 255, 255, " + star.alpha + ")";
+    if (star.decreasing == true)
+    {
+      star.alpha -=star.dRatio;
+      if (star.alpha < 0.1)
+      { star.decreasing = false; }
+    }
+    else
+    {
+      star.alpha += star.dRatio;
+      if (star.alpha > 0.95)
+      { star.decreasing = true; }
+    }
+    canvasContext.fill();
+  }
+  canvasContext.restore();
+// end draw stars
+
     canvasContext.drawImage(jamesImage1, canvas.width / 2 - jamesImage1.width / 2, canvas.height / 2 - jamesImage1.height / 2 - 100);
 
     // All Ball Draws
@@ -461,8 +503,8 @@ function whatDidBallHit() {
 
             // what side did I hit the brick from?
 
-            let ballColOneFrameAgo = ballXPos - ballXSpeed; //what was X position of the ball
-            let ballRowOneFrameAgo = ballYPos - ballYSpeed; //what was Y position of the ball
+            let ballColOneFrameAgo = ballXPos - ballXSpeed; //what was column position of the ball
+            let ballRowOneFrameAgo = ballYPos - ballYSpeed; //what was row position of the ball
             let brickColOneFrameAgo = Math.floor(ballColOneFrameAgo / brickWidth); // what was the column number
             let brickRowOneFrameAgo = Math.floor(ballRowOneFrameAgo / brickHeight); // what was the row number
 
