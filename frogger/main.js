@@ -103,16 +103,19 @@ function buttonHandler() {
     if (event.target.value == "down" && y + height < canvas.height - 80 && frogCanMove) {
         y = y + 44;
         sx = 0;
+        event.preventDefault();
     }
 
     if (event.target.value == "right" && x + width < canvas.width - 20 && frogCanMove) {
         x = x + 44;
         sx = 40;
+        event.preventDefault();
     }
 
     if (event.target.value == "left" && x > 20 && frogCanMove) {
         x = x - 44;
         sx = 80;
+        event.preventDefault();
     }
 }
 
