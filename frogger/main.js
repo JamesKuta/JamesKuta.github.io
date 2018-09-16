@@ -97,6 +97,7 @@ function buttonHandler() {
     if (event.target.value == "up" && y > 20 && frogCanMove) {
         y = y - 44;
         sx = 0;
+        event.preventDefault();
     }
 
     if (event.target.value == "down" && y + height < canvas.height - 80 && frogCanMove) {
