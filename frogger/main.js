@@ -1,75 +1,87 @@
-//Michele's Frogger V 1.0 
-// by James Kuta
-// 09/08/2018
-
+/**********************************/
+/**Michele's Frogger V 1.0*********/
+/**By James Kuta*******************/
+/**Project Started on 09/08/2018***/
+/**Project Finished on*************/
+/**********************************/
 // Global Objects
-
 let canvas = document.getElementById('canvas');
 let ctx = canvas.getContext('2d');
 
-//Frog Global Variables
-let frog = new Image();
-frog.src = "frog_gimp.png";
-let frogCanMove = true;
-let sx = 0;
-let sy = 0;
-let swidth = 40;
-let sheight = 40;
-let x = 265;
-let y = 488;
-let width = 30;
-let height = 30;
+// Frog object (may turn into class if I want 2 player game)
+let frogImage = new Image();
+frogImage.src = "frog_gimp.png";
 
+let frog = {
+    sx: 0,
+    sy: 0,
+    swidth: 40,
+    sheight: 40,
+    x: 265,
+    y: 488,
+    width: 30,
+    height: 30,
+    frogCanMove: true
+}
 
-//cars variables
-let car = new Image();
-car.src = "cars_gimp_game.png";
-let carX1 = 100;
-let carSX1 = 0;
-let carY1 = 400;
-let carWidth = 60;
-let carHeight = 35;
+//car class
+function Car(carX, carSX, carY, carWidth, carHeight) {
+    this.carX = carX;
+    this.carSX = carSX;
+    this.carY = carY;
+    this.carWidth = carWidth;
+    this.carHeight = carHeight;
+}
 
-const carRightSpeed = 7;
-const carLeftSpeed = 6;
+// car objects
+let carImage = new Image();
+carImage.src = "cars_gimp_game.png";
 
-let carX2 = 500;
-//let carSX2 = 60;
-let carSX2 = 0;
-let carY2 = 400;
+const carRightSpeed = 5;
+const carLeftSpeed = 3;
 
-let carX3 = 460;
-//let carSX3 = 120;
-let carSX3 = 60;
-let carY3 = 355;
+let carEnum = [];
 
-let carX4 = 400;
-//let carSX4 = 180;
-let carSX4 = 0;
-let carY4 = 310;
+let car0 = new Car(100, 0, 400, 60, 35);
+carEnum.push(car0);
+let car1 = new Car(500, 0, 400, 60, 35);
+carEnum.push(car1);
+let car2 = new Car(460, 60, 355, 60, 35);
+carEnum.push(car2);
+let car3 = new Car(400, 0, 310, 60, 35);
+carEnum.push(car3);
+let car4 = new Car(360, 60, 265, 60, 35);
+carEnum.push(car4);
+let car5 = new Car(60, 60, 355, 60, 35);
+carEnum.push(car5);
+let car6 = new Car(100, 0, 310, 60, 35);
+carEnum.push(car6);
+let car7 = new Car(160, 60, 265, 60, 35);
+carEnum.push(car7);
 
-let carX5 = 360;
-//let carSX5 = 0;
-let carSX5 = 60;
-let carY5 = 265;
+// log class
+function Log(logX, logY, logWidth, logHeight) {
+    this.logX = logX;
+    this.logY = logY;
+    this.logWidth = logWidth;
+    this.logHeight = logHeight;
+}
+logEnum = [];
 
-let carX6 = 60;
-//let carSX6 = 120;
-let carSX6 = 60;
-let carY6 = 355;
-
-let carX7 = 100;
-//let carSX7 = 180;
-let carSX7 = 0;
-let carY7 = 310;
-
-let carX8 = 160;
-//let carSX8 = 0;
-let carSX8 = 60;
-let carY8 = 265;
+log0 = new Log(300, 180, 120, 30);
+logEnum.push(log0);
+log1 = new Log(40, 180, 120, 30);
+logEnum.push(log1);
+log2 = new Log(200, 136, 120, 30);
+logEnum.push(log2);
+log3 = new Log(0, 136, 120, 30);
+logEnum.push(log3);
+log4 = new Log(400, 92, 120, 30);
+logEnum.push(log4);
+log5 = new Log(50, 92, 120, 30);
+logEnum.push(log5);
 
 // keypress Variables
-
 let rightPressed = false;
 let leftPressed = false;
 let upPressed = false;
@@ -94,27 +106,27 @@ rightButton.addEventListener('click', buttonHandler);
 leftButton.addEventListener('click', buttonHandler);
 
 function buttonHandler() {
-    if (event.target.value == "up" && y > 20 && frogCanMove) {
-        y = y - 44;
+    if (event.target.value == "up" && frog.y > 20 && frog.frogCanMove) {
+        frog.y = frog.y - 44;
         sx = 0;
         event.preventDefault();
     }
 
-    if (event.target.value == "down" && y + height < canvas.height - 80 && frogCanMove) {
-        y = y + 44;
-        sx = 0;
+    if (event.target.value == "down" && frog.y + height < canvas.height - 80 && frog.frogCanMove) {
+        frog.y = frog.y + 44;
+        frog.sx = 0;
         event.preventDefault();
     }
 
-    if (event.target.value == "right" && x + width < canvas.width - 20 && frogCanMove) {
-        x = x + 44;
-        sx = 40;
+    if (event.target.value == "right" && frog.x + width < canvas.width - 20 && frog.frogCanMove) {
+        frog.x = frog.x + 44;
+        frog.sx = 40;
         event.preventDefault();
     }
 
-    if (event.target.value == "left" && x > 20 && frogCanMove) {
-        x = x - 44;
-        sx = 80;
+    if (event.target.value == "left" && frog.x > 20 && frog.frogCanMove) {
+        frog.x = frog.x - 44;
+        frog.sx = 80;
         event.preventDefault();
     }
 }
@@ -122,17 +134,21 @@ function buttonHandler() {
 function keyDownHandler(e) {
     if (e.keyCode === 39) {
         rightPressed = true;
+        event.preventDefault();
     }
     if (e.keyCode === 37) {
         leftPressed = true;
+        event.preventDefault();
     }
 
     if (e.keyCode === 38) {
         upPressed = true;
+        event.preventDefault();
     }
 
     if (e.keyCode === 40) {
         downPressed = true;
+        event.preventDefault();
     }
 }// end keyDownHandler func
 
@@ -154,64 +170,65 @@ function keyUpHandler(e) {
 }// end keyUpHandler func
 
 function frogMove() {
-    if (frogCanMove) {
+    if (frog.frogCanMove) {
 
-        if (upPressed === true && up === true && y > 20) {
-            y = y - 44;
+        if (upPressed === true && up === true && frog.y > 20) {
+            frog.y = frog.y - 44;
             up = false;
-            sx = 0;
+            frog.sx = 0;
         }
 
         if (upPressed === false) {
             up = true;
         }
 
-        if (downPressed === true && down === true && y + height < canvas.height - 80) {
-            y = y + 44;
+        if (downPressed === true && down === true && frog.y + frog.height < canvas.height - 80) {
+            frog.y = frog.y + 44;
             down = false;
-            sx = 0;
+            frog.sx = 0;
         }
 
         if (downPressed === false) {
             down = true;
         }
 
-        if (rightPressed === true && right === true && x + width < canvas.width - 20) {
-            x = x + 44;
+        if (rightPressed === true && right === true && frog.x + frog.width < canvas.width - 20) {
+            frog.x = frog.x + 44;
             right = false;
-            sx = 40;
+            frog.sx = 40;
         }
 
         if (rightPressed === false) {
             right = true;
         }
 
-        if (leftPressed === true && left === true && x > 20) {
-            x = x - 44;
+        if (leftPressed === true && left === true && frog.x > 20) {
+            frog.x = frog.x - 44;
             left = false;
-            sx = 80;
+            frog.sx = 80;
         }
 
         if (leftPressed === false) {
             left = true;
         }
     }
+    //console.log(frog.y);
 }
 
 function drawBackground() {
     // Draw Grass
-    ctx.fillStyle = "lime";
+    ctx.fillStyle = "rgb(100, 150, 50)";
     ctx.fillRect(0, 440, 570, 45);
     ctx.fillRect(0, 220, 570, 45);
 
     // Draw Road
-
     ctx.beginPath();
     ctx.moveTo(0, 266);
     ctx.lineTo(570, 266);
-    ctx.strokeStyle = "yellow";
-    ctx.setLineDash([10]);
-    ctx.strokeWidth = 2;
+    ctx.strokeStyle = "white";
+    ctx.setLineDash([0]);
+    ctx.strokeWidth = 4;
+    ctx.lineWidth = 5;
     ctx.stroke();
 
     ctx.beginPath();
@@ -220,6 +237,7 @@ function drawBackground() {
     ctx.strokeStyle = "white";
     ctx.setLineDash([10]);
     ctx.strokeWidth = 2;
+    ctx.lineWidth = 2;
     ctx.stroke();
 
     ctx.beginPath();
@@ -241,12 +259,11 @@ function drawBackground() {
     ctx.beginPath();
     ctx.moveTo(0, 439);
     ctx.lineTo(570, 439);
-    ctx.strokeStyle = "yellow";
-    ctx.setLineDash([10]);
+    ctx.strokeStyle = "white";
+    ctx.setLineDash([0]);
     ctx.strokeWidth = 4;
+    ctx.lineWidth = 5;
     ctx.stroke();
-
-
 
     // draw water area
     ctx.fillStyle = "blue";
@@ -256,121 +273,203 @@ function drawBackground() {
 } // end drawBackground func
 
 function drawFrog() {
-    ctx.drawImage(frog, sx, sy, swidth, sheight, x, y, width, height);
+    ctx.drawImage(frogImage, frog.sx, frog.sy, frog.swidth,
+        frog.sheight, frog.x, frog.y, frog.width, frog.height);
 }
 
 function drawCars() {
-    let carsSX = [carSX1, carSX2, carSX3, carSX4, carSX5, carSX6, carSX7, carSX8];
-    let carsX = [carX1, carX2, carX3, carX4, carX5, carX6, carX7, carX8];
-    let carsY = [carY1, carY2, carY3, carY4, carY5, carY6, carY7, carY8];
-
-    for (let i = 0; i < carsX.length; i++) {
-        ctx.drawImage(car, carsSX[i], 0, 60, 35, carsX[i], carsY[i], carWidth, carHeight);
+    for (let i = 0; i < carEnum.length; i++) {
+        ctx.drawImage(carImage, carEnum[i].carSX, 0, 60, 35, carEnum[i].carX, carEnum[i].carY, carEnum[i].carWidth, carEnum[i].carHeight);
+        //console.log(carEnum[i].carX);
     }
+
 }//end drawCars func
 
 function moveCars() {
-    // if (carX1 < canvas.width + 100) {
-    //     carX1 += 3;
-    // } else {
-    //     carX1 = -100;
-    //     carSX1 = (Math.floor(Math.random() * 2)) * 60;
-    // }
 
-    if (carX1 < canvas.width + 100) {
-        carX1 += carRightSpeed;
+    if (car0.carX < canvas.width + 100) {
+        car0.carX += carRightSpeed;
     } else {
-        carX1 = (Math.floor(Math.random() * 200) + 200) * -1
-        //carX1 = -100;
+        car0.carX = (Math.floor(Math.random() * 200) + 200) * -1
     }
 
-    if (carX2 < canvas.width + 100) {
-        carX2 += carRightSpeed;
-    } else {
-        carX2 = (Math.floor(Math.random() * 100) + 100) * -1
-        //carX2 = -100;
-        //carSX2 = (Math.floor(Math.random() * 2)) * 60;
-    }
-
-    if (carX3 > -100) {
-        carX3 -= carLeftSpeed;
-    } else {
-        carX3 = canvas.width + (Math.floor(Math.random() * 100) + 100);
-        //carSX3 = (Math.floor(Math.random() * 2)) * 60;
-    }
-
-    if (carX4 < canvas.width + 100) {
-        carX4 += carRightSpeed;
-    } else {
-        carX4 = (Math.floor(Math.random() * 100) + 100) * -1
-        //carSX4 = (Math.floor(Math.random() * 2)) * 60;
-    }
-
-    if (carX5 > -100) {
-        carX5 -= carLeftSpeed;
-    } else {
-        //carX5 = canvas.width + 100;
-        carX5 = canvas.width + (Math.floor(Math.random() * 100) + 200);
-
-        //carSX5 = (Math.floor(Math.random() * 2)) * 60;
-    }
-
-    if (carX6 > -100) {
-        carX6 -= carLeftSpeed;
-    } else {
-        carX6 = canvas.width + (Math.floor(Math.random() * 200) + 100);
-        //carSX6 = (Math.floor(Math.random() * 2)) * 60;
-    }
-
-    if (carX7 < canvas.width + 100) {
-        carX7 += carRightSpeed;
-    } else {
-        carX7 = (Math.floor(Math.random() * 200) + 200) * -1
-        //carX7 = -100;
-        //carSX7 = (Math.floor(Math.random() * 2)) * 60;
-    }
-
-    if (carX8 > -100) {
-        carX8 -= carLeftSpeed;
-    } else {
-        carX8 = canvas.width + (Math.floor(Math.random() * 200) + 200);
-        //carSX8 = (Math.floor(Math.random() * 2)) * 60;
+    if (car1.carX < canvas.width + 100) {
+        car1.carX += carRightSpeed;
+    } else if (car0.carX < canvas.width && car0.carX > 100) {
+        car1.carX = (Math.floor(Math.random() * 100) + 100) * -1
     }
 
 
+    if (car2.carX > -100) {
+        car2.carX -= carLeftSpeed;
+    } else {
+        car2.carX = canvas.width + (Math.floor(Math.random() * 100) + 100);
+    }
 
-}
+    if (car3.carX < canvas.width + 100) {
+        car3.carX += carRightSpeed;
+    } else if (car6.carX < canvas.width && car6.carX > 40) {
+        car3.carX = (Math.floor(Math.random() * 100) + 100) * -1
+    }
+
+    if (car4.carX > -100) {
+        car4.carX -= carLeftSpeed;
+    } else {
+        car4.carX = 570;
+    }
+
+    if (car5.carX > -100) {
+        car5.carX -= carLeftSpeed;
+    } else if (car2.carX < canvas.width && car2.carX > 30) {
+        car5.carX = canvas.width + (Math.floor(Math.random() * 200) + 100);
+    }
+
+    if (car6.carX < canvas.width + 100) {
+        car6.carX += carRightSpeed;
+    } else {
+        car6.carX = (Math.floor(Math.random() * 200) + 200) * -1
+
+    }
+
+    if (car7.carX > -100) {
+        car7.carX -= carLeftSpeed;
+    } else if (car4.carX < canvas.width && car4.carX > 60) {
+        car7.carX = canvas.width + (Math.floor(Math.random()) + 100);
+    }
+}// end moveCars func
 
 function runOver() {
-    let carsX = [carX1, carX2, carX3, carX4, carX5, carX6, carX7, carX8];
-    let carsY = [carY1, carY2, carY3, carY4, carY5, carY6, carY7, carY8];
-    for (let i = 0; i < carsX.length; i++) {
-        if (carsX[i] <= x + width && carsX[i] + carWidth >= x &&
-            carsY[i] + carHeight >= y && carsY[i] <= y + height) {
-            sx = 120;
-            frogCanMove = false;
+    for (let i = 0; i < carEnum.length; i++) {
+        if (carEnum[i].carX <= frog.x + frog.width && carEnum[i].carX + carEnum[i].carWidth >= frog.x &&
+            carEnum[i].carY + carEnum[i].carHeight >= frog.y && carEnum[i].carY <= frog.y + frog.height) {
+            frog.sx = 120;
+            frog.frogCanMove = false;
             setTimeout(resetFrog, 1000);
         }
     }
 }// end runOver func
 
 function resetFrog() {
-    if (!frogCanMove) {
-        y = 488;
-        x = 265;
-        sx = 0;
-        frogCanMove = true;
+    if (!frog.frogCanMove) {
+        frog.y = 488;
+        frog.x = 265;
+        frog.sx = 0;
+        frog.frogCanMove = true;
     }
 }
+
+function drawLogs() {
+    ctx.fillStyle = 'tan';
+    for (let i = 0; i < logEnum.length; i++) {
+        ctx.fillRect(logEnum[i].logX, logEnum[i].logY, logEnum[i].logWidth, logEnum[i].logHeight);
+    }
+}
+
+function moveLogs() {
+    if (log0.logX < canvas.width + 100) {
+        log0.logX += 2;
+    }
+    else {
+        log0.logX = -100;
+    }
+
+    if (log1.logX < canvas.width + 100) {
+        log1.logX += 2;
+    }
+    else {
+        log1.logX = -100;
+    }
+
+    if (log2.logX < canvas.width + 100) {
+        log2.logX += 3;
+    }
+    else {
+        log2.logX = -100;
+    }
+
+    if (log3.logX < canvas.width + 100) {
+        log3.logX += 3;
+    }
+    else {
+        log3.logX = -100;
+    }
+
+    if (log4.logX > log4.logWidth * -1) {
+        log4.logX -= 1;
+    }
+    else {
+        log4.logX = 670;
+    }
+
+    if (log5.logX > log5.logWidth * -1) {
+        log5.logX -= 1;
+    }
+    else {
+        log5.logX = 670;
+    }
+}// end moveLogs func
+
+function float() {
+    if (logEnum[0].logX <= frog.x + frog.width &&
+        logEnum[0].logX + logEnum[0].logWidth >= frog.x &&
+        logEnum[0].logY + logEnum[0].logHeight >= frog.y &&
+        logEnum[0].logY <= frog.y + frog.height) {
+        if (frog.x < canvas.width - 30)
+            frog.x = frog.x + 2;
+    }
+    if (logEnum[1].logX <= frog.x + frog.width &&
+        logEnum[1].logX + logEnum[1].logWidth >= frog.x &&
+        logEnum[1].logY + logEnum[1].logHeight >= frog.y &&
+        logEnum[1].logY <= frog.y + frog.height) {
+        if (frog.x < canvas.width - 30)
+            frog.x = frog.x + 2;
+    }
+
+    if (logEnum[2].logX <= frog.x + frog.width &&
+        logEnum[2].logX + logEnum[2].logWidth >= frog.x &&
+        logEnum[2].logY + logEnum[2].logHeight >= frog.y &&
+        logEnum[2].logY <= frog.y + frog.height) {
+        if (frog.x < canvas.width - 30)
+            frog.x = frog.x + 3;
+    }
+
+    if (logEnum[3].logX <= frog.x + frog.width &&
+        logEnum[3].logX + logEnum[3].logWidth >= frog.x &&
+        logEnum[3].logY + logEnum[3].logHeight >= frog.y &&
+        logEnum[3].logY <= frog.y + frog.height) {
+        if (frog.x < canvas.width - 30)
+            frog.x = frog.x + 3;
+    }
+
+    if (logEnum[4].logX <= frog.x + frog.width &&
+        logEnum[4].logX + logEnum[4].logWidth >= frog.x &&
+        logEnum[4].logY + logEnum[4].logHeight >= frog.y &&
+        logEnum[4].logY <= frog.y + frog.height) {
+        if (frog.x > 0)
+            frog.x = frog.x - 1;
+    }
+
+    if (logEnum[5].logX <= frog.x + frog.width &&
+        logEnum[5].logX + logEnum[5].logWidth >= frog.x &&
+        logEnum[5].logY + logEnum[5].logHeight >= frog.y &&
+        logEnum[5].logY <= frog.y + frog.height) {
+        if (frog.x > 0)
+            frog.x = frog.x - 1;
+    }
+
+}// float func
 
 function draw() {
     ctx.clearRect(0, 0, canvas.width, canvas.height);
     drawBackground();
+    drawLogs();
     drawFrog();
+    moveLogs();
     frogMove();
     drawCars();
     moveCars();
     runOver();
+    float();
 
     requestAnimationFrame(draw);
 }
