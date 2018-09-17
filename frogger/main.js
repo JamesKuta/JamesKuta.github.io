@@ -1,9 +1,10 @@
-/**********************************/
-/**Michele's Frogger V 1.0*********/
-/**By James Kuta*******************/
-/**Project Started on 09/08/2018***/
-/**Project Finished on*************/
-/**********************************/
+/////////////////////////////////////
+// Michele's Frogger Game          //
+// Developed By James Kuta         //
+// Project Started on 09/08/2018   //
+// Project Finished on             //
+/////////////////////////////////////
+
 // Global Objects
 let canvas = document.getElementById('canvas');
 let ctx = canvas.getContext('2d');
@@ -25,38 +26,40 @@ let frog = {
 }
 
 //car class
-function Car(carX, carSX, carY, carWidth, carHeight) {
+function Car(carX, carSX, carY, carWidth, carHeight, carSpeed) {
     this.carX = carX;
     this.carSX = carSX;
     this.carY = carY;
     this.carWidth = carWidth;
     this.carHeight = carHeight;
+    this.carSpeed = carSpeed;
+    
 }
 
 // car objects
 let carImage = new Image();
 carImage.src = "cars_gimp_game.png";
 
-const carRightSpeed = 5;
-const carLeftSpeed = 3;
+//const carRightSpeed = 5;
+//const carLeftSpeed = 3;
 
 let carEnum = [];
 
-let car0 = new Car(100, 0, 400, 60, 35);
+let car0 = new Car(100, 0, 400, 60, 35, 5);
 carEnum.push(car0);
-let car1 = new Car(500, 0, 400, 60, 35);
+let car1 = new Car(500, 0, 400, 60, 35, 5);
 carEnum.push(car1);
-let car2 = new Car(460, 60, 355, 60, 35);
+let car2 = new Car(460, 60, 355, 60, 35,-3);
 carEnum.push(car2);
-let car3 = new Car(400, 0, 310, 60, 35);
+let car3 = new Car(400, 0, 310, 60, 35, 2);
 carEnum.push(car3);
-let car4 = new Car(360, 60, 265, 60, 35);
+let car4 = new Car(360, 60, 265, 60, 35, -5);
 carEnum.push(car4);
-let car5 = new Car(60, 60, 355, 60, 35);
+let car5 = new Car(60, 60, 355, 60, 35, -3);
 carEnum.push(car5);
-let car6 = new Car(100, 0, 310, 60, 35);
+let car6 = new Car(100, 0, 310, 60, 35, 2);
 carEnum.push(car6);
-let car7 = new Car(160, 60, 265, 60, 35);
+let car7 = new Car(160, 60, 265, 60, 35, -5);
 carEnum.push(car7);
 
 // log class
@@ -288,51 +291,51 @@ function drawCars() {
 function moveCars() {
 
     if (car0.carX < canvas.width + 100) {
-        car0.carX += carRightSpeed;
+        car0.carX += car0.carSpeed;
     } else {
         car0.carX = (Math.floor(Math.random() * 200) + 200) * -1
     }
 
     if (car1.carX < canvas.width + 100) {
-        car1.carX += carRightSpeed;
+        car1.carX += car1.carSpeed;
     } else if (car0.carX < canvas.width && car0.carX > 100) {
         car1.carX = (Math.floor(Math.random() * 100) + 100) * -1
     }
 
 
     if (car2.carX > -100) {
-        car2.carX -= carLeftSpeed;
+        car2.carX += car2.carSpeed;
     } else {
         car2.carX = canvas.width + (Math.floor(Math.random() * 100) + 100);
     }
 
     if (car3.carX < canvas.width + 100) {
-        car3.carX += carRightSpeed;
+        car3.carX += car3.carSpeed;
     } else if (car6.carX < canvas.width && car6.carX > 40) {
         car3.carX = (Math.floor(Math.random() * 100) + 100) * -1
     }
 
     if (car4.carX > -100) {
-        car4.carX -= carLeftSpeed;
+        car4.carX += car4.carSpeed;
     } else {
         car4.carX = 570;
     }
 
     if (car5.carX > -100) {
-        car5.carX -= carLeftSpeed;
+        car5.carX += car5.carSpeed;
     } else if (car2.carX < canvas.width && car2.carX > 30) {
         car5.carX = canvas.width + (Math.floor(Math.random() * 200) + 100);
     }
 
     if (car6.carX < canvas.width + 100) {
-        car6.carX += carRightSpeed;
+        car6.carX += car6.carSpeed;
     } else {
         car6.carX = (Math.floor(Math.random() * 200) + 200) * -1
 
     }
 
     if (car7.carX > -100) {
-        car7.carX -= carLeftSpeed;
+        car7.carX += car7.carSpeed;
     } else if (car4.carX < canvas.width && car4.carX > 60) {
         car7.carX = canvas.width + (Math.floor(Math.random()) + 100);
     }
