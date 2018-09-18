@@ -23,9 +23,10 @@ let frog = {
     width: 30,
     height: 30,
     frogCanMove: true
-}
+};
 
-//car class
+
+//constructor function for the car objects.
 function Car(carX, carSX, carY, carWidth, carHeight, carSpeed) {
     this.carX = carX;
     this.carSX = carSX;
@@ -33,56 +34,61 @@ function Car(carX, carSX, carY, carWidth, carHeight, carSpeed) {
     this.carWidth = carWidth;
     this.carHeight = carHeight;
     this.carSpeed = carSpeed;
-    
 }
 
-// car objects
-let carImage = new Image();
-carImage.src = "cars_gimp_game.png";
+/*The image loading for the car is outside of the car class, because I can't figure
+out how to create an Image object inside of the function constructor.
+My way of loading the image works, but it seems like the car images should be
+a part of the Car constructor. I tried creating a prototype method and calling it, but that did not work */
 
-//const carRightSpeed = 5;
-//const carLeftSpeed = 3;
+Car.carImage = new Image();
+Car.carImage.src = "cars_gimp_game.png";
 
-let carEnum = [];
+let carArray = [];
 
+/*I should change which car objects share the same carY and carSpeed. car1 and car2
+ should go together and so on. The current order is a result of how I tested 
+ where the cars were drawing while writing the code. */
 let car0 = new Car(100, 0, 400, 60, 35, 5);
-carEnum.push(car0);
+carArray.push(car0);
 let car1 = new Car(500, 0, 400, 60, 35, 5);
-carEnum.push(car1);
-let car2 = new Car(460, 60, 355, 60, 35,-3);
-carEnum.push(car2);
+carArray.push(car1);
+let car2 = new Car(460, 60, 355, 60, 35, -3);
+carArray.push(car2);
 let car3 = new Car(400, 0, 310, 60, 35, 2);
-carEnum.push(car3);
+carArray.push(car3);
 let car4 = new Car(360, 60, 265, 60, 35, -5);
-carEnum.push(car4);
+carArray.push(car4);
 let car5 = new Car(60, 60, 355, 60, 35, -3);
-carEnum.push(car5);
+carArray.push(car5);
 let car6 = new Car(100, 0, 310, 60, 35, 2);
-carEnum.push(car6);
+carArray.push(car6);
 let car7 = new Car(160, 60, 265, 60, 35, -5);
-carEnum.push(car7);
+carArray.push(car7);
 
 // log class
-function Log(logX, logY, logWidth, logHeight) {
+function Log(logX, logY, logWidth, logHeight, logSpeed) {
     this.logX = logX;
     this.logY = logY;
     this.logWidth = logWidth;
     this.logHeight = logHeight;
+    this.logSpeed = logSpeed;
 }
-logEnum = [];
 
-log0 = new Log(300, 180, 120, 30);
-logEnum.push(log0);
-log1 = new Log(40, 180, 120, 30);
-logEnum.push(log1);
-log2 = new Log(200, 136, 120, 30);
-logEnum.push(log2);
-log3 = new Log(0, 136, 120, 30);
-logEnum.push(log3);
-log4 = new Log(400, 92, 120, 30);
-logEnum.push(log4);
-log5 = new Log(50, 92, 120, 30);
-logEnum.push(log5);
+logArray = [];
+
+log0 = new Log(300, 180, 120, 30, 2);
+logArray.push(log0);
+log1 = new Log(40, 180, 120, 30, 2);
+logArray.push(log1);
+log2 = new Log(200, 136, 120, 30, 3);
+logArray.push(log2);
+log3 = new Log(0, 136, 120, 30, 3);
+logArray.push(log3);
+log4 = new Log(400, 92, 120, 30, -1);
+logArray.push(log4);
+log5 = new Log(50, 92, 120, 30, -1);
+logArray.push(log5);
 
 // keypress Variables
 let rightPressed = false;
@@ -115,13 +121,13 @@ function buttonHandler() {
         event.preventDefault();
     }
 
-    if (event.target.value == "down" && frog.y + height < canvas.height - 80 && frog.frogCanMove) {
+    if (event.target.value == "down" && frog.y + frog.height < canvas.height - 80 && frog.frogCanMove) {
         frog.y = frog.y + 44;
         frog.sx = 0;
         event.preventDefault();
     }
 
-    if (event.target.value == "right" && frog.x + width < canvas.width - 20 && frog.frogCanMove) {
+    if (event.target.value == "right" && frog.x + frog.width < canvas.width - 20 && frog.frogCanMove) {
         frog.x = frog.x + 44;
         frog.sx = 40;
         event.preventDefault();
@@ -218,7 +224,7 @@ function frogMove() {
     //console.log(frog.y);
 }
 
-function drawBackground() {
+function displayGameScreenBackground() {
     // Draw Grass
     ctx.fillStyle = "rgb(100, 150, 50)";
     ctx.fillRect(0, 440, 570, 45);
@@ -273,22 +279,26 @@ function drawBackground() {
     ctx.fillRect(0, 0, 570, 220);
 
 
-} // end drawBackground func
+} // end displayGameScreenBackground func
 
-function drawFrog() {
+function displayFrog() {
     ctx.drawImage(frogImage, frog.sx, frog.sy, frog.swidth,
         frog.sheight, frog.x, frog.y, frog.width, frog.height);
 }
 
-function drawCars() {
-    for (let i = 0; i < carEnum.length; i++) {
-        ctx.drawImage(carImage, carEnum[i].carSX, 0, 60, 35, carEnum[i].carX, carEnum[i].carY, carEnum[i].carWidth, carEnum[i].carHeight);
-        //console.log(carEnum[i].carX);
+//this function works with my carArray for loop.
+function displayCars() {
+    for (let i = 0; i < carArray.length; i++) {
+        ctx.drawImage(Car.carImage, carArray[i].carSX, 0, 60, 35, carArray[i].carX, carArray[i].carY, carArray[i].carWidth, carArray[i].carHeight);
+        //console.log(carArray[i].carX);
     }
 
-}//end drawCars func
+}//end displayCars func
 
-function moveCars() {
+/* this function works, but it seems like I should be able to use a carArray for loop to shorten this function.
+But I am not figuring out how. I want to write cleaner code and all the if statements and checking
+object names seems wrong to me for some reason. Like I am missing a better way. */
+function carsMove() {
 
     if (car0.carX < canvas.width + 100) {
         car0.carX += car0.carSpeed;
@@ -339,20 +349,21 @@ function moveCars() {
     } else if (car4.carX < canvas.width && car4.carX > 60) {
         car7.carX = canvas.width + (Math.floor(Math.random()) + 100);
     }
-}// end moveCars func
+}// end carsMove func
 
-function runOver() {
-    for (let i = 0; i < carEnum.length; i++) {
-        if (carEnum[i].carX <= frog.x + frog.width && carEnum[i].carX + carEnum[i].carWidth >= frog.x &&
-            carEnum[i].carY + carEnum[i].carHeight >= frog.y && carEnum[i].carY <= frog.y + frog.height) {
+// this function works with my carArray for loop.
+function frogGotRunOverRealGood() {
+    for (let i = 0; i < carArray.length; i++) {
+        if (carArray[i].carX <= frog.x + frog.width && carArray[i].carX + carArray[i].carWidth >= frog.x &&
+            carArray[i].carY + carArray[i].carHeight >= frog.y && carArray[i].carY <= frog.y + frog.height) {
             frog.sx = 120;
             frog.frogCanMove = false;
-            setTimeout(resetFrog, 1000);
+            setTimeout(frogReset, 1000);
         }
     }
-}// end runOver func
+}// end frogGotRunOverRealGood func
 
-function resetFrog() {
+function frogReset() {
     if (!frog.frogCanMove) {
         frog.y = 488;
         frog.x = 265;
@@ -361,118 +372,122 @@ function resetFrog() {
     }
 }
 
-function drawLogs() {
+function displayLogs() {
     ctx.fillStyle = 'tan';
-    for (let i = 0; i < logEnum.length; i++) {
-        ctx.fillRect(logEnum[i].logX, logEnum[i].logY, logEnum[i].logWidth, logEnum[i].logHeight);
+    for (let i = 0; i < logArray.length; i++) {
+        ctx.fillRect(logArray[i].logX, logArray[i].logY, logArray[i].logWidth, logArray[i].logHeight);
     }
 }
 
-function moveLogs() {
+function logsMove() {
     if (log0.logX < canvas.width + 100) {
-        log0.logX += 2;
+        log0.logX += log0.logSpeed;
     }
     else {
         log0.logX = -100;
     }
 
     if (log1.logX < canvas.width + 100) {
-        log1.logX += 2;
+        log1.logX += log1.logSpeed;
     }
     else {
         log1.logX = -100;
     }
 
     if (log2.logX < canvas.width + 100) {
-        log2.logX += 3;
+        log2.logX += log2.logSpeed;
     }
     else {
         log2.logX = -100;
     }
 
     if (log3.logX < canvas.width + 100) {
-        log3.logX += 3;
+        log3.logX += log3.logSpeed;
     }
     else {
         log3.logX = -100;
     }
 
     if (log4.logX > log4.logWidth * -1) {
-        log4.logX -= 1;
+        log4.logX += log4.logSpeed;
     }
     else {
         log4.logX = 670;
     }
 
     if (log5.logX > log5.logWidth * -1) {
-        log5.logX -= 1;
+        log5.logX += log5.logSpeed;
     }
     else {
         log5.logX = 670;
     }
-}// end moveLogs func
+}// end logsMove func
 
-function float() {
-    if (logEnum[0].logX <= frog.x + frog.width &&
-        logEnum[0].logX + logEnum[0].logWidth >= frog.x &&
-        logEnum[0].logY + logEnum[0].logHeight >= frog.y &&
-        logEnum[0].logY <= frog.y + frog.height) {
+/* collision detection between log and frog. I used the logArray elements here 
+instead of typing the log object names just to practice working with array elements
+for loop does not work here because logArray[i] would all point to the same element 
+each iteration of the loop. Is ther a better way than all of these if statements? */
+function frogFloatOnLog() {
+    if (logArray[0].logX <= frog.x + frog.width &&
+        logArray[0].logX + logArray[0].logWidth >= frog.x &&
+        logArray[0].logY + logArray[0].logHeight >= frog.y &&
+        logArray[0].logY <= frog.y + frog.height) {
         if (frog.x < canvas.width - 30)
-            frog.x = frog.x + 2;
+            frog.x = frog.x + logArray[0].logSpeed;
     }
-    if (logEnum[1].logX <= frog.x + frog.width &&
-        logEnum[1].logX + logEnum[1].logWidth >= frog.x &&
-        logEnum[1].logY + logEnum[1].logHeight >= frog.y &&
-        logEnum[1].logY <= frog.y + frog.height) {
+    if (logArray[1].logX <= frog.x + frog.width &&
+        logArray[1].logX + logArray[1].logWidth >= frog.x &&
+        logArray[1].logY + logArray[1].logHeight >= frog.y &&
+        logArray[1].logY <= frog.y + frog.height) {
         if (frog.x < canvas.width - 30)
-            frog.x = frog.x + 2;
-    }
-
-    if (logEnum[2].logX <= frog.x + frog.width &&
-        logEnum[2].logX + logEnum[2].logWidth >= frog.x &&
-        logEnum[2].logY + logEnum[2].logHeight >= frog.y &&
-        logEnum[2].logY <= frog.y + frog.height) {
-        if (frog.x < canvas.width - 30)
-            frog.x = frog.x + 3;
+            frog.x = frog.x + logArray[1].logSpeed;
     }
 
-    if (logEnum[3].logX <= frog.x + frog.width &&
-        logEnum[3].logX + logEnum[3].logWidth >= frog.x &&
-        logEnum[3].logY + logEnum[3].logHeight >= frog.y &&
-        logEnum[3].logY <= frog.y + frog.height) {
+    if (logArray[2].logX <= frog.x + frog.width &&
+        logArray[2].logX + logArray[2].logWidth >= frog.x &&
+        logArray[2].logY + logArray[2].logHeight >= frog.y &&
+        logArray[2].logY <= frog.y + frog.height) {
         if (frog.x < canvas.width - 30)
-            frog.x = frog.x + 3;
+            frog.x = frog.x + logArray[2].logSpeed;
     }
 
-    if (logEnum[4].logX <= frog.x + frog.width &&
-        logEnum[4].logX + logEnum[4].logWidth >= frog.x &&
-        logEnum[4].logY + logEnum[4].logHeight >= frog.y &&
-        logEnum[4].logY <= frog.y + frog.height) {
+    if (logArray[3].logX <= frog.x + frog.width &&
+        logArray[3].logX + logArray[3].logWidth >= frog.x &&
+        logArray[3].logY + logArray[3].logHeight >= frog.y &&
+        logArray[3].logY <= frog.y + frog.height) {
+        if (frog.x < canvas.width - 30)
+            frog.x = frog.x + logArray[3].logSpeed;
+    }
+
+    if (logArray[4].logX <= frog.x + frog.width &&
+        logArray[4].logX + logArray[4].logWidth >= frog.x &&
+        logArray[4].logY + logArray[4].logHeight >= frog.y &&
+        logArray[4].logY <= frog.y + frog.height) {
         if (frog.x > 0)
-            frog.x = frog.x - 1;
+            frog.x = frog.x + logArray[4].logSpeed;
     }
 
-    if (logEnum[5].logX <= frog.x + frog.width &&
-        logEnum[5].logX + logEnum[5].logWidth >= frog.x &&
-        logEnum[5].logY + logEnum[5].logHeight >= frog.y &&
-        logEnum[5].logY <= frog.y + frog.height) {
+    if (logArray[5].logX <= frog.x + frog.width &&
+        logArray[5].logX + logArray[5].logWidth >= frog.x &&
+        logArray[5].logY + logArray[5].logHeight >= frog.y &&
+        logArray[5].logY <= frog.y + frog.height) {
         if (frog.x > 0)
-            frog.x = frog.x - 1;
+            frog.x = frog.x + logArray[5].logSpeed;
     }
 
-}// float func
+}// frogFloatOnLog func
 
 function draw() {
     ctx.clearRect(0, 0, canvas.width, canvas.height);
-    drawBackground();
-    drawLogs();
-    drawFrog();
-    moveLogs();
+    displayGameScreenBackground();
+    displayLogs();
+    displayFrog();
+    logsMove();
     frogMove();
-    drawCars();
-    moveCars();
-    runOver();
-    float();
+    displayCars();
+    carsMove();
+    frogGotRunOverRealGood();
+    frogFloatOnLog();
 
     requestAnimationFrame(draw);
 }
