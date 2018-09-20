@@ -331,7 +331,7 @@ let leftButton = document.getElementById('left');
 // Event Listeners
 document.addEventListener('keydown', keyDownHandler);
 document.addEventListener('keyup', keyUpHandler);
-upButton.addEventListener('ontouchstart', buttonHandler);
+upButton.addEventListener('mousedown', buttonHandler);
 downButton.addEventListener('click', buttonHandler);
 rightButton.addEventListener('click', buttonHandler);
 leftButton.addEventListener('click', buttonHandler);
@@ -341,24 +341,28 @@ function buttonHandler() {
         frog.y = frog.y - frog.frogJumpDist;
         frog.sx = frogUpSprite;
         event.preventDefault();
+        event.stopPropagation();
     }
 
     if (event.target.value == "down" && frog.y + frog.height < canvas.height - lowestFrogCanMove && frog.frogCanMove) {
         frog.y = frog.y + frog.frogJumpDist;
         frog.sx = frogDownSprite;
         event.preventDefault();
+        event.stopPropagation();
     }
 
     if (event.target.value == "right" && frog.x + frog.width < canvas.width - mostRightFrogCanMove && frog.frogCanMove) {
         frog.x = frog.x + frog.frogJumpDist;
         frog.sx = frogRightSprite;
         event.preventDefault();
+        event.stopPropagation();
     }
 
     if (event.target.value == "left" && frog.x > mostLeftFrogCanMove && frog.frogCanMove) {
         frog.x = frog.x - frog.frogJumpDist;
         frog.sx = frogLeftSprite;
         event.preventDefault();
+        event.stopPropagation();
     }
 }
 
