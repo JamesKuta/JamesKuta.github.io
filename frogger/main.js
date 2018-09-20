@@ -161,6 +161,8 @@ let carArray = [
 
 /*************Log Variables*************/
 
+//log color
+const logColor = 'tan';
 //draw log how wide and tall variables
 const eachLogSpriteWidthValue = 120;
 const eachLogSpriteHeightValue = 30;
@@ -329,7 +331,7 @@ let leftButton = document.getElementById('left');
 // Event Listeners
 document.addEventListener('keydown', keyDownHandler);
 document.addEventListener('keyup', keyUpHandler);
-upButton.addEventListener('click', buttonHandler);
+upButton.addEventListener('ontouchstart', buttonHandler);
 downButton.addEventListener('click', buttonHandler);
 rightButton.addEventListener('click', buttonHandler);
 leftButton.addEventListener('click', buttonHandler);
@@ -593,7 +595,7 @@ function frogReset() {
 }
 
 function displayLogs() {
-    ctx.fillStyle = 'tan';
+    ctx.fillStyle = logColor;
     for (let i = 0; i < logArray.length; i++) {
         ctx.fillRect(logArray[i].logX, logArray[i].logY, logArray[i].logWidth, logArray[i].logHeight);
     }
