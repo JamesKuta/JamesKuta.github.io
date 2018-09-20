@@ -159,6 +159,46 @@ let carArray = [
  should go together and so on. The current order is a result of how I tested 
  where the cars were drawing while writing the code. */
 
+/*************Log Variables*************/
+
+//draw log how wide and tall variables
+const eachLogSpriteWidthValue = 120;
+const eachLogSpriteHeightValue = 30;
+const eachLogSpriteWidth = canvas.width * (eachLogSpriteWidthValue / screenScaleWidth);
+const eachLogSpriteHeight = canvas.height * (eachLogSpriteHeightValue / screenScaleHeight);
+
+// horizontal positons for each log start
+const log0StartPosX = 300;
+const log1StartPosX = 40;
+const log2StartPosX = 200;
+const log3StartPosX = 0;
+const log4StartPosX = 400;
+const log5StartPosX = 50;
+
+//log horizontal positions
+let log0X = canvas.width * (log0StartPosX / screenScaleWidth);
+let log1X = canvas.width * (log1StartPosX / screenScaleWidth);
+let log2X = canvas.width * (log2StartPosX / screenScaleWidth);
+let log3X = canvas.width * (log3StartPosX / screenScaleWidth);
+let log4X = canvas.width * (log4StartPosX / screenScaleWidth);
+let log5X = canvas.width * (log5StartPosX / screenScaleWidth);
+
+//vertical positions for each log start
+const log0StartPosY = 180;
+const log1StartPosY = 180;
+const log2StartPosY = 136;
+const log3StartPosY = 136;
+const log4StartPosY = 92;
+const log5StartPosY = 92;
+
+//log vertical positions
+let log0Y = canvas.width * (log0StartPosY / screenScaleHeight);
+let log1Y = canvas.width * (log1StartPosY / screenScaleHeight);
+let log2Y = canvas.width * (log2StartPosY / screenScaleHeight);
+let log3Y = canvas.width * (log3StartPosY / screenScaleHeight);
+let log4Y = canvas.width * (log4StartPosY / screenScaleHeight);
+let log5Y = canvas.width * (log5StartPosY / screenScaleHeight);
+
 // log class
 function Log(logX, logY, logWidth, logHeight, logSpeed) {
     this.logX = logX;
@@ -168,15 +208,107 @@ function Log(logX, logY, logWidth, logHeight, logSpeed) {
     this.logSpeed = logSpeed;
 }
 
+// log speeds
+let lazyRiver = 1;
+let whiteCaps = 2;
+let theRapids = 3;
+
+
+// how fast should each log move
+let log0Speed = canvas.width * (whiteCaps / screenScaleWidth);
+let log1Speed = canvas.width * (whiteCaps / screenScaleWidth);
+let log2Speed = canvas.width * (theRapids / screenScaleWidth);
+let log3Speed = canvas.width * (theRapids / screenScaleWidth);
+let log4Speed = canvas.width * ((lazyRiver / screenScaleWidth) * -1);
+let log5Speed = canvas.width * ((lazyRiver / screenScaleWidth) * -1);
+
+
 // array of all my log objects
 logArray = [
-    new Log(300, 180, 120, 30, 2),
-    new Log(40, 180, 120, 30, 2),
-    new Log(200, 136, 120, 30, 3),
-    new Log(0, 136, 120, 30, 3),
-    new Log(400, 92, 120, 30, -1),
-    new Log(50, 92, 120, 30, -1)
+    new Log(log0X, log0Y, eachLogSpriteWidth, eachLogSpriteHeight, log0Speed),
+    new Log(log1X, log1Y, eachLogSpriteWidth, eachLogSpriteHeight, log1Speed),
+    new Log(log2X, log2Y, eachLogSpriteWidth, eachLogSpriteHeight, log2Speed),
+    new Log(log3X, log3Y, eachLogSpriteWidth, eachLogSpriteHeight, log3Speed),
+    new Log(log4X, log4Y, eachLogSpriteWidth, eachLogSpriteHeight, log4Speed),
+    new Log(log5X, log5Y, eachLogSpriteWidth, eachLogSpriteHeight, log5Speed)
 ];
+
+
+/*************Background Variables*************/
+
+//grass variables
+
+const grassColor = "rgb(100, 150, 50)";
+const leftGrassScreenPosX = 0;
+const rightGrassScreenPosX = 0;
+
+const bottomGrassScreenPosY = 440;
+const topGrassScreenPosY = 215;
+
+const grassHeight = 45;
+
+let grassStripWidth = canvas.width;
+let grassStripHeight = canvas.height * (grassHeight / screenScaleHeight);
+
+let grassStrip1X = canvas.width * (leftGrassScreenPosX / screenScaleWidth);
+let grassStrip2X = canvas.width * (rightGrassScreenPosX / screenScaleWidth);
+
+let grassStrip1Y = canvas.height * (bottomGrassScreenPosY / screenScaleHeight);
+let grassStrip2Y = canvas.height * (topGrassScreenPosY / screenScaleHeight);
+
+//road variables
+const roadEdgeColor = "white";
+const roadMiddleLineColor = "yellow";
+const roadLineWidthValue = 2;
+const roadLineWidth = canvas.width * (roadLineWidthValue / screenScaleWidth);
+
+const yellowLineDash = 15;
+const whiteLineDash = 5;
+
+let yellowLineDashWidth = canvas.width * (yellowLineDash / screenScaleWidth);
+let whiteLineDashWidth = canvas.width * (whiteLineDash / screenScaleWidth);
+
+//Road is in 5 lines. 5 is top line moving down in order
+
+//road line 5
+const leftXPosLine5 = 0;
+const rightXPosLine5 = canvas.width;
+const Line5YPos = 260
+const Line5Y = canvas.height * (Line5YPos / screenScaleHeight);
+
+//road line 4
+const leftXPosLine4 = 0;
+const rightXPosLine4 = canvas.width;
+const Line4YPos = 350;
+const Line4Y = canvas.height * (Line4YPos / screenScaleHeight);
+
+//road line 3
+const leftXPosLine3 = 0;
+const rightXPosLine3 = canvas.width;
+const Line3YPos = 305;
+const Line3Y = canvas.height * (Line3YPos / screenScaleHeight);
+
+//road line 2
+const leftXPosLine2 = 0;
+const rightXPosLine2 = canvas.width;
+const Line2YPos = 395;
+const Line2Y = canvas.height * (Line2YPos / screenScaleHeight);
+
+//road line 1
+const leftXPosLine1 = 0;
+const rightXPosLine1 = canvas.width;
+const Line1YPos = 439;
+const Line1Y = canvas.height * (Line1YPos / screenScaleHeight);
+
+//water area
+const waterColor = "blue";
+ctx.fillRect(0, 0, 570, 220);
+const waterScreenPosX = 0;
+const waterScreenPosY = 0;
+const waterWidthXValue = 570;
+const waterHeightYValue = 220;
+let waterWidth = canvas.width * (waterWidthXValue / screenScaleWidth);
+let waterHeight = canvas.height * (waterHeightYValue / screenScaleHeight); 
 
 // keypress Variables
 let rightPressed = false;
@@ -314,57 +446,57 @@ function frogMove() {
 
 function displayGameScreenBackground() {
     // Draw Grass
-    ctx.fillStyle = "rgb(100, 150, 50)";
-    ctx.fillRect(0, 440, 570, 45);
-    ctx.fillRect(0, 220, 570, 45);
+    ctx.fillStyle = grassColor;
+    ctx.fillRect(grassStrip1X, grassStrip1Y, grassStripWidth, grassStripHeight);
+    ctx.fillRect(grassStrip2X, grassStrip2Y, grassStripWidth, grassStripHeight);
 
     // Draw Road
     ctx.beginPath();
-    ctx.moveTo(0, 266);
-    ctx.lineTo(570, 266);
-    ctx.strokeStyle = "white";
+    ctx.moveTo(leftXPosLine5, Line5Y);
+    ctx.lineTo(rightXPosLine5, Line5Y);
+    ctx.strokeStyle = roadEdgeColor;
     ctx.setLineDash([0]);
-    ctx.strokeWidth = 4;
-    ctx.lineWidth = 5;
+    //ctx.strokeWidth = 4;
+    ctx.lineWidth = roadLineWidth;
     ctx.stroke();
 
     ctx.beginPath();
-    ctx.moveTo(0, 350);
-    ctx.lineTo(570, 350);
-    ctx.strokeStyle = "white";
-    ctx.setLineDash([10]);
-    ctx.strokeWidth = 2;
-    ctx.lineWidth = 2;
+    ctx.moveTo(leftXPosLine4, Line4Y);
+    ctx.lineTo(rightXPosLine4, Line4Y);
+    ctx.strokeStyle = roadEdgeColor;
+    ctx.setLineDash([whiteLineDashWidth]);
+    //ctx.strokeWidth = 2;
+    ctx.lineWidth = roadLineWidth;
     ctx.stroke();
 
     ctx.beginPath();
-    ctx.moveTo(0, 305);
-    ctx.lineTo(570, 305);
-    ctx.strokeStyle = "yellow";
-    ctx.setLineDash([25]);
-    ctx.strokeWidth = 4;
+    ctx.moveTo(leftXPosLine3, Line3Y);
+    ctx.lineTo(rightXPosLine3, Line3Y);
+    ctx.strokeStyle = roadMiddleLineColor;
+    ctx.setLineDash([yellowLineDashWidth]);
+    ctx.strokeWidth = roadLineWidth;
     ctx.stroke();
 
     ctx.beginPath();
-    ctx.moveTo(0, 395);
-    ctx.lineTo(570, 395);
-    ctx.strokeStyle = "yellow";
-    ctx.setLineDash([25]);
-    ctx.strokeWidth = 4;
+    ctx.moveTo(leftXPosLine2, Line2Y);
+    ctx.lineTo(rightXPosLine2, Line2Y);
+    ctx.strokeStyle = roadMiddleLineColor;
+    ctx.setLineDash([yellowLineDashWidth]);
+    ctx.strokeWidth = roadLineWidth;
     ctx.stroke();
 
     ctx.beginPath();
-    ctx.moveTo(0, 439);
-    ctx.lineTo(570, 439);
-    ctx.strokeStyle = "white";
+    ctx.moveTo(leftXPosLine1, Line1Y);
+    ctx.lineTo(rightXPosLine1, Line1Y);
+    ctx.strokeStyle = roadEdgeColor;
     ctx.setLineDash([0]);
-    ctx.strokeWidth = 4;
-    ctx.lineWidth = 5;
+    //ctx.strokeWidth = 4;
+    ctx.lineWidth = roadLineWidth;
     ctx.stroke();
 
-    // draw water area
-    ctx.fillStyle = "blue";
-    ctx.fillRect(0, 0, 570, 220);
+     //draw water area
+     ctx.fillStyle = waterColor;
+     ctx.fillRect(waterScreenPosX, waterScreenPosY, waterWidth, waterHeight);
 
 
 } // end displayGameScreenBackground func
