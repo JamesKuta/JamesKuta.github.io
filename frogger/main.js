@@ -6,6 +6,7 @@
 /////////////////////////////////////
 
 // Global Objects
+
 let canvas = document.getElementById('canvas');
 let ctx = canvas.getContext('2d');
 
@@ -58,6 +59,7 @@ let frog = {
     frogJumpDist: frogJump,
     frogCanMove: true
 };
+
 
 
 /*************Car Variables*************/
@@ -304,13 +306,13 @@ const Line1Y = canvas.height * (Line1YPos / screenScaleHeight);
 
 //water area
 const waterColor = "blue";
-ctx.fillRect(0, 0, 570, 220);
 const waterScreenPosX = 0;
 const waterScreenPosY = 0;
 const waterWidthXValue = 570;
 const waterHeightYValue = 220;
 let waterWidth = canvas.width * (waterWidthXValue / screenScaleWidth);
 let waterHeight = canvas.height * (waterHeightYValue / screenScaleHeight); 
+
 
 // keypress Variables
 let rightPressed = false;
@@ -703,7 +705,7 @@ function frogFloatOnLog() {
 
 }// frogFloatOnLog func
 
-function draw() {
+function gameLoop() {
     ctx.clearRect(0, 0, canvas.width, canvas.height);
     displayGameScreenBackground();
     displayLogs();
@@ -715,7 +717,7 @@ function draw() {
     frogGotRunOverRealGood();
     frogFloatOnLog();
 
-    requestAnimationFrame(draw);
+    requestAnimationFrame(gameLoop);
 }
 
-draw();
+gameLoop();
