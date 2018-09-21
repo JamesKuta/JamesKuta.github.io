@@ -68,6 +68,10 @@ canvas {
 
 }
 
+.centerbuttons {
+    text-align: center;
+}
+
 select {
     size: 50px;
 }
