@@ -20,7 +20,7 @@ canvas {
     text-align: center;
     text-decoration: none;
     display: inline-block;
-    font-size: 24px;
+    font-size: 60px;
     touch-action: manipulation;
     margin: 4px;
     border-radius: 50%
@@ -33,7 +33,7 @@ canvas {
     text-align: center;
     text-decoration: none;
     display: inline-block;
-    font-size: 24px;
+    font-size: 60px;
     touch-action: manipulation;
     margin: 4px;
     border-radius: 50%
@@ -47,7 +47,7 @@ canvas {
     text-align: center;
     text-decoration: none;
     display: inline-block;
-    font-size: 24px;
+    font-size: 60px;
     touch-action: manipulation;
     margin: 4px;
     border-radius: 50%
@@ -61,7 +61,7 @@ canvas {
     text-align: center;
     text-decoration: none;
     display: inline-block;
-    font-size: 24px;
+    font-size: 60px;
     touch-action: manipulation;
     margin: 4px;
     border-radius: 50%
