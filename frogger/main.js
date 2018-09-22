@@ -156,9 +156,6 @@ let carArray = [
     new Car(car7X, carSpritePos2, car7Y, carWidth, carHeight, car7Speed)
 ];
 
-/*I should change which car objects share the same carY and carSpeed. car1 and car2
- should go together and so on. The current order is a result of how I tested 
- where the cars were drawing while writing the code. */
 
 /*************Log Variables*************/
 
@@ -186,6 +183,11 @@ let log3X = canvas.width * (log3StartPosX / screenScaleWidth);
 let log4X = canvas.width * (log4StartPosX / screenScaleWidth);
 let log5X = canvas.width * (log5StartPosX / screenScaleWidth);
 
+// log speeds
+let lazyRiver = 1;
+let whiteCaps = 2;
+let theRapids = 3;
+
 //vertical positions for each log start
 const log0StartPosY = 180;
 const log1StartPosY = 180;
@@ -202,21 +204,6 @@ let log3Y = canvas.width * (log3StartPosY / screenScaleHeight);
 let log4Y = canvas.width * (log4StartPosY / screenScaleHeight);
 let log5Y = canvas.width * (log5StartPosY / screenScaleHeight);
 
-// log class
-function Log(logX, logY, logWidth, logHeight, logSpeed) {
-    this.logX = logX;
-    this.logY = logY;
-    this.logWidth = logWidth;
-    this.logHeight = logHeight;
-    this.logSpeed = logSpeed;
-}
-
-// log speeds
-let lazyRiver = 1;
-let whiteCaps = 2;
-let theRapids = 3;
-
-
 // how fast should each log move
 let log0Speed = canvas.width * (lazyRiver / screenScaleWidth);
 let log1Speed = canvas.width * (lazyRiver / screenScaleWidth);
@@ -225,14 +212,29 @@ let log3Speed = canvas.width * ((whiteCaps / screenScaleWidth) * -1);
 let log4Speed = canvas.width * (lazyRiver / screenScaleWidth);
 let log5Speed = canvas.width * (lazyRiver / screenScaleWidth);
 
+let logSpritPosX = 0;
+
+/// WORKING LOGS
+function Log(logX, logSX, logY, logWidth, logHeight, logSpeed) {
+    this.logX = logX;
+    this.logSX = logSX;
+    this.logY = logY;
+    this.logWidth = logWidth;
+    this.logHeight = logHeight;
+    this.logSpeed = logSpeed;
+}
+
+Log.logImage = new Image();
+Log.logImage.src = "logImage.png";
+
 // array of all my log objects
 logArray = [
-    new Log(log0X, log0Y, eachLogSpriteWidth, eachLogSpriteHeight, log0Speed),
-    new Log(log1X, log1Y, eachLogSpriteWidth, eachLogSpriteHeight, log1Speed),
-    new Log(log2X, log2Y, eachLogSpriteWidth, eachLogSpriteHeight, log2Speed),
-    new Log(log3X, log3Y, eachLogSpriteWidth, eachLogSpriteHeight, log3Speed),
-    new Log(log4X, log4Y, eachLogSpriteWidth, eachLogSpriteHeight, log4Speed),
-    new Log(log5X, log5Y, eachLogSpriteWidth, eachLogSpriteHeight, log5Speed)
+    new Log(log0X, logSpritPosX, log0Y, eachLogSpriteWidth, eachLogSpriteHeight, log0Speed),
+    new Log(log1X, logSpritPosX, log1Y, eachLogSpriteWidth, eachLogSpriteHeight, log1Speed),
+    new Log(log2X, logSpritPosX, log2Y, eachLogSpriteWidth, eachLogSpriteHeight, log2Speed),
+    new Log(log3X, logSpritPosX, log3Y, eachLogSpriteWidth, eachLogSpriteHeight, log3Speed),
+    new Log(log4X, logSpritPosX, log4Y, eachLogSpriteWidth, eachLogSpriteHeight, log4Speed),
+    new Log(log5X, logSpritPosX, log5Y, eachLogSpriteWidth, eachLogSpriteHeight, log5Speed)
 ];
 
 Log.logImage = new Image();
@@ -594,10 +596,11 @@ function frogReset() {
 }
 
 function displayLogs() {
-    ctx.fillStyle = logColor;
     for (let i = 0; i < logArray.length; i++) {
-        ctx.fillRect(logArray[i].logX, logArray[i].logY, logArray[i].logWidth, logArray[i].logHeight);
+        ctx.drawImage(Log.logImage, logArray[i].logSX, 0, eachLogSpriteWidthValue, eachLogSpriteHeightValue, logArray[i].logX, logArray[i].logY, logArray[i].logWidth, logArray[i].logHeight);
+        
     }
+
 }
 
 function logsMove() {
