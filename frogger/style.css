@@ -6,6 +6,7 @@ body {
     background: rgb(5, 87, 1);
     display: flex;
     justify-content: center;
+    touch-action: none;
 }
 
 canvas {
