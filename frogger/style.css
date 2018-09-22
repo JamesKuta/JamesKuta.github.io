@@ -12,10 +12,12 @@ body {
 canvas {
     background: rgb(138, 137, 137);
     border: 5px sold green;
+    touch-action: none;
 }
 
 button {
     font-family: 'Courier New', Courier, monospace;
+    touch-action: none;
 }
 
 #up {
@@ -77,4 +79,5 @@ button {
 
 .centerbuttons {
     text-align: center;
+    touch-action: none;
 }
