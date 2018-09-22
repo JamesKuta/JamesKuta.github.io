@@ -59,8 +59,6 @@ let frog = {
     frogCanMove: true
 };
 
-
-
 /*************Car Variables*************/
 
 //load car sprite sheet
@@ -240,7 +238,6 @@ logArray = [
 Log.logImage = new Image();
 Log.logImage.src = "logImage.png";
 
-
 /*************Background Variables*************/
 
 //grass variables
@@ -337,9 +334,9 @@ let leftButton = document.getElementById('left');
 document.addEventListener('keydown', keyDownHandler);
 document.addEventListener('keyup', keyUpHandler);
 upButton.addEventListener('mousedown', buttonHandler);
-downButton.addEventListener('click', buttonHandler);
-rightButton.addEventListener('click', buttonHandler);
-leftButton.addEventListener('click', buttonHandler);
+downButton.addEventListener('mousedown', buttonHandler);
+rightButton.addEventListener('mousedown', buttonHandler);
+leftButton.addEventListener('mousedown', buttonHandler);
 
 function buttonHandler() {
     if (event.target.value == "up" && frog.y > highestFrogCanMove && frog.frogCanMove) {
@@ -600,7 +597,6 @@ function displayLogs() {
         ctx.drawImage(Log.logImage, logArray[i].logSX, 0, eachLogSpriteWidthValue, eachLogSpriteHeightValue, logArray[i].logX, logArray[i].logY, logArray[i].logWidth, logArray[i].logHeight);
         
     }
-
 }
 
 function logsMove() {
@@ -700,8 +696,12 @@ function frogFloatOnLog() {
 
 }// frogFloatOnLog func
 
-function gameLoop() {
+function clearScreen() {
     ctx.clearRect(0, 0, canvas.width, canvas.height);
+}
+
+function gameLoop() {
+    clearScreen();
     displayGameScreenBackground();
     displayLogs();
     displayFrog();
