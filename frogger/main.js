@@ -172,6 +172,8 @@ const log2StartPosX = 200;
 const log3StartPosX = 0;
 const log4StartPosX = 400;
 const log5StartPosX = 50;
+const log6StartPosX = 500;
+const log7StartPosX = 250;
 
 //log horizontal positions
 let log0X = canvas.width * (log0StartPosX / screenScaleWidth);
@@ -180,6 +182,8 @@ let log2X = canvas.width * (log2StartPosX / screenScaleWidth);
 let log3X = canvas.width * (log3StartPosX / screenScaleWidth);
 let log4X = canvas.width * (log4StartPosX / screenScaleWidth);
 let log5X = canvas.width * (log5StartPosX / screenScaleWidth);
+let log6X = canvas.width * (log6StartPosX / screenScaleWidth);
+let log7X = canvas.width * (log7StartPosX / screenScaleWidth);
 
 // log speeds
 let lazyRiver = 1;
@@ -193,26 +197,31 @@ const log2StartPosY = 136;
 const log3StartPosY = 136;
 const log4StartPosY = 92;
 const log5StartPosY = 92;
+const log6StartPosY = 48;
+const log7StartPosY = 48;
 
 //log vertical positions
-let log0Y = canvas.width * (log0StartPosY / screenScaleHeight);
-let log1Y = canvas.width * (log1StartPosY / screenScaleHeight);
-let log2Y = canvas.width * (log2StartPosY / screenScaleHeight);
-let log3Y = canvas.width * (log3StartPosY / screenScaleHeight);
-let log4Y = canvas.width * (log4StartPosY / screenScaleHeight);
-let log5Y = canvas.width * (log5StartPosY / screenScaleHeight);
+let log0Y = canvas.height * (log0StartPosY / screenScaleHeight);
+let log1Y = canvas.height * (log1StartPosY / screenScaleHeight);
+let log2Y = canvas.height * (log2StartPosY / screenScaleHeight);
+let log3Y = canvas.height * (log3StartPosY / screenScaleHeight);
+let log4Y = canvas.height * (log4StartPosY / screenScaleHeight);
+let log5Y = canvas.height * (log5StartPosY / screenScaleHeight);
+let log6Y = canvas.height * (log6StartPosY / screenScaleHeight);
+let log7Y = canvas.height * (log7StartPosY / screenScaleHeight);
 
 // how fast should each log move
 let log0Speed = canvas.width * (lazyRiver / screenScaleWidth);
 let log1Speed = canvas.width * (lazyRiver / screenScaleWidth);
 let log2Speed = canvas.width * ((whiteCaps / screenScaleWidth) * -1);
 let log3Speed = canvas.width * ((whiteCaps / screenScaleWidth) * -1);
-let log4Speed = canvas.width * (lazyRiver / screenScaleWidth);
-let log5Speed = canvas.width * (lazyRiver / screenScaleWidth);
+let log4Speed = canvas.width * (whiteCaps / screenScaleWidth);
+let log5Speed = canvas.width * (whiteCaps / screenScaleWidth);
+let log6Speed = canvas.width * ((lazyRiver / screenScaleWidth) * -1);
+let log7Speed = canvas.width * ((lazyRiver / screenScaleWidth) * -1);
 
 let logSpritPosX = 0;
 
-/// WORKING LOGS
 function Log(logX, logSX, logY, logWidth, logHeight, logSpeed) {
     this.logX = logX;
     this.logSX = logSX;
@@ -232,7 +241,9 @@ logArray = [
     new Log(log2X, logSpritPosX, log2Y, eachLogSpriteWidth, eachLogSpriteHeight, log2Speed),
     new Log(log3X, logSpritPosX, log3Y, eachLogSpriteWidth, eachLogSpriteHeight, log3Speed),
     new Log(log4X, logSpritPosX, log4Y, eachLogSpriteWidth, eachLogSpriteHeight, log4Speed),
-    new Log(log5X, logSpritPosX, log5Y, eachLogSpriteWidth, eachLogSpriteHeight, log5Speed)
+    new Log(log5X, logSpritPosX, log5Y, eachLogSpriteWidth, eachLogSpriteHeight, log5Speed),
+    new Log(log6X, logSpritPosX, log6Y, eachLogSpriteWidth, eachLogSpriteHeight, log6Speed),
+    new Log(log7X, logSpritPosX, log7Y, eachLogSpriteWidth, eachLogSpriteHeight, log7Speed)
 ];
 
 Log.logImage = new Image();
@@ -248,6 +259,7 @@ const rightGrassScreenPosX = 0;
 
 const bottomGrassScreenPosY = 440;
 const topGrassScreenPosY = 215;
+const goalGrassScreenPosY = 0; // new
 
 const grassHeight = 45;
 
@@ -256,9 +268,11 @@ let grassStripHeight = canvas.height * (grassHeight / screenScaleHeight);
 
 let grassStrip1X = canvas.width * (leftGrassScreenPosX / screenScaleWidth);
 let grassStrip2X = canvas.width * (rightGrassScreenPosX / screenScaleWidth);
+let grassStrip3X = canvas.width * (leftGrassScreenPosX / screenScaleWidth); // new
 
 let grassStrip1Y = canvas.height * (bottomGrassScreenPosY / screenScaleHeight);
-let grassStrip2Y = canvas.height * (topGrassScreenPosY / screenScaleHeight);
+let grassStrip2Y = canvas.height * (topGrassScreenPosY / screenScaleHeight); // new
+let grassStrip3Y = canvas.height * (goalGrassScreenPosY / screenScaleHeight); // new
 
 //road variables
 const roadEdgeColor = "white";
@@ -313,6 +327,31 @@ const waterHeightYValue = 220;
 let waterWidth = canvas.width * (waterWidthXValue / screenScaleWidth);
 let waterHeight = canvas.height * (waterHeightYValue / screenScaleHeight); 
 
+// new
+//Frog Goal Variables
+let goal1 = false;
+let goal2 = false;
+let goal3 = false;
+let goal4 = false;
+let goal5 = false;
+
+let goalHeightAndWidth = 41;
+let goalHeightValue = 4;
+let goalYPos = canvas.height * (goalHeightValue / screenScaleHeight); // where are goals are
+
+let goalWidth = canvas.width * (goalHeightAndWidth / screenScaleWidth);
+let goalHeight = canvas.height * (goalHeightAndWidth / screenScaleHeight);
+
+let goal1XPos = (canvas.width * .1) - goalWidth / 2;
+let goal2XPos = (canvas.width * .3) - goalWidth / 2;
+let goal3XPos = (canvas.width * .5) - goalWidth / 2; 
+let goal4XPos = (canvas.width * .7) - goalWidth / 2;
+let goal5XPos = (canvas.width * .9) - goalWidth / 2; 
+
+
+
+
+// new
 
 // keypress Variables
 let rightPressed = false;
@@ -456,6 +495,7 @@ function displayGameScreenBackground() {
     ctx.fillStyle = grassColor;
     ctx.fillRect(grassStrip1X, grassStrip1Y, grassStripWidth, grassStripHeight);
     ctx.fillRect(grassStrip2X, grassStrip2Y, grassStripWidth, grassStripHeight);
+    
 
     // Draw Road
     ctx.beginPath();
@@ -504,6 +544,25 @@ function displayGameScreenBackground() {
      //draw water area
      ctx.fillStyle = waterColor;
      ctx.fillRect(waterScreenPosX, waterScreenPosY, waterWidth, waterHeight);
+
+     //draw goal area
+     ctx.fillStyle = grassColor;
+     ctx.fillRect(grassStrip3X, grassStrip3Y, grassStripWidth, grassStripHeight);
+
+     ctx.fillStyle = 'black';
+     ctx.fillRect(goal1XPos, goalYPos, goalWidth, goalHeight);
+     
+     ctx.fillStyle = 'black';
+     ctx.fillRect(goal2XPos, goalYPos, goalWidth, goalHeight);
+     
+     ctx.fillStyle = 'black';
+     ctx.fillRect(goal3XPos, goalYPos, goalWidth, goalHeight);
+
+     ctx.fillStyle = 'black';
+     ctx.fillRect(goal4XPos, goalYPos, goalWidth, goalHeight);
+     
+     ctx.fillStyle = 'black';
+     ctx.fillRect(goal5XPos, goalYPos, goalWidth, goalHeight);
 
 
 } // end displayGameScreenBackground func
@@ -641,6 +700,21 @@ function logsMove() {
     else {
         logArray[5].logX = -logArray[5].logWidth;
     }
+
+    if (logArray[6].logX + logArray[6].logWidth > 0) {
+        logArray[6].logX += logArray[6].logSpeed;
+    }
+    else {
+        logArray[6].logX = canvas.width;
+    }
+
+    if (logArray[7].logX + logArray[7].logWidth > 0) {
+        logArray[7].logX += logArray[7].logSpeed;
+    }
+    else {
+        logArray[7].logX = canvas.width;
+    }
+
 }// end logsMove func
 
 function frogFloatOnLog() {
@@ -694,7 +768,27 @@ function frogFloatOnLog() {
             frog.x = frog.x + logArray[5].logSpeed;
     }
 
+    if (logArray[6].logX <= frog.x + frog.width &&
+        logArray[6].logX + logArray[6].logWidth >= frog.x &&
+        logArray[6].logY + logArray[6].logHeight >= frog.y &&
+        logArray[6].logY <= frog.y + frog.height) {
+        if (frog.x > 0)
+            frog.x = frog.x + logArray[6].logSpeed;
+    }
+
+    if (logArray[7].logX <= frog.x + frog.width &&
+        logArray[7].logX + logArray[7].logWidth >= frog.x &&
+        logArray[7].logY + logArray[7].logHeight >= frog.y &&
+        logArray[7].logY <= frog.y + frog.height) {
+        if (frog.x > 0)
+            frog.x = frog.x + logArray[7].logSpeed;
+    }
+
 }// frogFloatOnLog func
+
+function frogHitsGoal() {
+
+}
 
 function clearScreen() {
     ctx.clearRect(0, 0, canvas.width, canvas.height);
@@ -711,6 +805,7 @@ function gameLoop() {
     carsMove();
     frogGotRunOverRealGood();
     frogFloatOnLog();
+    frogHitsGoal();
 
     requestAnimationFrame(gameLoop);
 }
