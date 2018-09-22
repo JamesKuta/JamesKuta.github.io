@@ -13,6 +13,10 @@ canvas {
     border: 5px sold green;
 }
 
+button {
+    font-family: 'Courier New', Courier, monospace;
+}
+
 #up {
     background-color: azure;
     border: none;
@@ -23,7 +27,8 @@ canvas {
     font-size: 60px;
     touch-action: manipulation;
     margin: 2px;
-    border-radius: 50%
+    border-radius: 20%;
+    
 }
 
 #down {
@@ -36,7 +41,7 @@ canvas {
     font-size: 60px;
     touch-action: manipulation;
     margin: 2px;
-    border-radius: 50%
+    border-radius: 20%
 
 }
 
@@ -50,7 +55,7 @@ canvas {
     font-size: 60px;
     touch-action: manipulation;
     margin: 2px;
-    border-radius: 50%;
+    border-radius: 20%;
     margin-right:200px;
 
 }
@@ -65,7 +70,7 @@ canvas {
     font-size: 60px;
     touch-action: manipulation;
     margin: 2px;
-    border-radius: 50%
+    border-radius: 20%
 
 }
 

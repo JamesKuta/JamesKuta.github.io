@@ -1,9 +1,8 @@
-/////////////////////////////////////
 // Michele's Frogger Game          //
 // Developed By James Kuta         //
 // Project Started on 09/08/2018   //
 // Project Finished on             //
-/////////////////////////////////////
+
 
 // Global Objects
 
@@ -77,13 +76,13 @@ let carHeight = canvas.height * (eachCarSpriteHeight /screenScaleHeight);
 
 //horizontal position for each car start
 const car0StartPosX = 100;
-const car1StartPosX = 500;
-const car2StartPosX = 460;
-const car3StartPosX = 400;
-const car4StartPosX = 60;
-const car5StartPosX = 60;
+const car1StartPosX = 300;
+const car2StartPosX = 400;
+const car3StartPosX = 100;
+const car4StartPosX = 700;
+const car5StartPosX = 300;
 const car6StartPosX = 100;
-const car7StartPosX = 160;
+const car7StartPosX = 400;
 
 // car horizontal position
 let car0X = canvas.width * (car0StartPosX / screenScaleWidth);
@@ -99,10 +98,10 @@ let car7X = canvas.width * (car7StartPosX / screenScaleWidth);
 const car0StartPosY = 400;
 const car1StartPosY = 400;
 const car2StartPosY = 355;
-const car3StartPosY = 310;
-const car4StartPosY = 355;
-const car5StartPosY = 355;
-const car6StartPosY = 310;
+const car3StartPosY = 355;
+const car4StartPosY = 310;
+const car5StartPosY = 310;
+const car6StartPosY = 265;
 const car7StartPosY = 265;
 
 // car vertical position
@@ -118,18 +117,18 @@ let car7Y = canvas.height * (car7StartPosY / screenScaleHeight);
 // car speeds
 let slowPoke = 2;
 let goodDriver = 3;
-let speedDemon = 5;
-let deathWish = 7;
+let speedDemon = 4;
+let deathWish = 5;
 
 // how fast should each car move
-let car0Speed = canvas.width * (speedDemon / screenScaleWidth);
-let car1Speed = canvas.width * (speedDemon / screenScaleWidth);
-let car2Speed = canvas.width * ((goodDriver / screenScaleWidth) * -1);
-let car3Speed = canvas.width * (slowPoke / screenScaleWidth);
-let car4Speed = canvas.width * ((goodDriver / screenScaleWidth) * -1);
-let car5Speed = canvas.width * ((goodDriver / screenScaleWidth) * -1);
-let car6Speed = canvas.width * (slowPoke / screenScaleWidth);
-let car7Speed = canvas.width * ((deathWish / screenScaleWidth) * -1);
+let car0Speed = canvas.width * (slowPoke / screenScaleWidth);
+let car1Speed = canvas.width * (slowPoke / screenScaleWidth);
+let car2Speed = canvas.width * ((slowPoke / screenScaleWidth) * -1);
+let car3Speed = canvas.width * ((slowPoke / screenScaleWidth) * -1);
+let car4Speed = canvas.width * (goodDriver / screenScaleWidth);
+let car5Speed = canvas.width * (goodDriver / screenScaleWidth);
+let car6Speed = canvas.width * ((goodDriver / screenScaleWidth) * -1);
+let car7Speed = canvas.width * ((goodDriver / screenScaleWidth) * -1);
 
 //sprite positions
 let carSpritePos1 = 0;
@@ -150,10 +149,10 @@ let carArray = [
     new Car(car0X, carSpritePos1, car0Y, carWidth, carHeight, car0Speed),
     new Car(car1X, carSpritePos1, car1Y, carWidth, carHeight, car1Speed),
     new Car(car2X, carSpritePos2, car2Y, carWidth, carHeight, car2Speed),
-    new Car(car3X, carSpritePos1, car3Y, carWidth, carHeight, car3Speed),
-    new Car(car4X, carSpritePos2, car4Y, carWidth, carHeight, car4Speed),
-    new Car(car5X, carSpritePos2, car5Y, carWidth, carHeight, car5Speed),
-    new Car(car6X, carSpritePos1, car6Y, carWidth, carHeight, car6Speed),
+    new Car(car3X, carSpritePos2, car3Y, carWidth, carHeight, car3Speed),
+    new Car(car4X, carSpritePos1, car4Y, carWidth, carHeight, car4Speed),
+    new Car(car5X, carSpritePos1, car5Y, carWidth, carHeight, car5Speed),
+    new Car(car6X, carSpritePos2, car6Y, carWidth, carHeight, car6Speed),
     new Car(car7X, carSpritePos2, car7Y, carWidth, carHeight, car7Speed)
 ];
 
@@ -219,13 +218,12 @@ let theRapids = 3;
 
 
 // how fast should each log move
-let log0Speed = canvas.width * (whiteCaps / screenScaleWidth);
-let log1Speed = canvas.width * (whiteCaps / screenScaleWidth);
-let log2Speed = canvas.width * (theRapids / screenScaleWidth);
-let log3Speed = canvas.width * (theRapids / screenScaleWidth);
-let log4Speed = canvas.width * ((lazyRiver / screenScaleWidth) * -1);
-let log5Speed = canvas.width * ((lazyRiver / screenScaleWidth) * -1);
-
+let log0Speed = canvas.width * (lazyRiver / screenScaleWidth);
+let log1Speed = canvas.width * (lazyRiver / screenScaleWidth);
+let log2Speed = canvas.width * ((whiteCaps / screenScaleWidth) * -1);
+let log3Speed = canvas.width * ((whiteCaps / screenScaleWidth) * -1);
+let log4Speed = canvas.width * (lazyRiver / screenScaleWidth);
+let log5Speed = canvas.width * (lazyRiver / screenScaleWidth);
 
 // array of all my log objects
 logArray = [
@@ -236,6 +234,9 @@ logArray = [
     new Log(log4X, log4Y, eachLogSpriteWidth, eachLogSpriteHeight, log4Speed),
     new Log(log5X, log5Y, eachLogSpriteWidth, eachLogSpriteHeight, log5Speed)
 ];
+
+Log.logImage = new Image();
+Log.logImage.src = "logImage.png";
 
 
 /*************Background Variables*************/
@@ -449,7 +450,6 @@ function frogMove() {
             left = true;
         }
     }
-    //console.log(frog.y);
 }
 
 function displayGameScreenBackground() {
@@ -514,7 +514,6 @@ function displayFrog() {
         frog.sheight, frog.x, frog.y, frog.width, frog.height);
 }
 
-//this function works with my carArray for loop.
 function displayCars() {
     for (let i = 0; i < carArray.length; i++) {
         ctx.drawImage(Car.carImage, carArray[i].carSX, 0, eachCarSpriteWidth, eachCarSpriteHeight, carArray[i].carX, carArray[i].carY, carArray[i].carWidth, carArray[i].carHeight);
@@ -523,63 +522,57 @@ function displayCars() {
 
 }//end displayCars func
 
-/* this function works, but it seems like I should be able to use a carArray for loop to shorten this function.
-But I am not figuring out how. I want to write cleaner code and all the if statements and checking
-object names seems wrong to me for some reason. Like I am missing a better way. */
 function carsMove() {
 
-    if (carArray[0].carX < canvas.width + 100) {
+    if (carArray[0].carX < canvas.width) {
         carArray[0].carX += carArray[0].carSpeed;
     } else {
-        carArray[0].carX = (Math.floor(Math.random() * 200) + 200) * -1
+        carArray[0].carX = -carWidth;
     }
 
-    if (carArray[1].carX < canvas.width + 100) {
+    if (carArray[1].carX < canvas.width) {
         carArray[1].carX += carArray[1].carSpeed;
-    } else if (carArray[0].carX < canvas.width && carArray[0].carX > 100) {
-        carArray[1].carX = (Math.floor(Math.random() * 100) + 100) * -1
+    } else {
+        carArray[1].carX = -carWidth;
     }
 
-
-    if (carArray[2].carX > -100) {
+    if (carArray[2].carX + carWidth > 0) {
         carArray[2].carX += carArray[2].carSpeed;
     } else {
-        carArray[2].carX = canvas.width + (Math.floor(Math.random() * 100) + 100);
+        carArray[2].carX = canvas.width;
     }
 
-    if (carArray[3].carX < canvas.width + 100) {
+    if (carArray[3].carX + carWidth > 0) {
         carArray[3].carX += carArray[3].carSpeed;
-    } else if (carArray[6].carX < canvas.width && carArray[6].carX > 40) {
-        carArray[3].carX = (Math.floor(Math.random() * 100) + 100) * -1
+    } else {
+        carArray[3].carX = canvas.width;
     }
 
-    if (carArray[4].carX > -100) {
+    if (carArray[4].carX < canvas.width) {
         carArray[4].carX += carArray[4].carSpeed;
     } else {
-        carArray[4].carX = 570;
+        carArray[4].carX = -carWidth;
     }
 
-    if (carArray[5].carX > -100) {
+    if (carArray[5].carX < canvas.width) {
         carArray[5].carX += carArray[5].carSpeed;
-    } else if (carArray[2].carX < canvas.width && carArray[2].carX > 30) {
-        carArray[5].carX = canvas.width + (Math.floor(Math.random() * 200) + 100);
+    } else {
+        carArray[5].carX = -carWidth;
     }
 
-    if (carArray[6].carX < canvas.width + 100) {
+    if (carArray[6].carX + carWidth > 0) {
         carArray[6].carX += carArray[6].carSpeed;
     } else {
-        carArray[6].carX = (Math.floor(Math.random() * 200) + 200) * -1
-
+        carArray[6].carX = canvas.width;
     }
 
-    if (carArray[7].carX > -100) {
+    if (carArray[7].carX + carWidth > 0) {
         carArray[7].carX += carArray[7].carSpeed;
-    } else if (carArray[4].carX < canvas.width && carArray[4].carX > 60) {
-        carArray[7].carX = canvas.width + (Math.floor(Math.random()) + 100);
+    } else {
+        carArray[7].carX = canvas.width;
     }
 }// end carsMove func
 
-// this function works with my carArray for loop.
 function frogGotRunOverRealGood() {
     for (let i = 0; i < carArray.length; i++) {
         if (carArray[i].carX <= frog.x + frog.width && carArray[i].carX + carArray[i].carWidth >= frog.x &&
@@ -608,74 +601,73 @@ function displayLogs() {
 }
 
 function logsMove() {
-    if (logArray[0].logX < canvas.width + 100) {
+    if (logArray[0].logX < canvas.width) {
         logArray[0].logX += logArray[0].logSpeed;
     }
     else {
-        logArray[0].logX = -100;
+        logArray[0].logX = -logArray[0].logWidth;
     }
 
-    if (logArray[1].logX < canvas.width + 100) {
+    if (logArray[1].logX < canvas.width) {
         logArray[1].logX += logArray[1].logSpeed;
     }
     else {
-        logArray[1].logX = -100;
+        logArray[1].logX = -logArray[1].logWidth;
     }
 
-    if (logArray[2].logX < canvas.width + 100) {
+    if (logArray[2].logX + logArray[2].logWidth > 0) {
         logArray[2].logX += logArray[2].logSpeed;
     }
     else {
-        logArray[2].logX = -100;
+        logArray[2].logX = canvas.width;
     }
 
-    if (logArray[3].logX < canvas.width + 100) {
+    if (logArray[3].logX + logArray[3].logWidth > 0) {
         logArray[3].logX += logArray[3].logSpeed;
     }
     else {
-        logArray[3].logX = -100;
+        logArray[3].logX = canvas.width;
     }
 
-    if (logArray[4].logX > logArray[4].logWidth * -1) {
+    if (logArray[4].logX < canvas.width) {
         logArray[4].logX += logArray[4].logSpeed;
     }
     else {
-        logArray[4].logX = 670;
+        logArray[4].logX = -logArray[4].logWidth;
     }
 
-    if (logArray[5].logX > logArray[5].logWidth * -1) {
+    if (logArray[5].logX < canvas.width) {
         logArray[5].logX += logArray[5].logSpeed;
     }
     else {
-        logArray[5].logX = 670;
+        logArray[5].logX = -logArray[5].logWidth;
     }
 }// end logsMove func
 
-/* collision detection between log and frog. I used the logArray elements here 
-instead of typing the log object names just to practice working with array elements
-for loop does not work here because logArray[i] would all point to the same element 
-each iteration of the loop. Is ther a better way than all of these if statements? */
 function frogFloatOnLog() {
     if (logArray[0].logX <= frog.x + frog.width &&
         logArray[0].logX + logArray[0].logWidth >= frog.x &&
         logArray[0].logY + logArray[0].logHeight >= frog.y &&
         logArray[0].logY <= frog.y + frog.height) {
-        if (frog.x < canvas.width - frogWidth)
+        if (frog.x + frog.width < canvas.width) { 
             frog.x = frog.x + logArray[0].logSpeed;
+        }
+        
     }
     if (logArray[1].logX <= frog.x + frog.width &&
         logArray[1].logX + logArray[1].logWidth >= frog.x &&
         logArray[1].logY + logArray[1].logHeight >= frog.y &&
         logArray[1].logY <= frog.y + frog.height) {
-        if (frog.x < canvas.width - frogWidth)
+        if (frog.x + frog.width < canvas.width){
             frog.x = frog.x + logArray[1].logSpeed;
+        }
     }
 
     if (logArray[2].logX <= frog.x + frog.width &&
         logArray[2].logX + logArray[2].logWidth >= frog.x &&
         logArray[2].logY + logArray[2].logHeight >= frog.y &&
         logArray[2].logY <= frog.y + frog.height) {
-        if (frog.x < canvas.width - frogWidth)
+        if (frog.x > 0)
             frog.x = frog.x + logArray[2].logSpeed;
     }
 
@@ -683,7 +675,7 @@ function frogFloatOnLog() {
         logArray[3].logX + logArray[3].logWidth >= frog.x &&
         logArray[3].logY + logArray[3].logHeight >= frog.y &&
         logArray[3].logY <= frog.y + frog.height) {
-        if (frog.x < canvas.width - frogWidth)
+        if (frog.x > 0)
             frog.x = frog.x + logArray[3].logSpeed;
     }
 
@@ -691,7 +683,7 @@ function frogFloatOnLog() {
         logArray[4].logX + logArray[4].logWidth >= frog.x &&
         logArray[4].logY + logArray[4].logHeight >= frog.y &&
         logArray[4].logY <= frog.y + frog.height) {
-        if (frog.x > 0)
+        if (frog.x + frog.width < canvas.width)
             frog.x = frog.x + logArray[4].logSpeed;
     }
 
@@ -699,7 +691,7 @@ function frogFloatOnLog() {
         logArray[5].logX + logArray[5].logWidth >= frog.x &&
         logArray[5].logY + logArray[5].logHeight >= frog.y &&
         logArray[5].logY <= frog.y + frog.height) {
-        if (frog.x > 0)
+        if (frog.x + frog.width < canvas.width)
             frog.x = frog.x + logArray[5].logSpeed;
     }
 
