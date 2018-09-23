@@ -9,6 +9,8 @@
 let canvas = document.getElementById('canvas');
 let ctx = canvas.getContext('2d');
 
+let jesusFrog = false;
+
 const waitTime = 1000; // used by setTimeOut() after frog death
 
 // scale from 570 x 570 screen size
@@ -70,7 +72,7 @@ const eachCarSpriteWidth = 60;
 const eachCarSpriteHeight = 35;
 
 let carWidth = canvas.width * (eachCarSpriteWidth / screenScaleWidth);
-let carHeight = canvas.height * (eachCarSpriteHeight /screenScaleHeight);
+let carHeight = canvas.height * (eachCarSpriteHeight / screenScaleHeight);
 
 //horizontal position for each car start
 const car0StartPosX = 100;
@@ -325,7 +327,7 @@ const waterScreenPosY = 0;
 const waterWidthXValue = 570;
 const waterHeightYValue = 220;
 let waterWidth = canvas.width * (waterWidthXValue / screenScaleWidth);
-let waterHeight = canvas.height * (waterHeightYValue / screenScaleHeight); 
+let waterHeight = canvas.height * (waterHeightYValue / screenScaleHeight);
 
 // new
 //Frog Goal Variables
@@ -344,9 +346,9 @@ let goalHeight = canvas.height * (goalHeightAndWidth / screenScaleHeight);
 
 let goal1XPos = (canvas.width * .1) - goalWidth / 2;
 let goal2XPos = (canvas.width * .3) - goalWidth / 2;
-let goal3XPos = (canvas.width * .5) - goalWidth / 2; 
+let goal3XPos = (canvas.width * .5) - goalWidth / 2;
 let goal4XPos = (canvas.width * .7) - goalWidth / 2;
-let goal5XPos = (canvas.width * .9) - goalWidth / 2; 
+let goal5XPos = (canvas.width * .9) - goalWidth / 2;
 
 
 
@@ -368,6 +370,7 @@ let upButton = document.getElementById('up');
 let downButton = document.getElementById('down');
 let rightButton = document.getElementById('right');
 let leftButton = document.getElementById('left');
+let jesusModeButton = document.getElementById('jesusfrog');
 
 // Event Listeners
 document.addEventListener('keydown', keyDownHandler);
@@ -376,6 +379,15 @@ upButton.addEventListener('mousedown', buttonHandler);
 downButton.addEventListener('mousedown', buttonHandler);
 rightButton.addEventListener('mousedown', buttonHandler);
 leftButton.addEventListener('mousedown', buttonHandler);
+jesusModeButton.addEventListener('click', function () {
+    if (!jesusFrog){
+    jesusFrog = true;
+    jesusfrog.style.backgroundColor = 'green';
+    } else {
+        jesusFrog = false;
+        jesusfrog.style.backgroundColor = 'azure';
+    }
+});
 
 function buttonHandler() {
     if (event.target.value == "up" && frog.y > highestFrogCanMove && frog.frogCanMove) {
@@ -495,7 +507,7 @@ function displayGameScreenBackground() {
     ctx.fillStyle = grassColor;
     ctx.fillRect(grassStrip1X, grassStrip1Y, grassStripWidth, grassStripHeight);
     ctx.fillRect(grassStrip2X, grassStrip2Y, grassStripWidth, grassStripHeight);
-    
+
 
     // Draw Road
     ctx.beginPath();
@@ -541,28 +553,28 @@ function displayGameScreenBackground() {
     ctx.lineWidth = roadLineWidth;
     ctx.stroke();
 
-     //draw water area
-     ctx.fillStyle = waterColor;
-     ctx.fillRect(waterScreenPosX, waterScreenPosY, waterWidth, waterHeight);
+    //draw water area
+    ctx.fillStyle = waterColor;
+    ctx.fillRect(waterScreenPosX, waterScreenPosY, waterWidth, waterHeight);
 
-     //draw goal area
-     ctx.fillStyle = grassColor;
-     ctx.fillRect(grassStrip3X, grassStrip3Y, grassStripWidth, grassStripHeight);
+    //draw goal area
+    ctx.fillStyle = grassColor;
+    ctx.fillRect(grassStrip3X, grassStrip3Y, grassStripWidth, grassStripHeight);
 
-     ctx.fillStyle = 'black';
-     ctx.fillRect(goal1XPos, goalYPos, goalWidth, goalHeight);
-     
-     ctx.fillStyle = 'black';
-     ctx.fillRect(goal2XPos, goalYPos, goalWidth, goalHeight);
-     
-     ctx.fillStyle = 'black';
-     ctx.fillRect(goal3XPos, goalYPos, goalWidth, goalHeight);
+    ctx.fillStyle = 'black';
+    ctx.fillRect(goal1XPos, goalYPos, goalWidth, goalHeight);
 
-     ctx.fillStyle = 'black';
-     ctx.fillRect(goal4XPos, goalYPos, goalWidth, goalHeight);
-     
-     ctx.fillStyle = 'black';
-     ctx.fillRect(goal5XPos, goalYPos, goalWidth, goalHeight);
+    ctx.fillStyle = 'black';
+    ctx.fillRect(goal2XPos, goalYPos, goalWidth, goalHeight);
+
+    ctx.fillStyle = 'black';
+    ctx.fillRect(goal3XPos, goalYPos, goalWidth, goalHeight);
+
+    ctx.fillStyle = 'black';
+    ctx.fillRect(goal4XPos, goalYPos, goalWidth, goalHeight);
+
+    ctx.fillStyle = 'black';
+    ctx.fillRect(goal5XPos, goalYPos, goalWidth, goalHeight);
 
 
 } // end displayGameScreenBackground func
@@ -632,12 +644,14 @@ function carsMove() {
 }// end carsMove func
 
 function frogGotRunOverRealGood() {
-    for (let i = 0; i < carArray.length; i++) {
-        if (carArray[i].carX <= frog.x + frog.width && carArray[i].carX + carArray[i].carWidth >= frog.x &&
-            carArray[i].carY + carArray[i].carHeight >= frog.y && carArray[i].carY <= frog.y + frog.height) {
-            frog.sx = frogSplatSprite;
-            frog.frogCanMove = false;
-            setTimeout(frogReset, waitTime);
+    if (!jesusFrog) {
+        for (let i = 0; i < carArray.length; i++) {
+            if (carArray[i].carX <= frog.x + frog.width && carArray[i].carX + carArray[i].carWidth >= frog.x &&
+                carArray[i].carY + carArray[i].carHeight >= frog.y && carArray[i].carY <= frog.y + frog.height) {
+                frog.sx = frogSplatSprite;
+                frog.frogCanMove = false;
+                setTimeout(frogReset, waitTime);
+            }
         }
     }
 }// end frogGotRunOverRealGood func
@@ -654,7 +668,7 @@ function frogReset() {
 function displayLogs() {
     for (let i = 0; i < logArray.length; i++) {
         ctx.drawImage(Log.logImage, logArray[i].logSX, 0, eachLogSpriteWidthValue, eachLogSpriteHeightValue, logArray[i].logX, logArray[i].logY, logArray[i].logWidth, logArray[i].logHeight);
-        
+
     }
 }
 
@@ -718,72 +732,73 @@ function logsMove() {
 }// end logsMove func
 
 function frogFloatOnLog() {
-    if (logArray[0].logX <= frog.x + frog.width &&
-        logArray[0].logX + logArray[0].logWidth >= frog.x &&
-        logArray[0].logY + logArray[0].logHeight >= frog.y &&
-        logArray[0].logY <= frog.y + frog.height) {
-        if (frog.x + frog.width < canvas.width) { 
-            frog.x = frog.x + logArray[0].logSpeed;
+    if (!jesusFrog) {
+        if (logArray[0].logX <= frog.x + frog.width &&
+            logArray[0].logX + logArray[0].logWidth >= frog.x &&
+            logArray[0].logY + logArray[0].logHeight >= frog.y &&
+            logArray[0].logY <= frog.y + frog.height) {
+            if (frog.x + frog.width < canvas.width) {
+                frog.x = frog.x + logArray[0].logSpeed;
+            }
+
         }
-        
-    }
-    if (logArray[1].logX <= frog.x + frog.width &&
-        logArray[1].logX + logArray[1].logWidth >= frog.x &&
-        logArray[1].logY + logArray[1].logHeight >= frog.y &&
-        logArray[1].logY <= frog.y + frog.height) {
-        if (frog.x + frog.width < canvas.width){
-            frog.x = frog.x + logArray[1].logSpeed;
+        if (logArray[1].logX <= frog.x + frog.width &&
+            logArray[1].logX + logArray[1].logWidth >= frog.x &&
+            logArray[1].logY + logArray[1].logHeight >= frog.y &&
+            logArray[1].logY <= frog.y + frog.height) {
+            if (frog.x + frog.width < canvas.width) {
+                frog.x = frog.x + logArray[1].logSpeed;
+            }
+        }
+
+        if (logArray[2].logX <= frog.x + frog.width &&
+            logArray[2].logX + logArray[2].logWidth >= frog.x &&
+            logArray[2].logY + logArray[2].logHeight >= frog.y &&
+            logArray[2].logY <= frog.y + frog.height) {
+            if (frog.x > 0)
+                frog.x = frog.x + logArray[2].logSpeed;
+        }
+
+        if (logArray[3].logX <= frog.x + frog.width &&
+            logArray[3].logX + logArray[3].logWidth >= frog.x &&
+            logArray[3].logY + logArray[3].logHeight >= frog.y &&
+            logArray[3].logY <= frog.y + frog.height) {
+            if (frog.x > 0)
+                frog.x = frog.x + logArray[3].logSpeed;
+        }
+
+        if (logArray[4].logX <= frog.x + frog.width &&
+            logArray[4].logX + logArray[4].logWidth >= frog.x &&
+            logArray[4].logY + logArray[4].logHeight >= frog.y &&
+            logArray[4].logY <= frog.y + frog.height) {
+            if (frog.x + frog.width < canvas.width)
+                frog.x = frog.x + logArray[4].logSpeed;
+        }
+
+        if (logArray[5].logX <= frog.x + frog.width &&
+            logArray[5].logX + logArray[5].logWidth >= frog.x &&
+            logArray[5].logY + logArray[5].logHeight >= frog.y &&
+            logArray[5].logY <= frog.y + frog.height) {
+            if (frog.x + frog.width < canvas.width)
+                frog.x = frog.x + logArray[5].logSpeed;
+        }
+
+        if (logArray[6].logX <= frog.x + frog.width &&
+            logArray[6].logX + logArray[6].logWidth >= frog.x &&
+            logArray[6].logY + logArray[6].logHeight >= frog.y &&
+            logArray[6].logY <= frog.y + frog.height) {
+            if (frog.x > 0)
+                frog.x = frog.x + logArray[6].logSpeed;
+        }
+
+        if (logArray[7].logX <= frog.x + frog.width &&
+            logArray[7].logX + logArray[7].logWidth >= frog.x &&
+            logArray[7].logY + logArray[7].logHeight >= frog.y &&
+            logArray[7].logY <= frog.y + frog.height) {
+            if (frog.x > 0)
+                frog.x = frog.x + logArray[7].logSpeed;
         }
     }
-
-    if (logArray[2].logX <= frog.x + frog.width &&
-        logArray[2].logX + logArray[2].logWidth >= frog.x &&
-        logArray[2].logY + logArray[2].logHeight >= frog.y &&
-        logArray[2].logY <= frog.y + frog.height) {
-        if (frog.x > 0)
-            frog.x = frog.x + logArray[2].logSpeed;
-    }
-
-    if (logArray[3].logX <= frog.x + frog.width &&
-        logArray[3].logX + logArray[3].logWidth >= frog.x &&
-        logArray[3].logY + logArray[3].logHeight >= frog.y &&
-        logArray[3].logY <= frog.y + frog.height) {
-        if (frog.x > 0)
-            frog.x = frog.x + logArray[3].logSpeed;
-    }
-
-    if (logArray[4].logX <= frog.x + frog.width &&
-        logArray[4].logX + logArray[4].logWidth >= frog.x &&
-        logArray[4].logY + logArray[4].logHeight >= frog.y &&
-        logArray[4].logY <= frog.y + frog.height) {
-        if (frog.x + frog.width < canvas.width)
-            frog.x = frog.x + logArray[4].logSpeed;
-    }
-
-    if (logArray[5].logX <= frog.x + frog.width &&
-        logArray[5].logX + logArray[5].logWidth >= frog.x &&
-        logArray[5].logY + logArray[5].logHeight >= frog.y &&
-        logArray[5].logY <= frog.y + frog.height) {
-        if (frog.x + frog.width < canvas.width)
-            frog.x = frog.x + logArray[5].logSpeed;
-    }
-
-    if (logArray[6].logX <= frog.x + frog.width &&
-        logArray[6].logX + logArray[6].logWidth >= frog.x &&
-        logArray[6].logY + logArray[6].logHeight >= frog.y &&
-        logArray[6].logY <= frog.y + frog.height) {
-        if (frog.x > 0)
-            frog.x = frog.x + logArray[6].logSpeed;
-    }
-
-    if (logArray[7].logX <= frog.x + frog.width &&
-        logArray[7].logX + logArray[7].logWidth >= frog.x &&
-        logArray[7].logY + logArray[7].logHeight >= frog.y &&
-        logArray[7].logY <= frog.y + frog.height) {
-        if (frog.x > 0)
-            frog.x = frog.x + logArray[7].logSpeed;
-    }
-
 }// frogFloatOnLog func
 
 function frogHitsGoal() {
