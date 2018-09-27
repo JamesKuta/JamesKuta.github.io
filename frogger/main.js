@@ -46,6 +46,7 @@ const frogDownSprite = 0;
 const frogRightSprite = 40;
 const frogLeftSprite = 80;
 const frogSplatSprite = 120;
+const frogGoalSprite = 160;
 
 // Frog object (may turn into class if I want 2 player game)
 let frog = {
@@ -803,15 +804,15 @@ function frogFloatOnLog() {
 
 function frogHitsGoal() {
     if (goal1XPos < frog.x + frog.width && goalYPos + goalHeight > frog.y &&
-        goal1XPos + goalWidth > frog.x) {
+        goal1XPos + goalWidth > frog.x && goal1 !== true) {
         goal1 = true;
         frog.frogCanMove = false;
         drawGoalFrogs();
         frogReset();
-    }
+    } 
 
     if (goal2XPos < frog.x + frog.width && goalYPos + goalHeight > frog.y &&
-        goal2XPos + goalWidth > frog.x) {
+        goal2XPos + goalWidth > frog.x && goal2 !== true) {
         goal2 = true;
         frog.frogCanMove = false;
         drawGoalFrogs();
@@ -819,53 +820,53 @@ function frogHitsGoal() {
     }
 
     if (goal3XPos < frog.x + frog.width && goalYPos + goalHeight > frog.y &&
-        goal3XPos + goalWidth > frog.x) {
+        goal3XPos + goalWidth > frog.x && goal3 !== true) {
             goal3 = true;
             frog.frogCanMove = false;
             drawGoalFrogs();
             frogReset();
-    }
+    } 
 
     if (goal4XPos < frog.x + frog.width && goalYPos + goalHeight > frog.y &&
-        goal4XPos + goalWidth > frog.x) {
+        goal4XPos + goalWidth > frog.x && goal4 !== true) {
             goal4 = true;
             frog.frogCanMove = false;
             drawGoalFrogs();
             frogReset();
-    }
+    } 
 
     if (goal5XPos < frog.x + frog.width && goalYPos + goalHeight > frog.y &&
-        goal5XPos + goalWidth > frog.x) {
+        goal5XPos + goalWidth > frog.x && goal5 !== true) {
             goal5 = true;
             frog.frogCanMove = false;
             drawGoalFrogs();
             frogReset();
-    }
+    } 
 }
 
 function drawGoalFrogs() {
     if (goal1) {
-        ctx.drawImage(frogImage, frogUpSprite, frogUpSprite, frog.swidth,
+        ctx.drawImage(frogImage, frogGoalSprite, frogUpSprite, frog.swidth,
             frog.sheight, goal1XPos + (frog.width / 2 - goalWidth / 4), goalYPos + frog.height / 5, frog.width, frog.height);
     }
 
     if (goal2) {
-        ctx.drawImage(frogImage, frogUpSprite, frogUpSprite, frog.swidth,
+        ctx.drawImage(frogImage, frogGoalSprite, frogUpSprite, frog.swidth,
             frog.sheight, goal2XPos + (frog.width / 2 - goalWidth / 4), goalYPos + frog.height / 5, frog.width, frog.height);
     }
 
     if (goal3) {
-        ctx.drawImage(frogImage, frogUpSprite, frogUpSprite, frog.swidth,
+        ctx.drawImage(frogImage, frogGoalSprite, frogUpSprite, frog.swidth,
             frog.sheight, goal3XPos + (frog.width / 2 - goalWidth / 4), goalYPos + frog.height / 5, frog.width, frog.height);
     }
 
     if (goal4) {
-        ctx.drawImage(frogImage, frogUpSprite, frogUpSprite, frog.swidth,
+        ctx.drawImage(frogImage, frogGoalSprite, frogUpSprite, frog.swidth,
             frog.sheight, goal4XPos + (frog.width / 2 - goalWidth / 4), goalYPos + frog.height / 5, frog.width, frog.height);
     }
 
     if (goal5) {
-        ctx.drawImage(frogImage, frogUpSprite, frogUpSprite, frog.swidth,
+        ctx.drawImage(frogImage, frogGoalSprite, frogUpSprite, frog.swidth,
             frog.sheight, goal5XPos + (frog.width / 2 - goalWidth / 4), goalYPos + frog.height / 5, frog.width, frog.height);
     }
 
