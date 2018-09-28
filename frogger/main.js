@@ -47,6 +47,8 @@ const frogRightSprite = 40;
 const frogLeftSprite = 80;
 const frogSplatSprite = 120;
 const frogGoalSprite = 160;
+const frogSplashSprite = 240;
+const frogHitTopSprite = 200;
 
 // Frog object (may turn into class if I want 2 player game)
 let frog = {
@@ -59,7 +61,9 @@ let frog = {
     width: frogWidth,
     height: frogHeight,
     frogJumpDist: frogJump,
-    frogCanMove: true
+    frogCanMove: true,
+    lives: 3,
+    deathFlag: true
 };
 
 /*************Car Variables*************/
@@ -593,6 +597,19 @@ function displayCars() {
 
 }//end displayCars func
 
+function displayLives() {
+    let displayLivesPosValue = 565;
+    let displayLivesPos = canvas.height * (displayLivesPosValue / screenScaleHeight);
+
+
+    ctx.font = "30px Comic Sans MS";
+    ctx.fillStyle = 'white';
+    ctx.fillText('LIVES: ' + frog.lives, 0, displayLivesPos);
+
+}
+let displayLivesPosValue = 500;
+let displayLivesPos = canvas.height * (displayLivesPosValue / screenScaleHeight);
+
 function carsMove() {
 
     if (carArray[0].carX < canvas.width) {
@@ -663,6 +680,10 @@ function frogReset() {
         frog.x = frogX;
         frog.sx = frogUpSprite;
         frog.frogCanMove = true;
+        if (frog.deathFlag) {
+            frog.lives--;
+        }
+        frog.deathFlag = true;
     }
 }
 
@@ -738,8 +759,9 @@ function frogFloatOnLog() {
             logArray[0].logX + logArray[0].logWidth >= frog.x &&
             logArray[0].logY + logArray[0].logHeight >= frog.y &&
             logArray[0].logY <= frog.y + frog.height) {
-            if (frog.x + frog.width < canvas.width) {
+            if (frog.x + frog.width < canvas.width && frog.frogCanMove) {
                 frog.x = frog.x + logArray[0].logSpeed;
+                return;
             }
 
         }
@@ -747,8 +769,9 @@ function frogFloatOnLog() {
             logArray[1].logX + logArray[1].logWidth >= frog.x &&
             logArray[1].logY + logArray[1].logHeight >= frog.y &&
             logArray[1].logY <= frog.y + frog.height) {
-            if (frog.x + frog.width < canvas.width) {
+            if (frog.x + frog.width < canvas.width && frog.frogCanMove) {
                 frog.x = frog.x + logArray[1].logSpeed;
+                return;
             }
         }
 
@@ -756,48 +779,60 @@ function frogFloatOnLog() {
             logArray[2].logX + logArray[2].logWidth >= frog.x &&
             logArray[2].logY + logArray[2].logHeight >= frog.y &&
             logArray[2].logY <= frog.y + frog.height) {
-            if (frog.x > 0)
+            if (frog.x > 0 && frog.frogCanMove)
                 frog.x = frog.x + logArray[2].logSpeed;
+            return;
         }
 
         if (logArray[3].logX <= frog.x + frog.width &&
             logArray[3].logX + logArray[3].logWidth >= frog.x &&
             logArray[3].logY + logArray[3].logHeight >= frog.y &&
             logArray[3].logY <= frog.y + frog.height) {
-            if (frog.x > 0)
+            if (frog.x > 0 && frog.frogCanMove)
                 frog.x = frog.x + logArray[3].logSpeed;
+            return;
         }
 
         if (logArray[4].logX <= frog.x + frog.width &&
             logArray[4].logX + logArray[4].logWidth >= frog.x &&
             logArray[4].logY + logArray[4].logHeight >= frog.y &&
             logArray[4].logY <= frog.y + frog.height) {
-            if (frog.x + frog.width < canvas.width)
+            if (frog.x + frog.width < canvas.width && frog.frogCanMove)
                 frog.x = frog.x + logArray[4].logSpeed;
+            return;
         }
 
         if (logArray[5].logX <= frog.x + frog.width &&
             logArray[5].logX + logArray[5].logWidth >= frog.x &&
             logArray[5].logY + logArray[5].logHeight >= frog.y &&
             logArray[5].logY <= frog.y + frog.height) {
-            if (frog.x + frog.width < canvas.width)
+            if (frog.x + frog.width < canvas.width && frog.frogCanMove)
                 frog.x = frog.x + logArray[5].logSpeed;
+            return;
         }
 
         if (logArray[6].logX <= frog.x + frog.width &&
             logArray[6].logX + logArray[6].logWidth >= frog.x &&
             logArray[6].logY + logArray[6].logHeight >= frog.y &&
             logArray[6].logY <= frog.y + frog.height) {
-            if (frog.x > 0)
+            if (frog.x > 0 && frog.frogCanMove)
                 frog.x = frog.x + logArray[6].logSpeed;
+            return;
         }
 
         if (logArray[7].logX <= frog.x + frog.width &&
             logArray[7].logX + logArray[7].logWidth >= frog.x &&
             logArray[7].logY + logArray[7].logHeight >= frog.y &&
             logArray[7].logY <= frog.y + frog.height) {
-            if (frog.x > 0)
+            if (frog.x > 0 && frog.frogCanMove)
                 frog.x = frog.x + logArray[7].logSpeed;
+            return;
+        }
+
+        else if (frog.y < waterHeight && frog.y > goalYPos + goalHeight) {
+            frog.sx = frogSplashSprite;
+            frog.frogCanMove = false;
+            setTimeout(frogReset, waitTime);
         }
     }
 }// frogFloatOnLog func
@@ -807,41 +842,51 @@ function frogHitsGoal() {
         goal1XPos + goalWidth > frog.x && goal1 !== true) {
         goal1 = true;
         frog.frogCanMove = false;
+        frog.deathFlag = false;
         drawGoalFrogs();
         frogReset();
-    } 
+    }
 
     if (goal2XPos < frog.x + frog.width && goalYPos + goalHeight > frog.y &&
         goal2XPos + goalWidth > frog.x && goal2 !== true) {
         goal2 = true;
         frog.frogCanMove = false;
+        frog.deathFlag = false;
         drawGoalFrogs();
         frogReset();
     }
 
     if (goal3XPos < frog.x + frog.width && goalYPos + goalHeight > frog.y &&
         goal3XPos + goalWidth > frog.x && goal3 !== true) {
-            goal3 = true;
-            frog.frogCanMove = false;
-            drawGoalFrogs();
-            frogReset();
-    } 
+        goal3 = true;
+        frog.frogCanMove = false;
+        frog.deathFlag = false;
+        drawGoalFrogs();
+        frogReset();
+    }
 
     if (goal4XPos < frog.x + frog.width && goalYPos + goalHeight > frog.y &&
         goal4XPos + goalWidth > frog.x && goal4 !== true) {
-            goal4 = true;
-            frog.frogCanMove = false;
-            drawGoalFrogs();
-            frogReset();
-    } 
+        goal4 = true;
+        frog.frogCanMove = false;
+        frog.deathFlag = false;
+        drawGoalFrogs();
+        frogReset();
+    }
 
     if (goal5XPos < frog.x + frog.width && goalYPos + goalHeight > frog.y &&
         goal5XPos + goalWidth > frog.x && goal5 !== true) {
-            goal5 = true;
-            frog.frogCanMove = false;
-            drawGoalFrogs();
-            frogReset();
-    } 
+        goal5 = true;
+        frog.frogCanMove = false;
+        frog.deathFlag = false;
+        drawGoalFrogs();
+        frogReset();
+    }
+    else if (frog.y < goalYPos + goalHeight && !jesusFrog) {
+        frog.sx = frogHitTopSprite;
+        frog.frogCanMove = false;
+        setTimeout(frogReset, waitTime);
+    }
 }
 
 function drawGoalFrogs() {
@@ -870,7 +915,7 @@ function drawGoalFrogs() {
             frog.sheight, goal5XPos + (frog.width / 2 - goalWidth / 4), goalYPos + frog.height / 5, frog.width, frog.height);
     }
 
-    if (goal1 && goal2 && goal3 && goal4 && goal5){
+    if (goal1 && goal2 && goal3 && goal4 && goal5) {
         goal1 = false;
         goal2 = false;
         goal3 = false;
@@ -896,8 +941,10 @@ function gameLoop() {
     frogFloatOnLog();
     frogHitsGoal();
     drawGoalFrogs();
+    displayLives();
 
     requestAnimationFrame(gameLoop);
 }
 
 gameLoop();
+
