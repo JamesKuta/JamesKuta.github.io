@@ -94,4 +94,5 @@ button {
 .centerbuttons {
     text-align: center;
     touch-action: none;
+    display: block;
 }

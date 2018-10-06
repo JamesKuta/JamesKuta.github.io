@@ -6,10 +6,13 @@
 
 // Global Objects
 
+
 let canvas = document.getElementById('canvas');
 let ctx = canvas.getContext('2d');
 
 let jesusFrog = false;
+
+let animateGame = false;
 
 const waitTime = 1000; // used by setTimeOut() after frog death
 
@@ -36,8 +39,12 @@ const mostRightFrogCanMove = canvas.width * (20 / screenScaleWidth);
 const mostLeftFrogCanMove = canvas.width * (20 / screenScaleWidth);
 
 //Load frog sprite sheet
+// let frogImage = new Image();
+// frogImage.src = "frog_gimp.png";
+
 let frogImage = new Image();
-frogImage.src = "frog_gimp.png";
+
+
 
 // frog sprites pickers
 
@@ -134,6 +141,26 @@ let car4Speed = canvas.width * (goodDriver / screenScaleWidth);
 let car5Speed = canvas.width * (goodDriver / screenScaleWidth);
 let car6Speed = canvas.width * ((goodDriver / screenScaleWidth) * -1);
 let car7Speed = canvas.width * ((goodDriver / screenScaleWidth) * -1);
+
+// which side of the screen should cars appear
+// let car0SideToAppear = carWidth * -1;
+// let car1SideToAppear = carWidth * -1;
+// let car2SideToAppear = canvas.width;
+// let car3SideToAppear = canvas.width;
+// let car4SideToAppear = carWidth * -1;
+// let car5SideToAppear = carWidth * -1;
+// let car6SideToAppear = canvas.width;
+// let car7SideToAppear = canvas.width;
+
+//check for which side did the car exit the screen
+// let car0ScreenExit = canvas.width;
+// let car1ScreenExit = canvas.width;
+// let car2ScreenExit = carWidth;
+// let car3ScreenExit = carWidth;
+// let car4ScreenExit = canvas.width;
+// let car5ScreenExit = canvas.width;
+// let car6ScreenExit = carWidth;
+// let car7ScreenExit = carWidth;
 
 //sprite positions
 let carSpritePos1 = 0;
@@ -355,8 +382,14 @@ let goal3XPos = (canvas.width * .5) - goalWidth / 2;
 let goal4XPos = (canvas.width * .7) - goalWidth / 2;
 let goal5XPos = (canvas.width * .9) - goalWidth / 2;
 
+// just want to know what the position of these are. Remove before release.
+console.log('\n', 'x1: ', goal1XPos, '\n', 'xw1: ', (goal1XPos + goalWidth));
+console.log('\n', 'x2: ', goal2XPos, '\n', 'xw2: ', (goal2XPos + goalWidth));
+console.log('\n', 'x3: ', goal3XPos, '\n', 'xw3: ', (goal3XPos + goalWidth));
+console.log('\n', 'x4: ', goal4XPos, '\n', 'xw4: ', (goal4XPos + goalWidth));
+console.log('\n', 'x5: ', goal5XPos, '\n', 'xw5: ', (goal5XPos + goalWidth));
 
-
+console.log('\n', 'frogX: ', frog.x, '\n', 'frogXW: ', frog.x + frog.width);
 
 // new
 
@@ -604,7 +637,8 @@ function displayLives() {
 
     ctx.font = "30px Comic Sans MS";
     ctx.fillStyle = 'white';
-    ctx.fillText('LIVES: ' + frog.lives, 0, displayLivesPos);
+    ctx.textAlign = 'start'
+    ctx.fillText('LIVES: ' + frog.lives, 10, displayLivesPos);
 
 }
 let displayLivesPosValue = 500;
@@ -684,6 +718,12 @@ function frogReset() {
             frog.lives--;
         }
         frog.deathFlag = true;
+        //animateGame = true;
+    }
+
+    if (frog.lives === 0) {
+        animateGame = false;
+        initializeGame();
     }
 }
 
@@ -755,91 +795,31 @@ function logsMove() {
 
 function frogFloatOnLog() {
     if (!jesusFrog) {
-        if (logArray[0].logX <= frog.x + frog.width &&
-            logArray[0].logX + logArray[0].logWidth >= frog.x &&
-            logArray[0].logY + logArray[0].logHeight >= frog.y &&
-            logArray[0].logY <= frog.y + frog.height) {
-            if (frog.x + frog.width < canvas.width && frog.frogCanMove) {
-                frog.x = frog.x + logArray[0].logSpeed;
-                return;
+        for (i = 0; i < logArray.length; i++) {
+            if (logArray[i].logX <= frog.x + frog.width &&
+                logArray[i].logX + logArray[i].logWidth >= frog.x &&
+                logArray[i].logY + logArray[i].logHeight >= frog.y &&
+                logArray[i].logY <= frog.y + frog.height) {
+                if (frog.x + frog.width < canvas.width && frog.frogCanMove) {
+                    frog.x = frog.x + logArray[i].logSpeed;
+                    return; // exit the function before if checking for water hit.
+                }
             }
-
-        }
-        if (logArray[1].logX <= frog.x + frog.width &&
-            logArray[1].logX + logArray[1].logWidth >= frog.x &&
-            logArray[1].logY + logArray[1].logHeight >= frog.y &&
-            logArray[1].logY <= frog.y + frog.height) {
-            if (frog.x + frog.width < canvas.width && frog.frogCanMove) {
-                frog.x = frog.x + logArray[1].logSpeed;
-                return;
-            }
-        }
-
-        if (logArray[2].logX <= frog.x + frog.width &&
-            logArray[2].logX + logArray[2].logWidth >= frog.x &&
-            logArray[2].logY + logArray[2].logHeight >= frog.y &&
-            logArray[2].logY <= frog.y + frog.height) {
-            if (frog.x > 0 && frog.frogCanMove)
-                frog.x = frog.x + logArray[2].logSpeed;
-            return;
-        }
-
-        if (logArray[3].logX <= frog.x + frog.width &&
-            logArray[3].logX + logArray[3].logWidth >= frog.x &&
-            logArray[3].logY + logArray[3].logHeight >= frog.y &&
-            logArray[3].logY <= frog.y + frog.height) {
-            if (frog.x > 0 && frog.frogCanMove)
-                frog.x = frog.x + logArray[3].logSpeed;
-            return;
-        }
-
-        if (logArray[4].logX <= frog.x + frog.width &&
-            logArray[4].logX + logArray[4].logWidth >= frog.x &&
-            logArray[4].logY + logArray[4].logHeight >= frog.y &&
-            logArray[4].logY <= frog.y + frog.height) {
-            if (frog.x + frog.width < canvas.width && frog.frogCanMove)
-                frog.x = frog.x + logArray[4].logSpeed;
-            return;
-        }
-
-        if (logArray[5].logX <= frog.x + frog.width &&
-            logArray[5].logX + logArray[5].logWidth >= frog.x &&
-            logArray[5].logY + logArray[5].logHeight >= frog.y &&
-            logArray[5].logY <= frog.y + frog.height) {
-            if (frog.x + frog.width < canvas.width && frog.frogCanMove)
-                frog.x = frog.x + logArray[5].logSpeed;
-            return;
-        }
-
-        if (logArray[6].logX <= frog.x + frog.width &&
-            logArray[6].logX + logArray[6].logWidth >= frog.x &&
-            logArray[6].logY + logArray[6].logHeight >= frog.y &&
-            logArray[6].logY <= frog.y + frog.height) {
-            if (frog.x > 0 && frog.frogCanMove)
-                frog.x = frog.x + logArray[6].logSpeed;
-            return;
-        }
-
-        if (logArray[7].logX <= frog.x + frog.width &&
-            logArray[7].logX + logArray[7].logWidth >= frog.x &&
-            logArray[7].logY + logArray[7].logHeight >= frog.y &&
-            logArray[7].logY <= frog.y + frog.height) {
-            if (frog.x > 0 && frog.frogCanMove)
-                frog.x = frog.x + logArray[7].logSpeed;
-            return;
-        }
-
-        else if (frog.y < waterHeight && frog.y > goalYPos + goalHeight) {
+        } // end for loop
+        
+        if (frog.y < waterHeight && frog.y > goalYPos + goalHeight) {
             frog.sx = frogSplashSprite;
             frog.frogCanMove = false;
             setTimeout(frogReset, waitTime);
         }
-    }
-}// frogFloatOnLog func
+    } // end Jesus Frog Check
+} // end frogFloatOnLog func
+
 
 function frogHitsGoal() {
-    if (goal1XPos < frog.x + frog.width && goalYPos + goalHeight > frog.y &&
-        goal1XPos + goalWidth > frog.x && goal1 !== true) {
+    let goalBuffer = 30; // used to make sure a good part of frog is in the goal.
+    if (goal1XPos + (goal3XPos + goalWidth) / goalBuffer < frog.x + frog.width && goalYPos + goalHeight > frog.y &&
+        goal1XPos + goalWidth - (goal3XPos + goalWidth) / goalBuffer > frog.x && goal1 !== true) {
         goal1 = true;
         frog.frogCanMove = false;
         frog.deathFlag = false;
@@ -847,8 +827,8 @@ function frogHitsGoal() {
         frogReset();
     }
 
-    if (goal2XPos < frog.x + frog.width && goalYPos + goalHeight > frog.y &&
-        goal2XPos + goalWidth > frog.x && goal2 !== true) {
+    if (goal2XPos + (goal3XPos + goalWidth) / goalBuffer < frog.x + frog.width && goalYPos + goalHeight > frog.y &&
+        goal2XPos + goalWidth - (goal3XPos + goalWidth) / goalBuffer > frog.x && goal2 !== true) {
         goal2 = true;
         frog.frogCanMove = false;
         frog.deathFlag = false;
@@ -856,8 +836,8 @@ function frogHitsGoal() {
         frogReset();
     }
 
-    if (goal3XPos < frog.x + frog.width && goalYPos + goalHeight > frog.y &&
-        goal3XPos + goalWidth > frog.x && goal3 !== true) {
+    if (goal3XPos + (goal3XPos + goalWidth) / goalBuffer < frog.x + frog.width && goalYPos + goalHeight > frog.y &&
+        goal3XPos + goalWidth - (goal3XPos + goalWidth) / goalBuffer > frog.x && goal3 !== true) {
         goal3 = true;
         frog.frogCanMove = false;
         frog.deathFlag = false;
@@ -865,8 +845,9 @@ function frogHitsGoal() {
         frogReset();
     }
 
-    if (goal4XPos < frog.x + frog.width && goalYPos + goalHeight > frog.y &&
-        goal4XPos + goalWidth > frog.x && goal4 !== true) {
+
+    if (goal4XPos + (goal3XPos + goalWidth) / goalBuffer < frog.x + frog.width && goalYPos + goalHeight > frog.y &&
+        goal4XPos + goalWidth - (goal3XPos + goalWidth) / goalBuffer > frog.x && goal4 !== true) {
         goal4 = true;
         frog.frogCanMove = false;
         frog.deathFlag = false;
@@ -874,8 +855,8 @@ function frogHitsGoal() {
         frogReset();
     }
 
-    if (goal5XPos < frog.x + frog.width && goalYPos + goalHeight > frog.y &&
-        goal5XPos + goalWidth > frog.x && goal5 !== true) {
+    if (goal5XPos + (goal3XPos + goalWidth) / goalBuffer < frog.x + frog.width && goalYPos + goalHeight > frog.y &&
+        goal5XPos + goalWidth - (goal3XPos + goalWidth) / goalBuffer > frog.x && goal5 !== true) {
         goal5 = true;
         frog.frogCanMove = false;
         frog.deathFlag = false;
@@ -942,9 +923,62 @@ function gameLoop() {
     frogHitsGoal();
     drawGoalFrogs();
     displayLives();
-
-    requestAnimationFrame(gameLoop);
+    if (animateGame) {
+        requestAnimationFrame(gameLoop);
+    }
 }
 
-gameLoop();
+function initializeGame() {
+    frog.lives = 3;
+    level = 1;
+    frogImage.src = "frog_gimp.png";
+    frogImage.onload = function () { // wait for the frog image to load.
+        loadLevel();
+    }
+}
 
+function loadLevel() {
+    goal1 = false;
+    goal2 = false;
+    goal3 = false;
+    goal4 = false;
+    goal5 = false;
+
+    animateGame = false;
+
+    if (level === 1) {
+        let string = "Level 1 Start";
+
+        ctx.drawImage(frogImage, frogUpSprite, frogUpSprite, frog.swidth,
+            frog.sheight, 0, 0, canvas.width, canvas.height);
+
+        ctx.font = "30px Comic Sans MS";
+        ctx.strokeStyle = "white";
+        ctx.textAlign = 'center';
+        ctx.strokeText(string, canvas.width / 2, canvas.height / 2);
+        setTimeout(startGame, 5000);
+    }
+}
+
+// function splashScreen () {
+//     frogImage.src = "frog_gimp.png";
+//     frogImage.onload = function () { // wait for the frog image to load.
+//     let startString1 = "Want to play my poor attempt"
+//     let startString2 = "at a Javascript version of Frogger?" 
+//     ctx.font = "30px Comic Sans MS";
+//         ctx.strokeStyle = "white";
+//         ctx.textAlign = 'center';
+//         ctx.strokeText(startString1, canvas.width / 2, canvas.height / 10);
+//         ctx.strokeText(startString2, canvas.width / 2, canvas.height / 7);
+//         ctx.drawImage(frogImage, frogUpSprite, frogUpSprite, frog.swidth,
+//             frog.sheight, canvas.width / 2, canvas.height / 2, 100, 100);
+//         }
+// }
+
+//splashScreen();
+initializeGame();
+//gameLoop();
+function startGame() {
+    animateGame = true;
+    gameLoop();
+}
