@@ -753,15 +753,16 @@ function frogGotRunOverRealGood() {
 
 function frogReset() {
     
-    if (!frog.frogCanMove && frog.lives != 0) {
+    if (!frog.frogCanMove) {
         frog.y = frogY;
         frog.x = frogX;
         frog.sx = frogUpSprite;
         frog.frogCanMove = true;
-        frog.deathFlag = true;
+        
         if (frog.deathFlag) {
             frog.lives--;
         }
+        frog.deathFlag = true;
     }
 
     if (frog.lives === 0) {
