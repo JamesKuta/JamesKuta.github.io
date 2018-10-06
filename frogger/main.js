@@ -5,10 +5,13 @@
 
 
 // Global Objects
-
+let startButton = document.getElementById('start-game');
 
 let canvas = document.getElementById('canvas');
+
 let ctx = canvas.getContext('2d');
+
+let startScreenImageLoaded = false;
 
 let jesusFrog = false;
 
@@ -749,22 +752,30 @@ function frogGotRunOverRealGood() {
 }// end frogGotRunOverRealGood func
 
 function frogReset() {
-    if (!frog.frogCanMove) {
+    
+    if (!frog.frogCanMove && frog.lives != 0) {
         frog.y = frogY;
         frog.x = frogX;
         frog.sx = frogUpSprite;
         frog.frogCanMove = true;
+        frog.deathFlag = true;
         if (frog.deathFlag) {
             frog.lives--;
         }
-        frog.deathFlag = true;
-        //animateGame = true;
     }
 
     if (frog.lives === 0) {
         animateGame = false;
-        initializeGame();
+        gameOver();
+        setTimeout(initializeGame, 4000);
     }
+}
+
+function gameOver() {
+    ctx.font = "130px Comic Sans MS"
+    ctx.fillStyle = "red";
+    ctx.textAlign = "center";
+    ctx.fillText("GAME OVER", canvas.width /2, canvas.height /2);
 }
 
 function displayLogs() {
@@ -842,7 +853,7 @@ function frogFloatOnLog() {
             logArray[0].logY <= frog.y + frog.height) {
             if (frog.x + frog.width < canvas.width && frog.frogCanMove) {
                 frog.x = frog.x + logArray[1].logSpeed;
-            } 
+            }
             return;
         }
 
@@ -852,7 +863,7 @@ function frogFloatOnLog() {
             logArray[1].logY <= frog.y + frog.height) {
             if (frog.x + frog.width < canvas.width && frog.frogCanMove) {
                 frog.x = frog.x + logArray[1].logSpeed;
-            } 
+            }
             return;
         }
 
@@ -862,7 +873,7 @@ function frogFloatOnLog() {
             logArray[2].logY <= frog.y + frog.height) {
             if (frog.x > 0 && frog.frogCanMove) {
                 frog.x = frog.x + logArray[2].logSpeed;
-            } 
+            }
             return;
         }
 
@@ -872,7 +883,7 @@ function frogFloatOnLog() {
             logArray[3].logY <= frog.y + frog.height) {
             if (frog.x > 0 && frog.frogCanMove) {
                 frog.x = frog.x + logArray[3].logSpeed;
-            } 
+            }
             return;
         }
 
@@ -882,7 +893,7 @@ function frogFloatOnLog() {
             logArray[4].logY <= frog.y + frog.height) {
             if (frog.x + frog.width < canvas.width && frog.frogCanMove) {
                 frog.x = frog.x + logArray[4].logSpeed;
-            } 
+            }
             return;
         }
 
@@ -892,7 +903,7 @@ function frogFloatOnLog() {
             logArray[5].logY <= frog.y + frog.height) {
             if (frog.x + frog.width < canvas.width && frog.frogCanMove) {
                 frog.x = frog.x + logArray[5].logSpeed;
-            } 
+            }
             return;
         }
 
@@ -902,7 +913,7 @@ function frogFloatOnLog() {
             logArray[6].logY <= frog.y + frog.height) {
             if (frog.x > 0 && frog.frogCanMove) {
                 frog.x = frog.x + logArray[6].logSpeed;
-            } 
+            }
             return;
         }
 
@@ -912,7 +923,7 @@ function frogFloatOnLog() {
             logArray[7].logY <= frog.y + frog.height) {
             if (frog.x > 0 && frog.frogCanMove) {
                 frog.x = frog.x + logArray[7].logSpeed;
-            } 
+            }
             return;
         }
 
@@ -954,7 +965,6 @@ function frogHitsGoal() {
         frogReset();
     }
 
-
     if (goal4XPos + (goal3XPos + goalWidth) / goalBuffer < frog.x + frog.width && goalYPos + goalHeight > frog.y &&
         goal4XPos + goalWidth - (goal3XPos + goalWidth) / goalBuffer > frog.x && goal4 !== true) {
         goal4 = true;
@@ -972,6 +982,7 @@ function frogHitsGoal() {
         drawGoalFrogs();
         frogReset();
     }
+
     else if (frog.y < goalYPos + goalHeight && !jesusFrog) {
         frog.sx = frogHitTopSprite;
         frog.frogCanMove = false;
@@ -1040,11 +1051,16 @@ function gameLoop() {
 function initializeGame() {
     frog.lives = 3;
     level = 1;
-    startScreenImage.src = "start_screen.png";
-    startScreenImage.onload = function () { // wait for the frog image to load.
+    if (!startScreenImageLoaded) {
+        startScreenImage.src = "start_screen.png";
+        startScreenImage.onload = function () { // wait for the frog image to load.
+            startScreenImageLoaded = true;
+            loadLevel();
+        }
+    } else {
         loadLevel();
     }
-}
+}// end initialzeGame func
 
 function loadLevel() {
     goal1 = false;
@@ -1052,47 +1068,19 @@ function loadLevel() {
     goal3 = false;
     goal4 = false;
     goal5 = false;
-
-    animateGame = false;
+    startButton.style.display = 'inline';
+    ctx.drawImage(startScreenImage, 0, 0, canvas.width, canvas.height);
 
     if (level === 1) {
-        let string = "Level 1 Start";
-
-        ctx.drawImage(startScreenImage, 0, 0, canvas.width, canvas.height);
-
-        
-
-
-
-        // ctx.font = "30px Comic Sans MS";
-        // ctx.strokeStyle = "white";
-        // ctx.textAlign = 'center';
-        // ctx.strokeText(string, canvas.width / 2, canvas.height / 2);
-        // setTimeout(startGame, 5000);
     }
 }
 
-// function splashScreen () {
-//     frogImage.src = "frog_gimp.png";
-//     frogImage.onload = function () { // wait for the frog image to load.
-//     let startString1 = "Want to play my poor attempt"
-//     let startString2 = "at a Javascript version of Frogger?" 
-//     ctx.font = "30px Comic Sans MS";
-//         ctx.strokeStyle = "white";
-//         ctx.textAlign = 'center';
-//         ctx.strokeText(startString1, canvas.width / 2, canvas.height / 10);
-//         ctx.strokeText(startString2, canvas.width / 2, canvas.height / 7);
-//         ctx.drawImage(frogImage, frogUpSprite, frogUpSprite, frog.swidth,
-//             frog.sheight, canvas.width / 2, canvas.height / 2, 100, 100);
-//         }
-// }
-
-//splashScreen();
-initializeGame();
-//gameLoop();
 function startGame() {
-    let startButton = document.getElementById('start-game');
     startButton.style.display = 'none';
     animateGame = true;
     gameLoop();
 }
+
+initializeGame();
+
+
