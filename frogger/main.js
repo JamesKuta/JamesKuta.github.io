@@ -43,6 +43,8 @@ const mostLeftFrogCanMove = canvas.width * (20 / screenScaleWidth);
 // frogImage.src = "frog_gimp.png";
 
 let frogImage = new Image();
+frogImage.src = 'frog_gimp.png';
+let startScreenImage = new Image();
 
 
 
@@ -175,6 +177,88 @@ function Car(carX, carSX, carY, carWidth, carHeight, carSpeed) {
     this.carHeight = carHeight;
     this.carSpeed = carSpeed;
 }
+
+Car.prototype.carMovement = function () {
+    if (this == carArray[0]) {
+        if (this.carX < canvas.width) {
+            this.carX += this.carSpeed;
+            return;
+        } else {
+            this.carX = -carWidth;
+            return;
+        }//end else
+    }// end if
+
+    if (this == carArray[1]) {
+        if (this.carX < canvas.width) {
+            this.carX += this.carSpeed;
+            return;
+        } else {
+            this.carX = -carWidth;
+            return;
+        }//end else
+    }// end if
+
+    if (this == carArray[2]) {
+        if (this.carX > -carWidth) {
+            this.carX += this.carSpeed;
+            return;
+        } else {
+            this.carX = canvas.width;
+            return;
+        }//end else
+    }// end if
+
+    if (this == carArray[3]) {
+        if (this.carX > -carWidth) {
+            this.carX += this.carSpeed;
+            return;
+        } else {
+            this.carX = canvas.width;
+            return;
+        }//end else
+    }// end if
+
+    if (this == carArray[4]) {
+        if (this.carX < canvas.width) {
+            this.carX += this.carSpeed;
+            return;
+        } else {
+            this.carX = -carWidth;
+            return;
+        }//end else
+    }// end if
+
+    if (this == carArray[5]) {
+        if (this.carX < canvas.width) {
+            this.carX += this.carSpeed;
+            return;
+        } else {
+            this.carX = -carWidth;
+            return;
+        }//end else
+    }// end if
+
+    if (this == carArray[6]) {
+        if (this.carX > -carWidth) {
+            this.carX += this.carSpeed;
+            return;
+        } else {
+            this.carX = canvas.width;
+            return;
+        }//end else
+    }// end if
+
+    if (this == carArray[7]) {
+        if (this.carX > -carWidth) {
+            this.carX += this.carSpeed;
+            return;
+        } else {
+            this.carX = canvas.width;
+            return;
+        }//end else
+    }// end if
+}; // end checkScrenEdge Func
 
 // Array where I create all car objects
 let carArray = [
@@ -645,55 +729,11 @@ let displayLivesPosValue = 500;
 let displayLivesPos = canvas.height * (displayLivesPosValue / screenScaleHeight);
 
 function carsMove() {
-
-    if (carArray[0].carX < canvas.width) {
-        carArray[0].carX += carArray[0].carSpeed;
-    } else {
-        carArray[0].carX = -carWidth;
+    for (i = 0; i < carArray.length; i++) {
+        carArray[i].carMovement();
+        //console.log(i);
     }
-
-    if (carArray[1].carX < canvas.width) {
-        carArray[1].carX += carArray[1].carSpeed;
-    } else {
-        carArray[1].carX = -carWidth;
-    }
-
-    if (carArray[2].carX + carWidth > 0) {
-        carArray[2].carX += carArray[2].carSpeed;
-    } else {
-        carArray[2].carX = canvas.width;
-    }
-
-    if (carArray[3].carX + carWidth > 0) {
-        carArray[3].carX += carArray[3].carSpeed;
-    } else {
-        carArray[3].carX = canvas.width;
-    }
-
-    if (carArray[4].carX < canvas.width) {
-        carArray[4].carX += carArray[4].carSpeed;
-    } else {
-        carArray[4].carX = -carWidth;
-    }
-
-    if (carArray[5].carX < canvas.width) {
-        carArray[5].carX += carArray[5].carSpeed;
-    } else {
-        carArray[5].carX = -carWidth;
-    }
-
-    if (carArray[6].carX + carWidth > 0) {
-        carArray[6].carX += carArray[6].carSpeed;
-    } else {
-        carArray[6].carX = canvas.width;
-    }
-
-    if (carArray[7].carX + carWidth > 0) {
-        carArray[7].carX += carArray[7].carSpeed;
-    } else {
-        carArray[7].carX = canvas.width;
-    }
-}// end carsMove func
+}
 
 function frogGotRunOverRealGood() {
     if (!jesusFrog) {
@@ -795,18 +835,87 @@ function logsMove() {
 
 function frogFloatOnLog() {
     if (!jesusFrog) {
-        for (i = 0; i < logArray.length; i++) {
-            if (logArray[i].logX <= frog.x + frog.width &&
-                logArray[i].logX + logArray[i].logWidth >= frog.x &&
-                logArray[i].logY + logArray[i].logHeight >= frog.y &&
-                logArray[i].logY <= frog.y + frog.height) {
-                if (frog.x + frog.width < canvas.width && frog.frogCanMove) {
-                    frog.x = frog.x + logArray[i].logSpeed;
-                    return; // exit the function before if checking for water hit.
-                }
-            }
-        } // end for loop
-        
+
+        if (logArray[0].logX <= frog.x + frog.width &&
+            logArray[0].logX + logArray[0].logWidth >= frog.x &&
+            logArray[0].logY + logArray[0].logHeight >= frog.y &&
+            logArray[0].logY <= frog.y + frog.height) {
+            if (frog.x + frog.width < canvas.width && frog.frogCanMove) {
+                frog.x = frog.x + logArray[1].logSpeed;
+            } 
+            return;
+        }
+
+        if (logArray[1].logX <= frog.x + frog.width &&
+            logArray[1].logX + logArray[1].logWidth >= frog.x &&
+            logArray[1].logY + logArray[1].logHeight >= frog.y &&
+            logArray[1].logY <= frog.y + frog.height) {
+            if (frog.x + frog.width < canvas.width && frog.frogCanMove) {
+                frog.x = frog.x + logArray[1].logSpeed;
+            } 
+            return;
+        }
+
+        if (logArray[2].logX <= frog.x + frog.width &&
+            logArray[2].logX + logArray[2].logWidth >= frog.x &&
+            logArray[2].logY + logArray[2].logHeight >= frog.y &&
+            logArray[2].logY <= frog.y + frog.height) {
+            if (frog.x > 0 && frog.frogCanMove) {
+                frog.x = frog.x + logArray[2].logSpeed;
+            } 
+            return;
+        }
+
+        if (logArray[3].logX <= frog.x + frog.width &&
+            logArray[3].logX + logArray[3].logWidth >= frog.x &&
+            logArray[3].logY + logArray[3].logHeight >= frog.y &&
+            logArray[3].logY <= frog.y + frog.height) {
+            if (frog.x > 0 && frog.frogCanMove) {
+                frog.x = frog.x + logArray[3].logSpeed;
+            } 
+            return;
+        }
+
+        if (logArray[4].logX <= frog.x + frog.width &&
+            logArray[4].logX + logArray[4].logWidth >= frog.x &&
+            logArray[4].logY + logArray[4].logHeight >= frog.y &&
+            logArray[4].logY <= frog.y + frog.height) {
+            if (frog.x + frog.width < canvas.width && frog.frogCanMove) {
+                frog.x = frog.x + logArray[4].logSpeed;
+            } 
+            return;
+        }
+
+        if (logArray[5].logX <= frog.x + frog.width &&
+            logArray[5].logX + logArray[5].logWidth >= frog.x &&
+            logArray[5].logY + logArray[5].logHeight >= frog.y &&
+            logArray[5].logY <= frog.y + frog.height) {
+            if (frog.x + frog.width < canvas.width && frog.frogCanMove) {
+                frog.x = frog.x + logArray[5].logSpeed;
+            } 
+            return;
+        }
+
+        if (logArray[6].logX <= frog.x + frog.width &&
+            logArray[6].logX + logArray[6].logWidth >= frog.x &&
+            logArray[6].logY + logArray[6].logHeight >= frog.y &&
+            logArray[6].logY <= frog.y + frog.height) {
+            if (frog.x > 0 && frog.frogCanMove) {
+                frog.x = frog.x + logArray[6].logSpeed;
+            } 
+            return;
+        }
+
+        if (logArray[7].logX <= frog.x + frog.width &&
+            logArray[7].logX + logArray[7].logWidth >= frog.x &&
+            logArray[7].logY + logArray[7].logHeight >= frog.y &&
+            logArray[7].logY <= frog.y + frog.height) {
+            if (frog.x > 0 && frog.frogCanMove) {
+                frog.x = frog.x + logArray[7].logSpeed;
+            } 
+            return;
+        }
+
         if (frog.y < waterHeight && frog.y > goalYPos + goalHeight) {
             frog.sx = frogSplashSprite;
             frog.frogCanMove = false;
@@ -817,7 +926,7 @@ function frogFloatOnLog() {
 
 
 function frogHitsGoal() {
-    let goalBuffer = 30; // used to make sure a good part of frog is in the goal.
+    let goalBuffer = 20; // used to make sure a good part of frog is in the goal.
     if (goal1XPos + (goal3XPos + goalWidth) / goalBuffer < frog.x + frog.width && goalYPos + goalHeight > frog.y &&
         goal1XPos + goalWidth - (goal3XPos + goalWidth) / goalBuffer > frog.x && goal1 !== true) {
         goal1 = true;
@@ -931,8 +1040,8 @@ function gameLoop() {
 function initializeGame() {
     frog.lives = 3;
     level = 1;
-    frogImage.src = "frog_gimp.png";
-    frogImage.onload = function () { // wait for the frog image to load.
+    startScreenImage.src = "start_screen.png";
+    startScreenImage.onload = function () { // wait for the frog image to load.
         loadLevel();
     }
 }
@@ -949,14 +1058,17 @@ function loadLevel() {
     if (level === 1) {
         let string = "Level 1 Start";
 
-        ctx.drawImage(frogImage, frogUpSprite, frogUpSprite, frog.swidth,
-            frog.sheight, 0, 0, canvas.width, canvas.height);
+        ctx.drawImage(startScreenImage, 0, 0, canvas.width, canvas.height);
 
-        ctx.font = "30px Comic Sans MS";
-        ctx.strokeStyle = "white";
-        ctx.textAlign = 'center';
-        ctx.strokeText(string, canvas.width / 2, canvas.height / 2);
-        setTimeout(startGame, 5000);
+        
+
+
+
+        // ctx.font = "30px Comic Sans MS";
+        // ctx.strokeStyle = "white";
+        // ctx.textAlign = 'center';
+        // ctx.strokeText(string, canvas.width / 2, canvas.height / 2);
+        // setTimeout(startGame, 5000);
     }
 }
 
@@ -979,6 +1091,8 @@ function loadLevel() {
 initializeGame();
 //gameLoop();
 function startGame() {
+    let startButton = document.getElementById('start-game');
+    startButton.style.display = 'none';
     animateGame = true;
     gameLoop();
 }

@@ -96,3 +96,18 @@ button {
     touch-action: none;
     display: block;
 }
+
+#start-game {
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    background-color: green;
+    border: none;
+    border-radius: 20px;
+    font-size: 50px;
+    color: aliceblue; 
+    position: fixed;
+    align-items: center;
+    left: 50%;
+    
+    top: 600px;
+    
+}
