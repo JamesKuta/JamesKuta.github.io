@@ -2,6 +2,7 @@ let canvas = document.getElementById("canvas");
 let ctx = canvas.getContext("2d");
 let width;
 let height;
+let bulletArray =[];
 
 let resize = function () {
   width = window.innerWidth * 2;
@@ -27,9 +28,24 @@ let state = {
     left: false,
     right: false,
     up: false,
-    down: false
+    down: false,
+    space: false
   }
 };
+
+function Bullets(xPos, yPos, initialSpeedX, initialSpeedY) {
+  this.xPos = xPos;
+  this.yPos = yPos;
+  this.initialSpeedX = initialSpeedX;
+  this.initialSpeedY = initialSpeedY;
+}
+
+function createBullets() {
+  if(state.pressedKeys.space) {
+    bulletArray.push(new Bullets(state.position.x, state.position.y, state.movement.x, state.movement.y));
+    state.pressedKeys.space = false;
+  }
+}
 
 function update(progress) {
   let p = progress / 16;
@@ -37,7 +53,9 @@ function update(progress) {
   updateRotation(p)
   updateMovement(p)
   updatePosition(p)
+  createBullets()
 }
+
 
 function updateRotation(p) {
   if (state.pressedKeys.left) {
@@ -51,8 +69,8 @@ function updateRotation(p) {
 function updateMovement(p) {
   // Behold! Mathematics for mapping a rotation to it's x, y components
   let accelerationVector = {
-    x: p * 0.2 * Math.cos((state.rotation - 90) * (Math.PI / 180)),
-    y: p * 0.2 * Math.sin((state.rotation - 90) * (Math.PI / 180))
+    x: p * 0.3 * Math.cos((state.rotation - 90) * (Math.PI / 180)),
+    y: p * 0.3 * Math.sin((state.rotation - 90) * (Math.PI / 180))
   };
   //console.log(accelerationVector.x, ' ', accelerationVector.y);
 
@@ -115,7 +133,17 @@ function updatePosition(p) {
   else if (state.position.y < 0) {
     state.position.y += height;
   }
-}
+
+  //update bullet positions
+  let accelerationVector = {
+    x: p * 10 * Math.cos((state.rotation - 90) * (Math.PI / 180)),
+    y: p * 10 * Math.sin((state.rotation - 90) * (Math.PI / 180))
+  };
+  for(let i=0; i < bulletArray.length; i++){
+    bulletArray[i].xPos; 
+    bulletArray[i].yPos;  
+  }
+}//end updatePostion()
 
 function draw() {
   ctx.clearRect(0, 0, width, height)
@@ -126,6 +154,7 @@ function draw() {
 
   //rotate the ship if needed
   ctx.rotate((Math.PI / 180) * state.rotation)
+  
 
   //draw ship body
   ctx.strokeStyle = 'white';
@@ -205,11 +234,28 @@ function draw() {
     ctx.moveTo(-40, 40)
     ctx.lineTo(-60, 40)
     ctx.closePath()
-
   }
+
+  
 
   ctx.stroke()
   ctx.restore()
+  drawBullets()
+}
+
+function drawBullets(){
+  //ship weapons
+
+  for(let i = 0; i < bulletArray.length; i++){
+    ctx.beginPath()
+    ctx.fillStyle = 'blue';
+    ctx.rect(bulletArray[i].xPos, bulletArray[i].yPos, 10, 10);
+    ctx.fill()
+    ctx.closePath()
+
+  }
+  
+
 }
 
 function loop(timestamp) {
@@ -230,7 +276,7 @@ let keyMap = {
   65: 'left',
   87: 'up',
   83: 'down',
-  32: 'fire'
+  32: 'space'
 }
 function keydown(event) {
   let key = keyMap[event.keyCode];
