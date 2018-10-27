@@ -20,7 +20,7 @@ let state = {
   movement: {
     x: 0,
     y: 0,
-    z: .05
+    friction: .02
   },
   rotation: 0,
   pressedKeys: {
@@ -81,19 +81,19 @@ function updateMovement(p) {
   }
 
   if (state.movement.y > 0) {
-    state.movement.y -= state.movement.z;
+    state.movement.y -= state.movement.friction;
   }
 
   if (state.movement.y < 0) {
-    state.movement.y += state.movement.z;
+    state.movement.y += state.movement.friction;
   }
 
   if (state.movement.x > 0) {
-    state.movement.x -= state.movement.z;
+    state.movement.x -= state.movement.friction;
   }
 
   if (state.movement.x < 0) {
-    state.movement.x += state.movement.z;
+    state.movement.x += state.movement.friction;
   }
 
 }
@@ -121,29 +121,57 @@ function draw() {
   ctx.clearRect(0, 0, width, height)
 
   ctx.save()
+  //set the draw origin to be where the ship is
   ctx.translate(state.position.x, state.position.y)
+
+  //rotate the ship if needed
   ctx.rotate((Math.PI / 180) * state.rotation)
 
+  //draw ship body
   ctx.strokeStyle = 'white';
   ctx.lineWidth = 5;
   ctx.beginPath()
-  ctx.moveTo(0, -20)
-  ctx.lineTo(10, 20)
-  ctx.lineTo(-10, 20)
-  ctx.lineTo(0, -20)
-  //ctx.lineTo(10, 20)
-  //ctx.lineTo(0, 20)
-  //ctx.lineTo(-10, 20)
-  //ctx.lineTo(0, 0)
+  //right side of ship
+  ctx.moveTo(0, -40)
+  ctx.lineTo(5, -30)
+  ctx.lineTo(10, -20)
+  ctx.lineTo(5, -10)
+  ctx.lineTo(20, 0)
+  ctx.lineTo(25, 10)
+  ctx.lineTo(30, 20)
+  ctx.lineTo(35, 30)
+  ctx.lineTo(40, 40)
+
+  //bottom of ship
+
+  ctx.lineTo(20, 40)
+  ctx.lineTo(0, 20)
+  ctx.lineTo(-20, 40)
+  ctx.lineTo(-40, 40)
+
+  // //left side of ship
+  ctx.lineTo(-35, 30)
+  ctx.lineTo(-30, 20)
+  ctx.lineTo(-25, 10)
+  ctx.lineTo(-20, 0)
+  ctx.lineTo(-5, -10)
+  ctx.lineTo(-10, -20)
+
+
+
   ctx.closePath()
   ctx.stroke()
+
+  // draw the thrusters
   if (state.pressedKeys.up) {
     ctx.strokeStyle = 'red';
     ctx.beginPath()
-    ctx.moveTo(6, 20)
-    ctx.lineTo(6, 40)
-    ctx.moveTo(-6, 20)
-    ctx.lineTo(-6, 40)
+    ctx.moveTo(0, 20)
+    ctx.lineTo(0, 40)
+    ctx.moveTo(20, 40)
+    ctx.lineTo(20, 60)
+    ctx.moveTo(-20, 40)
+    ctx.lineTo(-20, 60)
     ctx.stroke()
     ctx.closePath()
   }
@@ -151,20 +179,20 @@ function draw() {
   if (state.pressedKeys.down) {
     ctx.strokeStyle = 'red';
     ctx.beginPath()
-    ctx.moveTo(9, 5)
-    ctx.lineTo(9, -15)
-    ctx.moveTo(-9, 5)
-    ctx.lineTo(-9, -15)
+    ctx.moveTo(20, 0)
+    ctx.lineTo(20, -20)
+    ctx.moveTo(-20, -0)
+    ctx.lineTo(-20, -20)
     ctx.closePath()
   }
 
   if (state.pressedKeys.right) {
     ctx.strokeStyle = 'red';
     ctx.beginPath()
-    ctx.moveTo(-4, -15)
-    ctx.lineTo(-14, -15)
-    ctx.moveTo(9, 15)
-    ctx.lineTo(19, 15)
+    ctx.moveTo(0, -40)
+    ctx.lineTo(-20, -40)
+    ctx.moveTo(40, 40)
+    ctx.lineTo(60, 40)
     ctx.closePath()
 
   }
@@ -172,10 +200,10 @@ function draw() {
   if (state.pressedKeys.left) {
     ctx.strokeStyle = 'red';
     ctx.beginPath()
-    ctx.moveTo(4, -15)
-    ctx.lineTo(14, -20)
-    ctx.moveTo(-9, 15)
-    ctx.lineTo(-19, 20)
+    ctx.moveTo(0, -40)
+    ctx.lineTo(20, -40)
+    ctx.moveTo(-40, 40)
+    ctx.lineTo(-60, 40)
     ctx.closePath()
 
   }
@@ -183,8 +211,6 @@ function draw() {
   ctx.stroke()
   ctx.restore()
 }
-
-
 
 function loop(timestamp) {
   let progress = timestamp - lastRender;
