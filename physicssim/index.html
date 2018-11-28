@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <title>Ball Physics Simulation</title>
+
+    <link rel="stylesheet" type="text/css" media="screen" href="style.css" />
+  </head>
+  <body>
+    <canvas id="canvas"></canvas> Set Ball Radius:
+    <input
+      id="user-ball-radius"
+      type="number"
+      name="Set Ball Radius"
+      min="5"
+      max="300"
+      onclick="getBallRadiusText()"
+    />
+    Set X Velocity:
+    <input
+      id="user-velocity-x"
+      type="number"
+      name="Set X Velocity"
+      min="-90"
+      max="90"
+      onclick="getUserXVelocityText()"
+    />
+    Set Y Velocity:
+    <input
+      id="user-velocity-y"
+      type="number"
+      name="Set Y Velocity"
+      min="-100"
+      max="100"
+      onclick="getUserYVelocityText()"
+    />
+    Set Gravity:
+    <input
+      id="user-gravity"
+      type="number"
+      name="Gravity"
+      min=".1"
+      max="5"
+      step=".1"
+      onclick="getGravityText()"
+    />
+    Set Bounciness:
+    <input
+      id="user-friction"
+      type="number"
+      name="Friction"
+      min=".10"
+      max=".99"
+      step=".01"
+      onclick="getFrictionText()"
+    />
+    <div>
+      <button type="button" id="create">Create Ball</button>
+      <button type="button" id="Reset" onclick="resetSim()">Reset Simulation</button>
+    </div>
+
+    <script src="app.js"></script>
+  </body>
+</html>
