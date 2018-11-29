@@ -1,18 +1,22 @@
+/* James Kuta */
+
 // Get the Canvas Element
 let canvas = document.getElementById("canvas");
 // Set the Context of the Canvas for drawing 2d objects
 let c = canvas.getContext("2d");
 // Create a background color for the canvas
-canvas.style.backgroundColor = "red";
+canvas.style.backgroundColor = "black";
 
 // Get Input elements
 let setUserXVelocity = document.getElementById("user-velocity-x");
 let setUserYVelocity = document.getElementById("user-velocity-y");
 let setUserBallRadius = document.getElementById("user-ball-radius");
 let setUserGravity = document.getElementById("user-gravity");
-let setUserFriction = document.getElementById("user-friction");
+let setUserbounciness = document.getElementById("user-bounciness");
 
 let createBallButton = document.getElementById("create");
+let resetButton = document.getElementById("reset");
+
 //--Global Variables--//
 
 //Screen Size Variables
@@ -25,7 +29,8 @@ let userXVelocity;
 let userYVelocity;
 let userBallRadius;
 let userGravity;
-let userFriction;
+let userbounciness;
+let groundFriction;
 
 // set initial state of simulation and objects
 function init() {
@@ -37,12 +42,13 @@ function init() {
   userYVelocity = 0;
   userXVelocityText = `X Velocity = ${userXVelocity}`;
   userYVelocityText = `Y Velocity = ${userYVelocity}`;
+  groundFriction = .99;
 
  setUserXVelocity.value = 0;
  setUserYVelocity.value = 10;
  setUserBallRadius.value = 50;
  setUserGravity.value = 1;
- setUserFriction.value = .8;
+ setUserbounciness.value = .8;
 
  balls = [];
 }
@@ -57,12 +63,12 @@ function getBallRadiusText() {
 
 function getUserXVelocityText() {
   userXVelocity = parseInt(setUserXVelocity.value);
-  return `X velocity = ${userXVelocity}`;
+  return `X-velocity = ${userXVelocity}`;
 }
 
 function getUserYVelocityText() {
   userYVelocity = parseInt(setUserYVelocity.value);
-  return `Y velocity = ${userYVelocity}`;
+  return `Y-velocity = ${userYVelocity}`;
 }
 
 function getGravityText() {
@@ -70,53 +76,57 @@ function getGravityText() {
   return `Gravity = ${userGravity}`;
 }
 
-function getFrictionText() {
-    userFriction = parseFloat(setUserFriction.value);
-    return `Friction = ${userFriction}`;
+function getbouncinessText() {
+    userbounciness = parseFloat(setUserbounciness.value);
+    return `Bounciness = ${userbounciness}`;
 }
 
 function createBall() {
-    balls.push(new Ball(screenWidth /2, 0, userBallRadius, userGravity, userFriction, userXVelocity, userYVelocity));
+    balls.push(new Ball(screenWidth /2, 0, userBallRadius, userGravity, userbounciness, userXVelocity, userYVelocity));
     console.log(balls);
 }
 
 //--Objects--//
 
-function Ball(x, y, radius, gravity, friction, velocityX, velocityY) {
+function Ball(x, y, radius, gravity, bounciness, velocityX, velocityY) {
   this.x = x;
   this.y = y;
   this.radius = radius;
   this.color = '#00FFFF';
   this.gravity = gravity;
-  this.friction = friction;
+  this.bounciness = bounciness;
   this.velocityX = velocityX;
   this.velocityY = velocityY;
-  this.damp = .9;
+  this.friction = .9;
   this.timeToLive = 0;
   this.lastTimeToLive = 0;
-  //this.lastX = 0;
+  this.lastX = 0;
   this.lastY = 0;
 }
 
 Ball.prototype.update = function() {
   this.draw();
 
-  if(this.y + this.radius + this.velocityY > canvas.height){
-    this.velocityY = -this.velocityY  * this.friction * this.damp;
+  if(this.y + this.radius + this.velocityY >= canvas.height){
+    this.velocityY = -this.velocityY  * this.bounciness * this.friction;
   } else {
     this.velocityY += this.gravity;
   }
 
   if(this.x - this.radius + this.velocityX <= 0 || this.x + this.radius + this.velocityX > canvas.width){
-    this.velocityX = -this.velocityX  * this.friction;
-  }
+    this.velocityX = -this.velocityX  * this.bounciness;
+  } 
 
-  if(this.lastY == this.y){
+  
 
-  }
+  
+   
   
     this.x += this.velocityX;
     this.y += this.velocityY;
+    this.timeToLive++;
+
+    
 
     //this.lastX = this.x;
     //this.lastY = this.y;
@@ -129,6 +139,19 @@ Ball.prototype.draw = function() {
     c.fillStyle = this.color;
     c.arc(this.x, this.y, this.radius, 0, 2 * Math.PI);
     c.fill();
+
+    if(Math.round(this.x) == Math.round(this.lastX) && this.y == this.lastY){
+      balls.splice(this, 1);
+    }
+
+    if(this.y == this.lastY && this.timeToLive > 10) {
+      this.velocityX *= groundFriction;
+    }
+
+    this.lastY = this.y;
+    //make the balls go away if they are not moving
+    this.lastX = this.x;
+    this.lastY = this.y;
 };
 
 function drawUserSettings() {
@@ -162,7 +185,7 @@ let ySpacing = 20;
   c.save();
   c.font = font;
   c.fillStyle = fontColor;
-  c.fillText(getFrictionText(), 0, ySpacing + 80);
+  c.fillText(getbouncinessText(), 0, ySpacing + 80);
   c.restore();
 }
 
@@ -185,7 +208,8 @@ function main() {
 //listeners
 window.addEventListener("resize", init);
 
-createBallButton.addEventListener('click', createBall)
+createBallButton.addEventListener('click', createBall);
+resetButton.addEventListener('click', init);
 
 //
 

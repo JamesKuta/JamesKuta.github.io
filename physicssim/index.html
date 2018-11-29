@@ -41,23 +41,23 @@
       type="number"
       name="Gravity"
       min=".1"
-      max="5"
+      max="50"
       step=".1"
       onclick="getGravityText()"
     />
     Set Bounciness:
     <input
-      id="user-friction"
+      id="user-bounciness"
       type="number"
       name="Friction"
       min=".10"
       max=".99"
       step=".01"
-      onclick="getFrictionText()"
+      onclick="getbouncinessText()"
     />
     <div>
       <button type="button" id="create">Create Ball</button>
-      <button type="button" id="Reset" onclick="resetSim()">Reset Simulation</button>
+      <button type="button" id="reset">Reset Simulation</button>
     </div>
 
     <script src="app.js"></script>
