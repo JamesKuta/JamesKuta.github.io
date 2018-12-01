@@ -97,7 +97,7 @@ function Ball(x, y, radius, gravity, bounciness, velocityX, velocityY) {
   this.bounciness = bounciness;
   this.velocityX = velocityX;
   this.velocityY = velocityY;
-  this.friction = .9;
+  this.friction = .98;
   this.timeToLive = 0;
   this.lastTimeToLive = 0;
   this.lastX = 0;
@@ -114,23 +114,15 @@ Ball.prototype.update = function() {
   }
 
   if(this.x - this.radius + this.velocityX <= 0 || this.x + this.radius + this.velocityX > canvas.width){
-    this.velocityX = -this.velocityX  * this.bounciness;
+    this.velocityX = -(this.velocityX  * this.bounciness) * this.friction;
   } 
 
-  
-
-  
-   
-  
     this.x += this.velocityX;
     this.y += this.velocityY;
     this.timeToLive++;
 
-    
-
     //this.lastX = this.x;
     //this.lastY = this.y;
-
     
 };
 
@@ -140,18 +132,21 @@ Ball.prototype.draw = function() {
     c.arc(this.x, this.y, this.radius, 0, 2 * Math.PI);
     c.fill();
 
-    if(Math.round(this.x) == Math.round(this.lastX) && this.y == this.lastY){
+    if(parseFloat(this.x).toFixed(2) == parseFloat(this.lastX).toFixed(2) && parseFloat(this.y).toFixed(3) == parseFloat(this.lastY).toFixed(3)){
       balls.splice(this, 1);
+      
     }
 
-    if(this.y == this.lastY && this.timeToLive > 10) {
-      this.velocityX *= groundFriction;
+    if(this.y == this.lastY && this.timeToLive > 10){
+      this.velocityX *= this.friction; //groundFriction;
     }
 
     this.lastY = this.y;
     //make the balls go away if they are not moving
     this.lastX = this.x;
     this.lastY = this.y;
+
+    //console.log(`currentX: ${parseFloat(this.x).toFixed(2)} lastX: ${parseFloat(this.lastX).toFixed(2)} currentY: ${parseFloat(this.y).toFixed(3)} lastY: ${parseFloat(this.lastY).toFixed(3)}`);
 };
 
 function drawUserSettings() {
