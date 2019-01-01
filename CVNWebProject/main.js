@@ -1,37 +1,47 @@
-//let catSoftware = document.getElementById("cat-software");
-//let div = document.getElementById("explanation");
-//div.innerHTML += catSoftware.value;
+//CaseViewNet Solution Finder
+//Author: James Kuta
 
-function validate(){
-    let question1 = document.getElementById('cat-software');
-    let question2 = document.getElementById('same-room-select');
-    let question3 = document.getElementById('network-select');
-    let questionsArray = new Array(question1, question2, question3);
-    console.log(questionsArray);
-    
 
-    if(question1.value !== 'Choose...' && question2.value !== 'Choose...' && question3.value 
-        !== 'Choose...'){
-        handleSelections(question1, question2, question3);
-    } else {
-        for(let i = 0; i < questionsArray.length; i++) {
-            if(questionsArray[i].value === 'Choose...'){
-                questionsArray[i].style.color = 'red';
-            } // end inner if
-        } // end for
-        let answerMissing = document.getElementById('instructions');
-        let h6 = document.createElement("h6");
-        answerMissing.appendChild(h6)
-        h6.innerHTML = '<h6 style="color:red;">Please answer all questions.</h6>';
-    } // end else
+function validate() {
+  let question1 = document.getElementById("cat-software");
+  let question2 = document.getElementById("same-room-select");
+  let question3 = document.getElementById("network-select");
+  let questionsArray = new Array(question1, question2, question3);
+  console.log(questionsArray);
+
+  if (
+    question1.value !== "Choose..." &&
+    question2.value !== "Choose..." &&
+    question3.value !== "Choose..."
+  ) {
+    removeErrorMessage();
+    handleSelections(question1, question2, question3);
+  } else {
+    for (let i = 0; i < questionsArray.length; i++) {
+      if (questionsArray[i].value === "Choose...") {
+        questionsArray[i].style.color = "red";
+      } // end inner if
+    } // end for
+    let answerMissing = document.getElementById("instructions");
+    let h6 = document.createElement("h6");
+    removeErrorMessage();
+    answerMissing.appendChild(h6);
+    h6.innerHTML =
+      '<h6 id="error" style="color:red;" >Please answer all questions.</h6>';
+  } // end else
 } // end validate
 
-function setAnswerColorAttrib(el) {
-    el.style.color = "black";
-
+function removeErrorMessage() {
+  if (document.contains(document.getElementById("error"))) {
+    document.getElementById("error").remove();
+  }
 }
 
-// toggle display of Internet Important question if using CATalyst yes or no
+function setAnswerColorAttrib(el) {
+  el.style.color = "black";
+}
+
+// Enable to toggle display of Internet Important question if using CATalyst yes or no
 /* function showInternetImportant(el) {
     let internetQuestion = document.getElementById("internet-question");
     if(el.value === 'yes' && internetQuestion.style.display == "none"){
@@ -43,7 +53,6 @@ function setAnswerColorAttrib(el) {
 } */
 
 function handleSelections(el1, el2, el3) {
-  
   if (el1.id === "cat-software") {
     catSoftwareOptions(el1.value, el2.value, el3.value);
   }
@@ -62,11 +71,11 @@ function handleSelections(el1, el2, el3) {
 function catSoftwareOptions(value1, value2, value3) {
   let explanation = document.getElementById("explanation-text");
   let buy = document.getElementById("buy-text");
-  
+
   // clear any existing text
-  explanation.innerHTML = '';
-  buy.innerHTML ='';
-  
+  explanation.innerHTML = "";
+  buy.innerHTML = "";
+
   //check the values and act on them
   if (value1 === "yes") {
     //text for explination pane

@@ -17,7 +17,7 @@
     
     <!--Instructions-->
     <div id="instructions" class="container-fluid">
-        <h4 class="text-center">Build your Realtime solution by answering the following questions:</h4>
+        <h4>Build your Realtime solution by answering the following questions:</h4>
     </div>
 
     <!--Questions-->
@@ -25,7 +25,7 @@
     <!--What CAT software?-->
     <div class="form-group col-sm-7">
             <label for="cat-software">Do you use Case CATalyst?</label>
-            <select class="form-control col-sm-5" placeholder="Select one" id="cat-software" onchange="setAnswerColorAttrib(this)"> <!--add if I want to show internet-question: onchange="showInternetImportant(this)"-->
+            <select class="form-control col-sm-8" placeholder="Select one" id="cat-software" onchange="setAnswerColorAttrib(this)"> <!--add if I want to show internet-question: onchange="showInternetImportant(this)"-->
                 <option selected disabled hidden>Choose...</option>
                 <option value='yes'>Yes</option>
                 <option value='no'>No</option>
@@ -37,17 +37,18 @@
     <!--Everyone in the same Room?-->
     <div class="form-group col-sm-7">
         <label for="same-room-select">Will you ever have clients receiving realtime remotely?</label>
-        <select class="form-control col-sm-5" placeholder="Select one" id="same-room-select" onchange="setAnswerColorAttrib(this)">
+        <select class="form-control col-sm-8" placeholder="Select one" id="same-room-select" onchange="setAnswerColorAttrib(this)">
             <option selected disabled hidden>Choose...</option>
             <option value='yes'>Yes</option>
             <option value='no'>No</option>
+            <option value='unknown'>I don't know.</option>
         </select>
         
     </div>
 
-    <div id="internet-question" class="form-group col-sm-7" style="display: none;">
+    <div id="internet-question" class="form-group col-sm-6" style="display: none;">
             <label for="internet-important">Would you like clients in the same room to have internet access?</label>
-            <select class="form-control col-sm-5" placeholder="Select one" id="internet-important" onchange="setAnswerColorAttrib(this)">
+            <select class="form-control col-sm-8" placeholder="Select one" id="internet-important" onchange="setAnswerColorAttrib(this)">
                 <option selected disabled hidden>Choose...</option>
                 <option value='yes'>Yes</option>
                 <option value='no'>No</option>
@@ -57,7 +58,7 @@
 
     <div id="network-question" class="form-group col-sm-7">
             <label for="network-select">Will a wireless network (Wi-Fi) always be available for you clients to use?</label>
-            <select class="form-control col-sm-5" placeholder="Select one" id="network-select" onchange="setAnswerColorAttrib(this)">
+            <select class="form-control col-sm-8" placeholder="Select one" id="network-select" onchange="setAnswerColorAttrib(this)">
                 <option selected disabled hidden>Choose...</option>
                 <option value='Yes'>Yes. Wi-Fi will always be available to use.</option>
                 <option value='no'>No. I have to supply my own Wi-Fi.</option>
