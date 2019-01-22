@@ -14,21 +14,25 @@
 
 <body class="bg-light">
     <div id="page-heading" class="container">
+        <div class="text-center">
+            <img class= "img-fluid" src="images/logo.png" alt="CaseViewNet Logo" width ="60%">
+        </div>
         <!--Page Heading Text-->
         <div>
-            <h2 class="text-center mb-5">CaseViewNet Solution Finder</h1>
+            <h2 class="text-center mb-3">CaseViewNet Solution Finder</h1>
         </div>
 
         <!--Instructions-->
         <div id="instructions">
-            <h3>Answer a few questions to build the realtime solution that's right for you:</h4>
+            <h3 class="text-center mb-5">Answer a few questions to build the realtime solution that's right for you:</h4>
         </div>
 
         <!--Questions-->
 
-        <form class="mb-5">
+        
+        <form class="mb-5 ">
             <!--What CAT software?-->
-            <div id="q1" class="form-group col-sm-7">
+            <div id="q1" class="form-group col-sm-7 mb-5">
                 <label for="cat-software">Do you use Case CATalyst?</label>
                 <select class="form-control col-sm-8 m-0" placeholder="Select one" id="cat-software">
                     <option selected disabled hidden>Choose...</option>
@@ -38,7 +42,7 @@
             </div>
 
             <!--Everyone in the same Room?-->
-            <div id="q2" class="form-group col-sm-7 hidden">
+            <div id="q2" class="form-group col-sm-7 hidden mb-5">
                 <label for="same-room-select">Will you ever have clients receiving realtime remotely?</label>
                 <select class="form-control col-sm-8" placeholder="Select one" id="same-room-select">
                     <option selected disabled hidden>Choose...</option>
@@ -49,7 +53,7 @@
             </div>
 
             <!--Is there an available network?-->
-            <div id="q3" class="form-group col-sm-7 hidden">
+            <div id="q3" class="form-group col-sm-7 hidden mb-5">
                 <label for="network-select">Will a wireless network (Wi-Fi) always be available for you to use?</label>
                 <select class="form-control col-sm-8" placeholder="Select one" id="network-select">
                     <option selected disabled hidden>Choose...</option>
@@ -60,6 +64,7 @@
             </div>
             <div><button id="submit-button" type="button" class="btn btn-primary btn-block hidden">Submit Answers</button></div>
         </form>
+        
 
         <!--Information Area-->
         

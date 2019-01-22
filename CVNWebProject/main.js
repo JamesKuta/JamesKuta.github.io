@@ -1,5 +1,5 @@
 //CaseViewNet Solution Finder
-//Author: James Kuta
+//James Kuta
 
 window.onload = function ()
 {
@@ -7,20 +7,21 @@ window.onload = function ()
   let submit = document.getElementById('submit-button');
   submit.addEventListener('click', validate);
 
+  //grab the <select> for each question and tell them what to do
   let q1 = document.getElementById("cat-software");
   q1.addEventListener('change', function ()
   {
     setAnswerColorAttrib(q1);
     showNextQuestion();
+    showSubmitButton();
   });
-
-
 
   let q2 = document.getElementById("same-room-select");
   q2.addEventListener('change', function ()
   {
     setAnswerColorAttrib(q2);
     showNextQuestion();
+    showSubmitButton();''
   });
 
   let q3 = document.getElementById("network-select");
@@ -28,18 +29,18 @@ window.onload = function ()
   {
     setAnswerColorAttrib(q3);
     showNextQuestion();
+    showSubmitButton();
   });
 };
 
 //What to do with answered and unanswered questions
-
 let showNextQuestion = function () 
 {
   let question1 = document.getElementById("q1");
   let question2 = document.getElementById("q2");
   let question3 = document.getElementById("q3");
   let questionsArray = new Array(question1, question2, question3);
-  let submitBtn = document.getElementById('submit-button');
+  
 
   for (let i = 1; i < questionsArray.length; i++)
   {    
@@ -48,13 +49,28 @@ let showNextQuestion = function ()
         questionsArray[i].classList.remove('hidden');
         //questionsArray[i].style.display = 'inline-block';
         break;
-      } else
-      {
-        submitBtn.classList.remove('hidden');
-      }
+      } 
   }
 }
 
+function showSubmitButton()
+{
+  let question1 = document.getElementById("cat-software");
+  let question2 = document.getElementById("same-room-select");
+  let question3 = document.getElementById("network-select");
+  let submitBtn = document.getElementById('submit-button');
+  
+  if (
+    question1.value !== "Choose..." &&
+    question2.value !== "Choose..." &&
+    question3.value !== "Choose..."
+    ) 
+  {
+    submitBtn.classList.remove('hidden');
+  }
+}
+
+//Check to make sure all questions are answered when submit is clicked. (not really needed anymore)
 function validate()
 {
   let question1 = document.getElementById("cat-software");
