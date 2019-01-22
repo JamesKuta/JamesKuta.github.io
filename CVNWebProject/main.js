@@ -1,24 +1,82 @@
 //CaseViewNet Solution Finder
 //Author: James Kuta
 
+window.onload = function ()
+{
+  //grap the submit button and tell it what to do when clicked
+  let submit = document.getElementById('submit-button');
+  submit.addEventListener('click', validate);
 
-function validate() {
+  let q1 = document.getElementById("cat-software");
+  q1.addEventListener('change', function ()
+  {
+    setAnswerColorAttrib(q1);
+    showNextQuestion();
+  });
+
+
+
+  let q2 = document.getElementById("same-room-select");
+  q2.addEventListener('change', function ()
+  {
+    setAnswerColorAttrib(q2);
+    showNextQuestion();
+  });
+
+  let q3 = document.getElementById("network-select");
+  q3.addEventListener('change', function ()
+  {
+    setAnswerColorAttrib(q3);
+    showNextQuestion();
+  });
+};
+
+//What to do with answered and unanswered questions
+
+let showNextQuestion = function () 
+{
+  let question1 = document.getElementById("q1");
+  let question2 = document.getElementById("q2");
+  let question3 = document.getElementById("q3");
+  let questionsArray = new Array(question1, question2, question3);
+  let submitBtn = document.getElementById('submit-button');
+
+  for (let i = 1; i < questionsArray.length; i++)
+  {    
+    if (questionsArray[i].classList.contains('hidden'))
+      {
+        questionsArray[i].classList.remove('hidden');
+        //questionsArray[i].style.display = 'inline-block';
+        break;
+      } else
+      {
+        submitBtn.classList.remove('hidden');
+      }
+  }
+}
+
+function validate()
+{
   let question1 = document.getElementById("cat-software");
   let question2 = document.getElementById("same-room-select");
   let question3 = document.getElementById("network-select");
   let questionsArray = new Array(question1, question2, question3);
-  console.log(questionsArray);
+  //console.log(questionsArray);
 
   if (
     question1.value !== "Choose..." &&
     question2.value !== "Choose..." &&
     question3.value !== "Choose..."
-  ) {
+  )
+  {
     removeErrorMessage();
     handleSelections(question1, question2, question3);
-  } else {
-    for (let i = 0; i < questionsArray.length; i++) {
-      if (questionsArray[i].value === "Choose...") {
+  } else
+  {
+    for (let i = 0; i < questionsArray.length; i++)
+    {
+      if (questionsArray[i].value === "Choose...")
+      {
         questionsArray[i].style.color = "red";
       } // end inner if
     } // end for
@@ -31,15 +89,22 @@ function validate() {
   } // end else
 } // end validate
 
-function removeErrorMessage() {
-  if (document.contains(document.getElementById("error"))) {
+//Remove the red color for the answered questions
+function setAnswerColorAttrib(el)
+{
+  el.removeAttribute('style');
+  //console.log(el);
+}
+
+//Remove the "Please Answer All Questions text"
+function removeErrorMessage()
+{
+  if (document.contains(document.getElementById("error")))
+  {
     document.getElementById("error").remove();
   }
 }
 
-function setAnswerColorAttrib(el) {
-  el.style.color = "black";
-}
 
 // Enable to toggle display of Internet Important question if using CATalyst yes or no
 /* function showInternetImportant(el) {
@@ -52,23 +117,28 @@ function setAnswerColorAttrib(el) {
     
 } */
 
-function handleSelections(el1, el2, el3) {
-  if (el1.id === "cat-software") {
+function handleSelections(el1, el2, el3)
+{
+  if (el1.id === "cat-software")
+  {
     catSoftwareOptions(el1.value, el2.value, el3.value);
   }
 
-  if (el2.id === "same-room-select") {
+  if (el2.id === "same-room-select")
+  {
     sameRoomOptions(el1.value, el2.value, el3.value);
     console.log(el2.value);
   }
 
-  if (el3.id === "network-select") {
+  if (el3.id === "network-select")
+  {
     console.log(el1.value, el2.value, el3.value);
   }
 }
 
 // What to do once CAT software question is answerd
-function catSoftwareOptions(value1, value2, value3) {
+function catSoftwareOptions(value1, value2, value3)
+{
   let explanation = document.getElementById("explanation-text");
   let buy = document.getElementById("buy-text");
 
@@ -77,7 +147,8 @@ function catSoftwareOptions(value1, value2, value3) {
   buy.innerHTML = "";
 
   //check the values and act on them
-  if (value1 === "yes") {
+  if (value1 === "yes")
+  {
     //text for explination pane
     let div = document.createElement("div");
     let h6 = document.createElement("h6");
@@ -88,8 +159,8 @@ function catSoftwareOptions(value1, value2, value3) {
     );
     let text = document.createTextNode(
       "You're in great shape for this!" +
-        " Case CATalyst, with a CaseViewNet license, will" +
-        " give you refresh of all editing changes!"
+      " Case CATalyst, with a CaseViewNet license, will" +
+      " give you refresh of all editing changes!"
     );
     explanation.appendChild(div); // create a <div> inside explanation
     div.appendChild(h6); // create a <h4> inside of the <div>
@@ -107,7 +178,7 @@ function catSoftwareOptions(value1, value2, value3) {
       "Because you use Case CATalyst: "
     );
     let text2 =
-      '<a href="http://stenograph.com" class="badge badge-light" target="_blank">CaseViewNet License</a>';
+      '<a href="http://www.stenograph.com" class="badge badge-light" target="_blank">CaseViewNet License</a>';
     buy.appendChild(div2); // create a <div> inside explanation
     div2.appendChild(h62); // create a <h4> inside of the <div>
     h62.appendChild(headingText2); // add the text to the <h4> element
@@ -116,7 +187,8 @@ function catSoftwareOptions(value1, value2, value3) {
     li2.innerHTML = text2; // add the text to the <li> element
   }
 
-  if (value1 === "no") {
+  if (value1 === "no")
+  {
     //text for explination pane
     let div = document.createElement("div");
     let div2 = document.createElement("div");
@@ -144,7 +216,7 @@ function catSoftwareOptions(value1, value2, value3) {
       "Because you don't use Case CATalyst: "
     );
     let text2 =
-      '<a href="http://stenograph.com" class="badge badge-light" target="_blank">CaseViewNet Cloud Session Code</a>';
+      '<a href="http://www.stenograph.com" class="badge badge-light" target="_blank">CaseViewNet Cloud Session Code</a>';
     buy.appendChild(div2); // create a <div> inside explanation
     div2.appendChild(h62); // create a <h4> inside of the <div>
     h62.appendChild(headingText2); // add the text to the <h4> element
@@ -154,4 +226,7 @@ function catSoftwareOptions(value1, value2, value3) {
   }
 }
 
-function sameRoomOptions(value1, value2, value3) {}
+function sameRoomOptions(value1, value2, value3)
+{
+
+}
