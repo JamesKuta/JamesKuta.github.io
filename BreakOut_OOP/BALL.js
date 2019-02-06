@@ -28,15 +28,15 @@ const BALL =
     {
         let playerTop = GAMEWORLD.canvas.height - PLAYER.playerDistanceFromEdge;
         let playerBottom = playerTop + PLAYER.height;
-        let playerLeft = PLAYER.playerX;
-        let playerRight = PLAYER.playerX + PLAYER.width;
+        let playerLeft = GAMEWORLD.mouseX - PLAYER.width/2;
+        let playerRight = GAMEWORLD.mouseX + PLAYER.width;
 
         if (BALL.ballY + BALL.radius > playerTop &&
             BALL.ballY + BALL.radius < playerBottom &&
             BALL.ballX + BALL.radius > playerLeft &&
             BALL.ballX - BALL.radius < playerRight)
             {
-                let playerCenter = PLAYER.playerX + PLAYER.width / 2;
+                let playerCenter = playerLeft + PLAYER.width / 2;
                 let offsetFromPlayerCenter = BALL.ballX - playerCenter;
                 let speedDampener = .3;
                 BALL.ballSpeedX = offsetFromPlayerCenter * speedDampener;
@@ -60,7 +60,5 @@ const BALL =
         GAMEWORLD.flashWorld();
         BALL.ballX = GAMEWORLD.canvas.width / 2;
         BALL.ballY = GAMEWORLD.canvas.height / 2;
-        
-
     }
 };
