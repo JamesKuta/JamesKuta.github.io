@@ -13,6 +13,7 @@ const BREAKOUTGAME =
         
         BALL.moveBall();
         BALL.hitWorldEdges();
+        BALL.hitBricks();
         BALL.drawBall();
         BRICKS.drawBricks();
         PLAYER.drawPlayer();

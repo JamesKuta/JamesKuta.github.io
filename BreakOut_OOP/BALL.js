@@ -44,6 +44,24 @@ const BALL =
             }
     },
 
+    hitBricks: function () 
+    {
+        let ballHitBrickColumn = Math.floor(BALL.ballX / BRICKS.width);
+        let ballHitBrickRow = Math.floor(BALL.ballY / BRICKS.height);
+        let brickArrayIndexAtBall = BRICKS.getBrickArrayIndexNumber(ballHitBrickColumn, ballHitBrickRow);
+
+        if(brickArrayIndexAtBall >= 0 && brickArrayIndexAtBall < BRICKS.columns * BRICKS.rows)
+        {
+            if(BRICKS.brickArray[brickArrayIndexAtBall]) 
+            {
+                BRICKS.brickArray[brickArrayIndexAtBall] = false;
+                //Add better collision code
+                BALL.ballSpeedY = -BALL.ballSpeedY;
+            }
+            
+        }
+    },
+
     moveBall: function ()
     {
         BALL.ballX += BALL.ballSpeedX;
