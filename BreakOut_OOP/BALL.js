@@ -44,7 +44,7 @@ const BALL =
             }
     },
 
-    hitBricks: function () 
+    hitBricks: function () //Note to self: Something is wrong if ball hits bottom row. Fix this!
     {
         let ballHitBrickColumn = Math.floor(BALL.ballX / BRICKS.width);
         let ballHitBrickRow = Math.floor(BALL.ballY / BRICKS.height);
@@ -55,10 +55,42 @@ const BALL =
             if(BRICKS.brickArray[brickArrayIndexAtBall]) 
             {
                 BRICKS.brickArray[brickArrayIndexAtBall] = false;
-                //Add better collision code
-                BALL.ballSpeedY = -BALL.ballSpeedY;
-            }
-            
+                
+                let locationOfBallXLastFrame = BALL.ballX - BALL.ballSpeedX;
+                let locationOfBallYLastFrame = BALL.ballY - BALL.ballSpeedY;
+                let columnOfLastFrameBallX = Math.floor(locationOfBallXLastFrame / BRICKS.width);
+                let rowOfLastFrameBallY = Math.floor(locationOfBallYLastFrame / BRICKS.height);
+
+                let hitArmpit = true;
+                if(columnOfLastFrameBallX != ballHitBrickColumn)
+                {
+                    let isBrickSideCovered = BRICKS.getBrickArrayIndexNumber(columnOfLastFrameBallX,
+                        ballHitBrickColumn);
+                    if(BRICKS.brickArray[isBrickSideCovered] == false)
+                    {
+                        BALL.ballSpeedX = -BALL.ballSpeedX;
+                        hitArmpit = false;
+                    }
+                }
+
+                if(rowOfLastFrameBallY != ballHitBrickRow)
+                {
+                    let isBrickTopBottomCovered = BRICKS.getBrickArrayIndexNumber(ballHitBrickRow,
+                        rowOfLastFrameBallY);
+                        
+                    if(BRICKS.brickArray[isBrickTopBottomCovered] == false)
+                    {
+                        BALL.ballSpeedY = -BALL.ballSpeedY;
+                        hitArmpit = false;
+                    }
+                }
+
+                if(hitArmpit)
+                {
+                    BALL.ballSpeedX = -BALL.ballSpeedX;
+                    BALL.ballSpeedY = -BALL.ballSpeedY;
+                }
+            } 
         }
     },
 

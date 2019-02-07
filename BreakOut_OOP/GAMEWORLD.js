@@ -18,6 +18,13 @@ const GAMEWORLD =
         let root = document.documentElement;
         GAMEWORLD.mouseX = event.clientX - pagePosition.left - root.scrollLeft;
         GAMEWORLD.mouseY = event.clientY - pagePosition.top - root.scrollTop;
+
+        //Don't forget to Remove. This is just for testing!!!
+        BALL.ballX = GAMEWORLD.mouseX;
+        BALL.ballY = GAMEWORLD.mouseY;
+        BALL.ballSpeedX = 3;
+        BALL.ballSpeedY = -3;
+        //Remove above!!!
     },
     
     
@@ -38,10 +45,10 @@ const GAMEWORLD =
         let brickArrayIndex = BRICKS.getBrickArrayIndexNumber(indexCoordX, indexCoordY); 
         
         //for testing Remove START!!!!
-        if(brickArrayIndex >= 0 && brickArrayIndex < BRICKS.columns * BRICKS.rows)
-        {
-            BRICKS.brickArray[brickArrayIndex] = false;
-        }
+        // if(brickArrayIndex >= 0 && brickArrayIndex < BRICKS.columns * BRICKS.rows)
+        // {
+        //     BRICKS.brickArray[brickArrayIndex] = false;
+        // }
         //for testing Remove END!!!!
         
         GAMEWORLD.draw.text("col: " + indexCoordX + ", " + "row: " + indexCoordY + ", "
