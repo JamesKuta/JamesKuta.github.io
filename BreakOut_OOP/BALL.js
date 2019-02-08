@@ -1,15 +1,15 @@
 const BALL =
 {
-    ballX: 75,
+    ballX: 0,
     ballSpeedX: 5,
-    ballY: 75,
+    ballY: 0,
     ballSpeedY: 5,
 
     radius: 10,
 
     hitWorldEdges: function ()
     {
-        if (BALL.ballX + BALL.radius > GAMEWORLD.canvas.width || BALL.ballX - BALL.radius < 0)
+        if (BALL.ballX + BALL.radius > GAMEWORLD.canvas.width && BALL.ballSpeedX > 0.0 || BALL.ballX - BALL.radius < 0 && BALL.ballSpeedX < 0.0)
         {
             BALL.ballSpeedX = -BALL.ballSpeedX;
         }
@@ -17,7 +17,7 @@ const BALL =
         if (BALL.ballY + BALL.radius > GAMEWORLD.canvas.height)
         {
             BALL.reset();
-        } 
+        }
         if (BALL.ballY - BALL.radius < 0)
         {
             BALL.ballSpeedY = -BALL.ballSpeedY;
@@ -28,20 +28,25 @@ const BALL =
     {
         let playerTop = GAMEWORLD.canvas.height - PLAYER.playerDistanceFromEdge;
         let playerBottom = playerTop + PLAYER.height;
-        let playerLeft = GAMEWORLD.mouseX - PLAYER.width/2;
+        let playerLeft = GAMEWORLD.mouseX - PLAYER.width / 2;
         let playerRight = GAMEWORLD.mouseX + PLAYER.width;
 
         if (BALL.ballY + BALL.radius > playerTop &&
             BALL.ballY + BALL.radius < playerBottom &&
             BALL.ballX + BALL.radius > playerLeft &&
             BALL.ballX - BALL.radius < playerRight)
+        {
+            let playerCenter = playerLeft + PLAYER.width / 2;
+            let offsetFromPlayerCenter = BALL.ballX - playerCenter;
+            let speedDampener = .3;
+            BALL.ballSpeedX = offsetFromPlayerCenter * speedDampener;
+            BALL.ballSpeedY = -BALL.ballSpeedY;
+
+            if (BRICKS.bricksRemaining == 0)
             {
-                let playerCenter = playerLeft + PLAYER.width / 2;
-                let offsetFromPlayerCenter = BALL.ballX - playerCenter;
-                let speedDampener = .3;
-                BALL.ballSpeedX = offsetFromPlayerCenter * speedDampener;
-                BALL.ballSpeedY = -BALL.ballSpeedY;
+                BRICKS.resetBricks();
             }
+        }
     },
 
     hitBricks: function () //Note to self: Something is wrong if ball hits bottom row. Fix this!
@@ -50,47 +55,45 @@ const BALL =
         let ballHitBrickRow = Math.floor(BALL.ballY / BRICKS.height);
         let brickArrayIndexAtBall = BRICKS.getBrickArrayIndexNumber(ballHitBrickColumn, ballHitBrickRow);
 
-        if(brickArrayIndexAtBall >= 0 && brickArrayIndexAtBall < BRICKS.columns * BRICKS.rows)
+        if (brickArrayIndexAtBall >= 0 && brickArrayIndexAtBall < BRICKS.columns * BRICKS.rows)
         {
-            if(BRICKS.brickArray[brickArrayIndexAtBall]) 
+            if (BRICKS.brickBoundsCheck(ballHitBrickColumn, ballHitBrickRow)) 
             {
                 BRICKS.brickArray[brickArrayIndexAtBall] = false;
-                
+                BRICKS.bricksRemaining--;
+                console.log(BRICKS.bricksRemaining);
+
                 let locationOfBallXLastFrame = BALL.ballX - BALL.ballSpeedX;
                 let locationOfBallYLastFrame = BALL.ballY - BALL.ballSpeedY;
                 let columnOfLastFrameBallX = Math.floor(locationOfBallXLastFrame / BRICKS.width);
                 let rowOfLastFrameBallY = Math.floor(locationOfBallYLastFrame / BRICKS.height);
 
                 let hitArmpit = true;
-                if(columnOfLastFrameBallX != ballHitBrickColumn)
+
+                if (columnOfLastFrameBallX != ballHitBrickColumn)
                 {
-                    let isBrickSideCovered = BRICKS.getBrickArrayIndexNumber(columnOfLastFrameBallX,
-                        ballHitBrickColumn);
-                    if(BRICKS.brickArray[isBrickSideCovered] == false)
+                    if (BRICKS.brickBoundsCheck(locationOfBallXLastFrame, ballHitBrickRow) == false)
                     {
                         BALL.ballSpeedX = -BALL.ballSpeedX;
                         hitArmpit = false;
                     }
                 }
 
-                if(rowOfLastFrameBallY != ballHitBrickRow)
+                if (rowOfLastFrameBallY != ballHitBrickRow)
                 {
-                    let isBrickTopBottomCovered = BRICKS.getBrickArrayIndexNumber(ballHitBrickRow,
-                        rowOfLastFrameBallY);
-                        
-                    if(BRICKS.brickArray[isBrickTopBottomCovered] == false)
+                    if (BRICKS.brickBoundsCheck(ballHitBrickColumn, locationOfBallYLastFrame) == false)
                     {
                         BALL.ballSpeedY = -BALL.ballSpeedY;
                         hitArmpit = false;
                     }
                 }
 
-                if(hitArmpit)
+                if (hitArmpit)
                 {
                     BALL.ballSpeedX = -BALL.ballSpeedX;
                     BALL.ballSpeedY = -BALL.ballSpeedY;
                 }
-            } 
+            }
         }
     },
 

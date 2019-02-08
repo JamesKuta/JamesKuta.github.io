@@ -1,10 +1,10 @@
-const GAMEWORLD = 
+const GAMEWORLD =
 {
     canvas: document.getElementById('gameCanvas'),
 
     mouseX: 0,
     mouseY: 0,
-    
+
     startGame: function ()
     {
         GAMEWORLD.context = GAMEWORLD.canvas.getContext('2d');
@@ -20,62 +20,62 @@ const GAMEWORLD =
         GAMEWORLD.mouseY = event.clientY - pagePosition.top - root.scrollTop;
 
         //Don't forget to Remove. This is just for testing!!!
-        BALL.ballX = GAMEWORLD.mouseX;
-        BALL.ballY = GAMEWORLD.mouseY;
-        BALL.ballSpeedX = 3;
-        BALL.ballSpeedY = -3;
+        // BALL.ballX = GAMEWORLD.mouseX;
+        // BALL.ballY = GAMEWORLD.mouseY;
+        // BALL.ballSpeedX = 3;
+        // BALL.ballSpeedY = -3;
         //Remove above!!!
     },
-    
-    
+
+
     clear: function ()
     {
-        GAMEWORLD.draw.rectangle(0,0, GAMEWORLD.canvas.width, GAMEWORLD.canvas.height, "black");
+        GAMEWORLD.draw.rectangle(0, 0, GAMEWORLD.canvas.width, GAMEWORLD.canvas.height, "black");
     },
 
     flashWorld: function ()
     {
-        GAMEWORLD.draw.rectangle(0,0, GAMEWORLD.canvas.width, GAMEWORLD.canvas.height, "white");
+        GAMEWORLD.draw.rectangle(0, 0, GAMEWORLD.canvas.width, GAMEWORLD.canvas.height, "white");
     },
 
     showMouseCoordinates: function ()
     {
         let indexCoordX = Math.floor(GAMEWORLD.mouseX / BRICKS.width);
         let indexCoordY = Math.floor(GAMEWORLD.mouseY / BRICKS.height);
-        let brickArrayIndex = BRICKS.getBrickArrayIndexNumber(indexCoordX, indexCoordY); 
-        
+        let brickArrayIndex = BRICKS.getBrickArrayIndexNumber(indexCoordX, indexCoordY);
+
         //for testing Remove START!!!!
         // if(brickArrayIndex >= 0 && brickArrayIndex < BRICKS.columns * BRICKS.rows)
         // {
         //     BRICKS.brickArray[brickArrayIndex] = false;
         // }
         //for testing Remove END!!!!
-        
+
         GAMEWORLD.draw.text("col: " + indexCoordX + ", " + "row: " + indexCoordY + ", "
-         + "index: " + brickArrayIndex, GAMEWORLD.mouseX, GAMEWORLD.mouseY, "yellow");
+            + "index: " + brickArrayIndex, GAMEWORLD.mouseX, GAMEWORLD.mouseY, "yellow");
     },
 
-    draw: 
+    draw:
     {
-        rectangle: function (topLeftX,topLeftY, boxWidth,boxHeight, fillColor)
+        rectangle: function (topLeftX, topLeftY, boxWidth, boxHeight, fillColor)
         {
             GAMEWORLD.context.fillStyle = fillColor
-            GAMEWORLD.context.fillRect(topLeftX,topLeftY, boxWidth, boxHeight);
+            GAMEWORLD.context.fillRect(topLeftX, topLeftY, boxWidth, boxHeight);
         },
 
-        circle: function (centerX,centerY, radius, fillColor)
+        circle: function (centerX, centerY, radius, fillColor)
         {
             GAMEWORLD.context.fillStyle = fillColor;
             GAMEWORLD.context.beginPath();
-            GAMEWORLD.context.arc(centerX,centerY, radius, 0, Math.PI * 2, true);
+            GAMEWORLD.context.arc(centerX, centerY, radius, 0, Math.PI * 2, true);
             GAMEWORLD.context.fill();
         },
 
-        text: function (words, textX,textY, fillColor)  
+        text: function (words, textX, textY, fillColor)  
         {
             GAMEWORLD.context.fillStyle = fillColor;
-            GAMEWORLD.context.fillText(words, textX,textY,);
-            
+            GAMEWORLD.context.fillText(words, textX, textY);
+
         },
 
     },

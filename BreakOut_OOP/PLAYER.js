@@ -1,4 +1,4 @@
-const PLAYER = 
+const PLAYER =
 {
     width: 100,
     height: 10,
@@ -6,7 +6,7 @@ const PLAYER =
     playerX: 400,
     playerDistanceFromEdge: 60,
 
-        
+
     movePlayer: function (event)
     {
         // let pagePosition = GAMEWORLD.canvas.getBoundingClientRect();
@@ -21,8 +21,8 @@ const PLAYER =
 
     drawPlayer: function ()
     {
-        GAMEWORLD.draw.rectangle(GAMEWORLD.mouseX - PLAYER.width / 2, 
-            GAMEWORLD.canvas.height-PLAYER.playerDistanceFromEdge, 
+        GAMEWORLD.draw.rectangle(GAMEWORLD.mouseX - PLAYER.width / 2,
+            GAMEWORLD.canvas.height - PLAYER.playerDistanceFromEdge,
             PLAYER.width, PLAYER.height, 'white');
     },
 

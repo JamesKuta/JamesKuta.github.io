@@ -1,16 +1,19 @@
 window.onload = function ()
 {
-    BRICKS.resetBricks();
+
     GAMEWORLD.startGame();
+    BRICKS.resetBricks();
+    BALL.reset();
+
 };
 
-const BREAKOUTGAME =  
+const BREAKOUTGAME =
 {
     updateAll: function () 
     {
         requestAnimationFrame(BREAKOUTGAME.updateAll);
         GAMEWORLD.clear();
-        
+
         BALL.moveBall();
         BALL.hitWorldEdges();
         BALL.hitBricks();

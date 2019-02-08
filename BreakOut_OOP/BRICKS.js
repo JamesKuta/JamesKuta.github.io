@@ -8,24 +8,42 @@ const BRICKS =
     totalBricks: 0,
     brickArray: [],
     totalBricks: 0,
+    bricksRemaining: 0,
 
     resetBricks: function ()
     {
+        BRICKS.bricksRemaining = 0;
         BRICKS.totalBricks = BRICKS.rows * BRICKS.columns;
-        console.log(BRICKS.totalBricks);
-        for (let i = 0; i < BRICKS.totalBricks; i++)
+        //console.log(BRICKS.totalBricks);
+
+        for (let i = 0; i < 3 * BRICKS.columns; i++)
         {
-            BRICKS.brickArray[i] = true;
+            BRICKS.brickArray[i] = false;
         }
 
-        
-        BRICKS.brickArray[0] = false;
-        console.log(BRICKS.brickArray);
+        for (let i = 3 * BRICKS.columns; i < BRICKS.totalBricks; i++)
+        {
+            BRICKS.brickArray[i] = true;
+            BRICKS.bricksRemaining++;
+        }
+    },
+
+    brickBoundsCheck: function (col, row)
+    {
+        if (col >= 0 && col < BRICKS.columns &&
+            row >= 0 && row < BRICKS.rows)
+        {
+            let isThereABrickAtCoord = BRICKS.getBrickArrayIndexNumber(col, row);
+            return BRICKS.brickArray[isThereABrickAtCoord];
+        } else
+        {
+            return false;
+        }
     },
 
     getBrickArrayIndexNumber: function (col, row)
     {
-        return col + BRICKS.columns * row; 
+        return col + BRICKS.columns * row;
     },
 
     drawBricks: function ()
