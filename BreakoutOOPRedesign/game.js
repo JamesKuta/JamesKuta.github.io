@@ -99,11 +99,23 @@ function ballHitPaddleCollisionCheck(param_ball, param_paddle)
     }
 }
 
-function currentLevelArrayIndexAtRowAndColumnOfBall(param_ball, param_brick, param_levelBuffer) 
+function getBallRow(param_ballY, param_brickHeight) 
 {
-    let getCurrentBallRow = Math.floor(param_ball.y / param_brick.height);
-    let getCurrentBallColomn = Math.floor(param_ball.x / param_brick.width);
+    
+    return Math.floor(param_ballY / param_brickHeight);
+}
 
+function getBallColumn(param_ballX, param_brickWidth)
+{
+    
+    return Math.floor(param_ballX / param_brickWidth);
+}
+
+function levelArrayIndexAtRowAndColumnOfBall(param_ball, param_brick, param_levelBuffer) 
+{
+    let getCurrentBallRow = getBallRow(param_ball.y, param_brick.height);
+    let getCurrentBallColomn = getBallColumn(param_ball.x, param_brick.width);
+    
     if (getCurrentBallRow >= 0 && getCurrentBallRow < param_levelBuffer.rows &&
         getCurrentBallColomn >= 0 && getCurrentBallColomn < param_levelBuffer.columns) // fix edge wrap
     {
@@ -113,16 +125,30 @@ function currentLevelArrayIndexAtRowAndColumnOfBall(param_ball, param_brick, par
 
 function ballHitBrickCollisionCheck(param_ball, param_brick, param_levelBuffer)
 {
-    let getCurrentLevelArrayIndexAtBall = currentLevelArrayIndexAtRowAndColumnOfBall(param_ball, param_brick, param_levelBuffer);
+    let getCurrentLevelArrayIndexAtBall = levelArrayIndexAtRowAndColumnOfBall(param_ball, param_brick, param_levelBuffer);
 
     if (param_levelBuffer.grid[getCurrentLevelArrayIndexAtBall] <= param_levelBuffer.columns * param_levelBuffer.rows &&
         param_levelBuffer.grid[getCurrentLevelArrayIndexAtBall] > 0) //Is the index where a brick could be and is there a brick there
     {
-        // let ballRowPreviousFrame = Math.floor(param_ball.y / param_brick.height);
-        // let ballColumnPreviousFream = Math.floor(param_ball.x / param_brick.width);
+        let ballRowNow = getBallRow(param_ball.y, param_brick.height);
+        console.log(ballRowNow);
+        let ballColumnNow = getBallRow(param_ball.x, param_brick.width);
+        let ballRowLastFrame = getBallRow(param_ball.y - param_ball.speedY, param_brick.height);
+        console.log(ballRowLastFrame);
+        let ballColumnLastFrame = getBallColumn(param_ball.x - param_ball.speedX, param_brick.width);
 
+        if(ballRowLastFrame != ballRowNow)
+        {
+            param_ball.speedY = -param_ball.speedY;
+        }
+
+        if(ballColumnLastFrame != ballColumnNow)
+        {
+            param_ball.speedX = -param_ball.speedX
+        }
+        
         param_levelBuffer.grid[getCurrentLevelArrayIndexAtBall] = 0;
-        param_ball.speedY = - param_ball.speedY;
+        
     }
 }
 
