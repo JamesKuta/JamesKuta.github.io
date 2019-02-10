@@ -47,6 +47,7 @@ function update()
     
     worldEdgesCollisionCheck(ball, display);
     ballHitPaddleCollisionCheck(ball, paddle);
+    ballHitBrickCollisionCheck(ball, brick, levelBuffer);
     
     ball.move();
 
@@ -72,7 +73,7 @@ function update()
 
 function worldEdgesCollisionCheck(obj1, obj2){
     
-    if(obj1.x < 0 || obj1.x >= obj2.gameCanvas.width) {
+    if((obj1.x - obj1.radius) + obj1.speedX < 0 || (obj1.x + obj1.radius) + obj1.speedX >= obj2.gameCanvas.width) {
         obj1.speedX = -obj1.speedX;
         count++;
         //console.log(count);
@@ -103,8 +104,33 @@ function ballHitPaddleCollisionCheck(obj1, obj2)
     {
         obj1.speedY = -obj1.speedY;
         obj1.speedX = setXSpeedFromCenterOffset * offsetSpeedChange;
-        console.log(obj1.speedX);
+        //console.log(obj1.speedX);
     }
+}
+
+function currentLevelArrayIndexAtRowAndColumnOfBall(obj1, obj2, obj3) 
+{
+    let getCurrentBallRow = Math.floor(obj1.y / obj2.height);
+    let getCurrentBallColomn = Math.floor(obj1.x / obj2.width);
+    if(getCurrentBallColomn < 0)
+    {
+    console.log("col: " + getCurrentBallColomn + "row: " + getCurrentBallRow);
+    }
+    return getCurrentBallRow * obj3.columns + getCurrentBallColomn;
+
+}
+
+function ballHitBrickCollisionCheck(obj1, obj2, obj3)
+{
+    let getCurrentLevelArrayIndexAtBall = currentLevelArrayIndexAtRowAndColumnOfBall(obj1, obj2, obj3);
+    
+    if(obj3.grid[getCurrentLevelArrayIndexAtBall] <= obj3.columns * obj3.rows &&
+        obj3.grid[getCurrentLevelArrayIndexAtBall] > 0)
+    {
+        obj3.grid[getCurrentLevelArrayIndexAtBall] = 0;
+        obj1.speedY = - obj1.speedY;
+    }
+    
 }
 
 function updateGameGrid(obj1, obj2)
