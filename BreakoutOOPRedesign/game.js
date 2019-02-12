@@ -13,6 +13,9 @@ let count = 0;
 let levelBuffer = [];
 let levelCounter = 1;
 
+let animate = false;
+let readyToShoot = false;
+
 window.onload = function ()
 {
     display.clear();
@@ -28,7 +31,6 @@ function loadLevel(param_level)
             {
                 levelBuffer = param_level.level1;
                 getNumberOfBricksInLevel(levelBuffer);
-                //console.log(levelBuffer.count);
                 levelCounter++;
                 console.log(levelCounter);
                 break;
@@ -38,12 +40,13 @@ function loadLevel(param_level)
             {
                 levelBuffer = param_level.level2;
                 getNumberOfBricksInLevel(levelBuffer);
-                //console.log(levelBuffer.count);
                 levelCounter++;
                 console.log(levelCounter);
                 break;
             }
     }
+
+    animate = true;
 }
 
 function getNumberOfBricksInLevel(param_levelBuffer)
@@ -72,7 +75,14 @@ function resetBallPosition(param_ball)
 
 function update()
 {
-    requestAnimationFrame(update);
+    
+    
+    if (animate)
+    {
+        requestAnimationFrame(update);
+    }
+
+    
 
     display.clear();
 
@@ -89,6 +99,16 @@ function update()
     //console.log(paddle);
 
     updateGameGrid(levelBuffer, brick);
+
+    if(animate == false)
+    {
+        display.writePause();
+    }
+
+    if (animate == false && readyToShoot)
+    {
+        display.writeClickToShoot();
+    }
 
 }
 
@@ -220,7 +240,23 @@ function onMouseMove(event)
     mouse.y = event.clientY - rect.top;
 }
 
+
+
 window.addEventListener('resize', display.resize);
 window.addEventListener('mousemove', onMouseMove);
+window.addEventListener('keydown', function (event)
+{
+    if (event.key == 'Escape')
+    {
+        if (animate)
+        {
+            animate = false;
+        } else
+        {
+            animate = true;
+            update();
+        }
+    }
+});
 //console.log(brick);
 

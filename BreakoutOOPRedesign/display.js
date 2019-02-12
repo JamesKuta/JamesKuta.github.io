@@ -37,3 +37,19 @@ Display.prototype.drawRectangle = function (obj)
         this.context.fillRect(obj.x, obj.y, obj.width, obj.height);
     }
 }
+
+Display.prototype.writePause = function()
+{
+    display.context.font = "30px Comic Sans MS";
+    display.context.fillStyle = 'white';
+    display.context.textAlign = "center";
+    display.context.fillText("Paused", display.gameCanvas.width / 2, display.gameCanvas.height / 2 );
+}
+
+Display.prototype.writeReadyToShoot = function()
+{
+    display.context.font = "30px Comic Sans MS";
+    display.context.fillStyle = 'white';
+    display.context.textAlign = "center";
+    display.context.fillText("Press Mouse Button to Shoot", display.gameCanvas.width / 2, display.gameCanvas.height / 2 );
+}
