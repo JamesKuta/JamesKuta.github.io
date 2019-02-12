@@ -1,9 +1,11 @@
 let Levels = function ()
 {
+    
     this.level1 =
         {
             columns: 10,
             rows: 10,
+            count: 0,
             grid:
                 [
                     0, 0, 0, 0, 0, 0, 0, 0, 0, 0,
@@ -23,6 +25,7 @@ let Levels = function ()
         {
             columns: 10,
             rows: 10,
+            count: 0,
             grid:
                 [
                     0, 0, 0, 0, 0, 0, 0, 0, 0, 0,
