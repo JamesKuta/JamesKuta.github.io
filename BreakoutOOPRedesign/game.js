@@ -67,10 +67,13 @@ function getNumberOfBricksInLevel(param_levelBuffer)
 
 function resetBallPosition(param_ball)
 {
-    param_ball.x = display.gameCanvas.width / 2;
-    param_ball.y = display.gameCanvas.height / 2;
+
+    param_ball.x = paddle.x + paddle.width / 2;
+    param_ball.y = paddle.y;
     param_ball.speedX = 3;
-    param_ball.speedY = 3;
+    param_ball.speedY = -3;
+    animate = false;
+    readyToShoot = true;
 }
 
 function update()
@@ -100,7 +103,7 @@ function update()
 
     updateGameGrid(levelBuffer, brick);
 
-    if(animate == false)
+    if(animate == false && readyToShoot == false)
     {
         display.writePause();
     }
@@ -244,11 +247,21 @@ function onMouseMove(event)
 
 window.addEventListener('resize', display.resize);
 window.addEventListener('mousemove', onMouseMove);
+window.addEventListener('click', function()
+{
+    if(readyToShoot == true)
+    {
+        readyToShoot = false;
+        animate = true;
+        update();
+    }
+});
+
 window.addEventListener('keydown', function (event)
 {
     if (event.key == 'Escape')
     {
-        if (animate)
+        if (animate && readyToShoot == false)
         {
             animate = false;
         } else

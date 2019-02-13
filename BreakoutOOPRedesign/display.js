@@ -46,7 +46,7 @@ Display.prototype.writePause = function()
     display.context.fillText("Paused", display.gameCanvas.width / 2, display.gameCanvas.height / 2 );
 }
 
-Display.prototype.writeReadyToShoot = function()
+Display.prototype.writeClickToShoot = function()
 {
     display.context.font = "30px Comic Sans MS";
     display.context.fillStyle = 'white';
