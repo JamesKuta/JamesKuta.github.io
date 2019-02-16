@@ -5,21 +5,25 @@ let mouse =
 }
 
 let display = new Display(document.getElementById('canvas'));
-let ball = new Ball(display.gameCanvas.width / 2, display.gameCanvas.height / 2, 10, 'white');
 let level = new Levels;
 let brick = new Brick(display.gameCanvas.width / 10, display.gameCanvas.height / 30, 2, 'blue');
 let paddle = new Paddle(mouse.x, display.gameCanvas.height * 0.9, display.gameCanvas.width * 0.15, display.gameCanvas.height / 40, 'white');
+let ball = new Ball(display.gameCanvas.width / 2, paddle.y -10, 10, 'white');
 let count = 0;
 let levelBuffer = [];
-let levelCounter = 1;
+let levelCounter = 2;
+let start = true;
+
 
 let animate = false;
 let readyToShoot = false;
 
 window.onload = function ()
 {
+
     display.clear();
     loadLevel(level);
+    resetBallPosition(Ball);
     requestAnimationFrame(update);
 }
 
@@ -61,58 +65,58 @@ function getNumberOfBricksInLevel(param_levelBuffer)
             }
         }
     }
-
-    //return param_levelBuffer.count;
 }
 
 function resetBallPosition(param_ball)
 {
 
     param_ball.x = paddle.x + paddle.width / 2;
-    param_ball.y = paddle.y;
-    param_ball.speedX = 3;
-    param_ball.speedY = -3;
-    animate = false;
+    param_ball.y = paddle.y - ball.radius;
+    param_ball.speedX = 5;
+    param_ball.speedY = -5;
     readyToShoot = true;
 }
 
 function update()
 {
-    
-    
+
+
     if (animate)
     {
         requestAnimationFrame(update);
     }
 
-    
-
     display.clear();
+
+    
 
     worldEdgesCollisionCheck(ball, display);
     ballHitPaddleCollisionCheck(ball, paddle);
     ballHitBrickCollisionCheck(ball, brick, levelBuffer);
 
-    ball.move();
-
-    movePaddle(paddle);
-
-    display.drawCircle(ball);
-    display.drawRectangle(paddle);
-    //console.log(paddle);
-
-    updateGameGrid(levelBuffer, brick);
-
-    if(animate == false && readyToShoot == false)
+    if (!readyToShoot)
     {
-        display.writePause();
-    }
-
-    if (animate == false && readyToShoot)
+        ball.move();
+    } else
     {
+        ballFollowPaddle();
         display.writeClickToShoot();
     }
 
+    movePaddle(paddle);
+    display.drawCircle(ball);
+    display.drawRectangle(paddle);
+    updateGameGrid(levelBuffer, brick);
+
+    if (animate == false)
+    {
+        display.writePause();
+    }
+}
+
+function ballFollowPaddle()
+{
+    ball.x = paddle.x + paddle.width / 2;
 }
 
 function worldEdgesCollisionCheck(param_ball, param_display)
@@ -122,15 +126,12 @@ function worldEdgesCollisionCheck(param_ball, param_display)
     {
         param_ball.speedX = -param_ball.speedX;
         count++;
-        //console.log(count);
-
     }
 
     if (param_ball.y < 0)
     {
         param_ball.speedY *= -1;
         count++;
-        //console.log(count);
     }
 
     if (param_ball.y >= param_display.gameCanvas.height)
@@ -156,7 +157,6 @@ function ballHitPaddleCollisionCheck(param_ball, param_paddle)
     {
         param_ball.speedY = -param_ball.speedY;
         param_ball.speedX = setXSpeedFromCenterOffset * offsetSpeedChange;
-        //console.log(param_ball.speedX);
     }
 }
 
@@ -192,10 +192,8 @@ function ballHitBrickCollisionCheck(param_ball, param_brick, param_levelBuffer)
         param_levelBuffer.grid[getCurrentLevelArrayIndexAtBall] > 0) //Is the index where a brick could be and is there a brick there
     {
         let ballRowNow = getBallRow(param_ball.y, param_brick.height);
-        //console.log(ballRowNow);
         let ballColumnNow = getBallRow(param_ball.x, param_brick.width);
         let ballRowLastFrame = getBallRow(param_ball.y - param_ball.speedY, param_brick.height);
-        //console.log(ballRowLastFrame);
         let ballColumnLastFrame = getBallColumn(param_ball.x - param_ball.speedX, param_brick.width);
 
         if (ballRowLastFrame != ballRowNow)
@@ -223,8 +221,6 @@ function updateGameGrid(param_levelBuffer, param_brick)
             {
                 param_brick.x = col * param_brick.width;
                 param_brick.y = row * param_brick.height;
-                //console.log(param_brick);
-
                 display.drawRectangle(param_brick);
             }
         }
@@ -247,13 +243,11 @@ function onMouseMove(event)
 
 window.addEventListener('resize', display.resize);
 window.addEventListener('mousemove', onMouseMove);
-window.addEventListener('click', function()
+window.addEventListener('click', function ()
 {
-    if(readyToShoot == true)
+    if (readyToShoot == true)
     {
         readyToShoot = false;
-        animate = true;
-        update();
     }
 });
 
@@ -261,7 +255,7 @@ window.addEventListener('keydown', function (event)
 {
     if (event.key == 'Escape')
     {
-        if (animate && readyToShoot == false)
+        if (animate)
         {
             animate = false;
         } else
@@ -271,5 +265,7 @@ window.addEventListener('keydown', function (event)
         }
     }
 });
+
+//resetBallPosition();
 //console.log(brick);
 

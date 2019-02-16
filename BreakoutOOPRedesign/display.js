@@ -1,9 +1,12 @@
 let Display = function (canvas)
 {
+    this.bufferCanvas = canvas.getContext('2d');
     this.gameCanvas = canvas;
     this.context = this.gameCanvas.getContext('2d');
     this.gameCanvas.width = window.innerWidth - 32;
     this.gameCanvas.height = window.innerHeight - 32;
+    this.aspectWidth = 160;
+    this.aspectHeight = 90;
 }
 
 Display.prototype.clear = function ()
@@ -51,5 +54,5 @@ Display.prototype.writeClickToShoot = function()
     display.context.font = "30px Comic Sans MS";
     display.context.fillStyle = 'white';
     display.context.textAlign = "center";
-    display.context.fillText("Press Mouse Button to Shoot", display.gameCanvas.width / 2, display.gameCanvas.height / 2 );
+    display.context.fillText("Press Mouse Button To Shoot", display.gameCanvas.width / 2, display.gameCanvas.height / 2 );
 }
