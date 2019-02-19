@@ -6,13 +6,16 @@ let mouse =
 
 let display = new Display(document.getElementById('canvas'));
 let level = new Levels;
-let brick = new Brick(display.gameCanvas.width / 10, display.gameCanvas.height / 30, 2, 'blue');
-let paddle = new Paddle(mouse.x, display.gameCanvas.height * 0.9, display.gameCanvas.width * 0.15, display.gameCanvas.height / 40, 'white');
-let ball = new Ball(display.gameCanvas.width / 2, paddle.y -10, 10, 'white');
+let brick = new Brick(9, 4.5, 2, 'blue');
+console.log(brick);
+let paddle = new Paddle(mouse.x, display.bufferCanvas.canvas.height * 0.9, display.bufferCanvas.canvas.width * 0.15, display.bufferCanvas.canvas.height / 40, 'white');
+let ball = new Ball(display.bufferCanvas.canvas.width / 2, paddle.y -10, 10, 'white');
 let count = 0;
 let levelBuffer = [];
-let levelCounter = 2;
+let levelCounter = 1;
 let start = true;
+
+
 
 
 let animate = false;
@@ -36,7 +39,7 @@ function loadLevel(param_level)
                 levelBuffer = param_level.level1;
                 getNumberOfBricksInLevel(levelBuffer);
                 levelCounter++;
-                console.log(levelCounter);
+                //console.log(levelCounter);
                 break;
             }
 
@@ -86,7 +89,10 @@ function update()
         requestAnimationFrame(update);
     }
 
+    
     display.clear();
+    display.render();
+    
 
     
 
@@ -112,6 +118,9 @@ function update()
     {
         display.writePause();
     }
+
+    
+    
 }
 
 function ballFollowPaddle()
@@ -122,7 +131,7 @@ function ballFollowPaddle()
 function worldEdgesCollisionCheck(param_ball, param_display)
 {
 
-    if (param_ball.x - param_ball.radius < 0 && param_ball.speedX < 0 || param_ball.x + param_ball.radius >= param_display.gameCanvas.width && param_ball.speedX > 0)
+    if (param_ball.x - param_ball.radius < 0 && param_ball.speedX < 0 || param_ball.x + param_ball.radius >= param_display.bufferCanvas.width && param_ball.speedX > 0)
     {
         param_ball.speedX = -param_ball.speedX;
         count++;
@@ -134,7 +143,7 @@ function worldEdgesCollisionCheck(param_ball, param_display)
         count++;
     }
 
-    if (param_ball.y >= param_display.gameCanvas.height)
+    if (param_ball.y >= param_display.bufferCanvas.height)
     {
         resetBallPosition(param_ball);
     }
@@ -235,13 +244,15 @@ function movePaddle(param_paddle)
 function onMouseMove(event)
 {
     let rect = display.gameCanvas.getBoundingClientRect();
+    
     mouse.x = event.clientX - rect.left;
     mouse.y = event.clientY - rect.top;
+    console.log(mouse.x);
 }
 
 
 
-window.addEventListener('resize', display.resize);
+window.addEventListener('resize', display.render);
 window.addEventListener('mousemove', onMouseMove);
 window.addEventListener('click', function ()
 {
