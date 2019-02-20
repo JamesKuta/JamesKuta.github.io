@@ -11,6 +11,16 @@ Paddle.prototype.move = function(mouseX)
 {
     
     this.x = mouseX - canvas.width * this.width / 2;
+
+    if (this.x <= 0)
+    {
+        this.x = 0;
+    }
+
+    if (this.x + canvas.width * this.width >= canvas.width)
+    {
+        this.x = canvas.width - canvas.width * this.width;
+    }
     
 }
 

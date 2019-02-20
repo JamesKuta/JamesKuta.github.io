@@ -210,11 +210,7 @@ function ballHitBrickCollisionCheck()
 
         levelBuffer.grid[getCurrentLevelArrayIndexAtBall] = 0;
         levelBuffer.count--;
-        paddleSizeCount++;
-        if (paddleSizeCount % 2 == 0)
-        {
-            paddle.width += .05;
-        }
+        
         if (levelBuffer.count == 0)
         {
             nextLevel();
