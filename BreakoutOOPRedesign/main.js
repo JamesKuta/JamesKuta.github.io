@@ -334,8 +334,9 @@ document.addEventListener('mousemove', function (event)
 window.addEventListener("touchmove", function(event)
 {
     let rect = canvas.getBoundingClientRect();
-    mouse.x = event.touches[0].clientX - rect.left;
-    mouse.y = event.clientY - rect.top;
+    let root = dcoument.documentElement;
+    mouse.x = event.touches[0].clientX - rect.left - root.scrollLeft;
+    mouse.y = event.clientY - rect.top - rect.top - root.scollTop;
     event.preventDefault();
 });
 
