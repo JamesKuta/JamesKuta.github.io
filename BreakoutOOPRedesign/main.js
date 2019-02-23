@@ -37,6 +37,7 @@ window.onload = function ()
     loadLevel(level);
     resetBallPosition();
     mainLoop();
+
 }
 
 function mainLoop()
@@ -210,7 +211,7 @@ function ballHitBrickCollisionCheck()
 
         levelBuffer.grid[getCurrentLevelArrayIndexAtBall] = 0;
         levelBuffer.count--;
-        
+
         if (levelBuffer.count == 0)
         {
             nextLevel();
@@ -275,11 +276,17 @@ function ballHitPaddleCollisionCheck()
     }
 }
 
+function getRandomArbitrary(min, max) 
+{
+    return Math.random() * (max - min) + min;
+}
+
 function resetBallPosition()
 {
+
     ball.x = .5;
     ball.y = .8;
-    ball.speedX = .005;
+    ball.speedX = getRandomArbitrary(-.010, .010);
     ball.speedY = -.005;
     readyToShoot = true;
 }
@@ -317,11 +324,19 @@ function resize()
 
 window.addEventListener('resize', resize);
 
-window.addEventListener('mousemove', function (event)
+document.addEventListener('mousemove', function (event)
 {
     let rect = canvas.getBoundingClientRect();
     mouse.x = event.clientX - rect.left;
     mouse.y = event.clientY - rect.top;
+});
+
+document.addEventListener("touchmove", function(event)
+{
+    let rect = canvas.getBoundingClientRect();
+    mouse.x = event.touches[0].clientX - rect.left;
+    mouse.y = event.clientY - rect.top;
+    event.preventDefault();
 });
 
 window.addEventListener('keydown', function (event)

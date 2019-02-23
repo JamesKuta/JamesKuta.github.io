@@ -16,8 +16,10 @@ Ball.prototype.move = function()
 
 Ball.prototype.draw = function()
 {
+    let radian = Math.PI / 180;
     context.fillStyle = this.color;
+    //context.lineWidth = 3;
     context.beginPath();
-    context.arc(canvas.width * this.x, canvas.height * this.y, canvas.width * this.radius, 0, 2 * Math.PI);
+    context.arc(canvas.width * this.x, canvas.height * this.y, canvas.width * this.radius, 0 * radian, 360 * radian);
     context.fill();
 }
