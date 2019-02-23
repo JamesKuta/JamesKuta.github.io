@@ -331,7 +331,7 @@ document.addEventListener('mousemove', function (event)
     mouse.y = event.clientY - rect.top;
 });
 
-document.addEventListener("touchmove", function(event)
+window.addEventListener("touchmove", function(event)
 {
     let rect = canvas.getBoundingClientRect();
     mouse.x = event.touches[0].clientX - rect.left;
@@ -369,4 +369,7 @@ window.addEventListener('touchstart', function ()
     {
         readyToShoot = false;
     }
+    event.preventDefault();
 });
+
+
