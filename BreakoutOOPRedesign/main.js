@@ -362,3 +362,11 @@ window.addEventListener('click', function ()
         readyToShoot = false;
     }
 });
+
+window.addEventListener('touchstart', function ()
+{
+    if (readyToShoot == true)
+    {
+        readyToShoot = false;
+    }
+});
