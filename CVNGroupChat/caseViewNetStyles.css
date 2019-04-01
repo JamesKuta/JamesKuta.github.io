@@ -1,0 +1,1264 @@
+/*
+Theme Name: CVNet by Stenograph
+Author: Daniel Bednarczyk
+Version: 1.0
+
+
+TABLE OF CONTENTS:
+# GENERAL #
+1) Eric Meyer's CSS Reset 
+2) Standard HTML Tags (except hyperlinks, forms, p, h1-h6 )
+3) Hyperlinks
+4) Forms
+5) Primary Site Structure
+6) Other structural & typography 
+7) Sprites
+8) Grid
+9) Reserved
+
+# PAGES #
+10) Home Page
+
+*/
+
+
+/* #######################
+# 1. RESET
+####################### */
+/* http://meyerweb.com/eric/tools/css/reset/ 
+   v2.0 | 20110126
+   License: none (public domain)
+*/
+
+html, body, div, span, applet, object, iframe,
+h1, h2, h3, h4, h5, h6, p, blockquote, pre,
+a, abbr, acronym, address, big, cite, code,
+del, dfn, em, img, ins, kbd, q, s, samp,
+small, strike, strong, sub, sup, tt, var,
+b, u, i, center,
+dl, dt, dd, ol, ul, li,
+fieldset, form, label, legend,
+table, caption, tbody, tfoot, thead, tr, th, td,
+article, aside, canvas, details, embed, 
+figure, figcaption, footer, header, hgroup, 
+menu, nav, output, ruby, section, summary,
+time, mark, audio, video {
+	margin: 0;
+	padding: 0;
+	border: 0;
+	font-size: 100%;
+	font: inherit;
+	vertical-align: baseline;
+}
+/* HTML5 display-role reset for older browsers */
+article, aside, details, figcaption, figure, 
+footer, header, hgroup, menu, nav, section {
+	display: block;
+}
+body {
+	line-height: 1;
+}
+ol, ul {
+	list-style: none;
+}
+blockquote, q {
+	quotes: none;
+}
+blockquote:before, blockquote:after,
+q:before, q:after {
+	content: '';
+	content: none;
+}
+table {
+	border-collapse: collapse;
+	border-spacing: 0;
+}
+
+
+/* #######################
+# 2. Standard HTML Tags (except hyperlinks, forms, p, h1-h6 )
+####################### */
+html, body {
+  height: 100%;
+  width: 100%;
+  
+  
+  /*padding-top: 60px; /* should match container-header */
+}
+
+body {
+	overflow-y: hidden;
+	overflow-x: hidden;
+	background-color: #fffae5;
+}
+
+
+/* #######################
+# 3. Hyperlinks
+####################### */
+a,
+a:link {
+  text-decoration: none;
+}
+a:visited,
+a:active,
+a:hover,
+a:focus {
+  text-decoration: none;
+}
+
+/* #######################
+# 4. Forms
+####################### */
+
+
+/* #######################
+# 5. Primary Site Structure
+####################### */
+
+
+h1 {
+	font-size: 20px;
+	font-weight: bold;
+	margin-bottom: 5px;
+}
+
+
+div.divTopMenuContainer {
+	position: fixed;
+	top: 0px;
+	left: 0px;
+	width: 100%;
+	min-width: 270px;
+	height: 50px;
+	padding-top: 8px;
+	padding-left: 10px;
+	padding-bottom: 8px;
+	padding-right: 10px;
+	background-color: #efefef;
+	-webkit-box-shadow: 0px 5px 10px 0px rgba(71,90,96,0.6);
+	-moz-box-shadow: 0px 5px 10px 0px rgba(71,90,96,0.6);
+	box-shadow: 0px 5px 10px 0px rgba(71,90,96,0.6);
+}
+
+
+.leftMargin5 {
+	margin-left: 5px;
+}
+.floatRight {
+	float: right;
+}
+
+/*
+Glowing buttons
+*/
+
+@-webkit-keyframes glowing {
+  0% { background-color: #B20000; -webkit-box-shadow: 0 0 3px #B20000; }
+  50% { background-color: #E60000; -webkit-box-shadow: 0 0 20px #E60000; }
+  100% { background-color: #B20000; -webkit-box-shadow: 0 0 3px #B20000; }
+}
+
+@-moz-keyframes glowing {
+  0% { background-color: #B20000; -moz-box-shadow: 0 0 3px #B20000; }
+  50% { background-color: #E60000; -moz-box-shadow: 0 0 20px #E60000; }
+  100% { background-color: #B20000; -moz-box-shadow: 0 0 3px #B20000; }
+}
+
+@-o-keyframes glowing {
+  0% { background-color: #B20000; box-shadow: 0 0 3px #B20000; }
+  50% { background-color: #E60000; box-shadow: 0 0 20px #E60000; }
+  100% { background-color: #B20000; box-shadow: 0 0 3px #B20000; }
+}
+
+@keyframes glowing {
+  0% { background-color: #B20000; box-shadow: 0 0 3px #B20000; }
+  50% { background-color: #E60000; box-shadow: 0 0 20px #E60000; }
+  100% { background-color: #B20000; box-shadow: 0 0 3px #B20000; }
+}
+
+button.btn-danger {
+  -webkit-animation: glowing 2500ms infinite;
+  -moz-animation: glowing 2500ms infinite;
+  -o-animation: glowing 2500ms infinite;
+  animation: glowing 2500ms infinite;
+}
+
+
+
+div.divShowHideSideMenu {
+	position: fixed;
+	top: 58px;
+	left: 218px;
+	background-color: #efefef;
+}
+
+div.divSideMenuContainer {
+	position: fixed;
+	top: 50px;
+	left: 0px;
+	width: 210px;
+	height: calc(100% - 50px);
+	padding-top: 5px;
+	padding-left: 10px;
+	padding-bottom: 10px;
+	background-color: #efefef;
+	-webkit-box-shadow: 5px 10px 10px 0px rgba(71,90,96,0.6);
+	-moz-box-shadow: 5px 10px 10px 0px rgba(71,90,96,0.6);
+	box-shadow: 5px 10px 10px 0px rgba(71,90,96,0.6);
+}
+
+div.divSwitchView {
+	height: 50px;
+	padding-bottom: 10px;
+}
+
+button.buttonSwitchView {
+	width: 190px;
+	height: 40px;
+}
+
+
+div.divOptionsOutter {
+	max-height: 100%;
+	overflow-x: hidden;
+	overflow-y: auto;
+}
+div.divOptionsInner {
+	margin-bottom: 50px;
+}
+
+div.divChangeSize {
+	width: 190px;
+	height: 300px;
+	margin-bottom: 10px;
+}
+
+div.divChangeColor {
+	width: 190px;
+	height: 180px;
+	margin-bottom: 10px;
+}
+
+div.divChangeFont {
+	width: 190px;
+	height: 175px;
+	margin-bottom: 10px;
+}
+
+div.divLineLabels {
+	width: 190px;
+	height: 130px;
+	margin-bottom: 10px;
+}
+
+
+div.divMenuOption {
+	height: 55px;
+	width: 190px;
+	padding-left: 15px;
+}
+div.divMenuOption > p {
+	height: 15px;
+	display:inline;
+}
+
+div.divSingleOption > button {
+	height: 30px;
+	width: 30px;
+	line-height: 1;
+	padding: 0 0;
+	vertical-align: middle;
+
+}
+
+div.divSingleOption > p {
+	height: 15px;
+	display:inline;
+}
+
+div.divSingleOption {
+	height: 40px;
+	padding-top: 5px;
+	padding-bottom: 5px;
+	padding-left: 0;
+	padding-right: 5px;
+}
+
+
+input.inputNumerical {
+	width: 60px;
+	height: 30px;
+	padding-left: 10px;
+	border: 1px solid #ccc;
+    border-radius: 4px;
+	color: #333;
+    background-color: #fff;
+	vertical-align: middle;
+}
+
+div.divMenuOptionRadio {
+	height: 110px;
+	width: 190px;
+	padding-left: 15px;
+}
+
+div.divRadioButton {
+	padding-top: 5px;
+	height: 35px;
+}
+
+div.divRadioButton > p {
+	height: 25px;
+	display: inline-block;
+	vertical-align: bottom;
+	margin-left: 5px;
+}
+
+
+input.inputRadioButton {
+	height: 25px;
+	width: 25px;
+	margin-top: 2px;
+	border-top-left-radius: 20px;
+	border-top-right-radius: 20px;
+	border-bottom-left-radius: 20px;
+	border-bottom-right-radius: 20px;		
+}
+
+div.divCheckbox{
+	height: 30px;
+	width: 30px;
+}
+div.divCheckbox > label {
+	height: 30px;
+	width: 30px;
+	padding: 0 0;
+}
+
+input.inputCheckbox {
+	height: 100%;
+	width: 100%;
+	padding: 0 0;
+}
+
+span.spanGlyphicon {
+	top: 5px;
+}
+
+.btn span.glyphicon {    			
+	opacity: 0;				
+}
+.btn.active span.glyphicon {				
+	opacity: 1;				
+}
+
+
+
+div.divSearchToolContainer {
+	display: none;
+	position: fixed;
+	top: 50px;
+	right: 0px;
+	width: 210px;
+	height: calc(100% - 50px);
+	padding-top: 5px;
+	padding-right: 10px;
+	padding-bottom: 10px;
+	background-color: #efefef;
+	-webkit-box-shadow: -5px 10px 10px 0px rgba(71,90,96,0.6);
+	-moz-box-shadow: -5px 10px 10px 0px rgba(71,90,96,0.6);
+	box-shadow: -5px 10px 10px 0px rgba(71,90,96,0.6);
+}
+
+input.inputText {
+	width: 180px;
+	height: 30px;
+	padding-left: 10px;
+	border: 1px solid #ccc;
+    border-radius: 4px;
+	color: #333;
+    background-color: #fff;
+	vertical-align: middle;
+}
+
+
+div.divSearchResult {
+	width: 200px;
+	height: calc(100% - 55px);
+	padding-left: 10px;
+	overflow-x: hidden;
+	overflow-y: auto;
+	-webkit-overflow-scrolling: touch; /*adding this line will enable inertial scrolling - fix for mobile site*/
+}
+
+div.divSearchResultInner {
+	padding-top: 10px;
+	padding-bottom: 10px;
+	width: 100%;
+	min-height: 100px;
+}
+
+div.divSearchResultRow {
+	height: 60px;
+	width: 100%;
+	overflow-x: visible;
+	color: black;
+	cursor: pointer;
+}
+
+hr {
+	margin-top: 5px;
+	margin-bottom: 5px;
+	border-top: 1px solid #BBB8B7;
+}
+
+div.divSearchResultHeader {
+	width: 100%;
+	height: 15px;
+	font-size: 11pt;
+	color: #BBB8B7;
+	white-space: nowrap;
+}
+
+div.divSearchResultData {
+	height: 100%;
+	width: 100%;
+	white-space: normal;
+	font-size: 12pt;
+}
+
+span.spanHighlight {
+	background-color: yellow;
+}
+
+span.spanBold {
+	font-weight: bold;
+}
+
+/*div.divExitButton {
+	display : box;
+	position : relative;
+	height: 30px;
+	width: 30px;
+	cursor: pointer;
+}
+
+div.divExitButton span {
+	display: block;
+	width: 33px;
+	height: 4px;
+	margin-bottom: 5px;
+	position: relative;
+
+	background-color: darkgray;
+	border-radius: 3px;
+
+	/*z-index: 1;
+
+	transform-origin: 4px 0px;
+
+	transition: transform 0.5s cubic-bezier(0.77,0.2,0.05,1.0),
+				background 0.5s cubic-bezier(0.77,0.2,0.05,1.0),
+				opacity 0.55s ease;*/
+	
+}*/
+
+div.divExitButton span:first-child {
+	transform: rotate(45deg) translate(8px, 11px);
+}
+div.divExitButton span:nth-last-child(1) {
+	transform: rotate(-45deg) translate(-5.5px, 1.5px);
+}
+
+
+
+div.divEmailContainer {
+	display: none;
+	position: fixed;
+	top: 50px;
+	right: 0px;
+	width: 210px;
+	height: calc(100% - 50px);
+	padding-top: 5px;
+	padding-right: 10px;
+	padding-bottom: 10px;
+	background-color: #efefef;
+	-webkit-box-shadow: -5px 10px 10px 0px rgba(71,90,96,0.6);
+	-moz-box-shadow: -5px 10px 10px 0px rgba(71,90,96,0.6);
+	box-shadow: -5px 10px 10px 0px rgba(71,90,96,0.6);
+}
+
+#buttonSendMail {
+	width: auto;
+	height: auto;
+	padding: 6px 12px;
+	line-height: 1.42857143;
+}
+
+.spin {
+  -webkit-animation: spin 2s infinite linear;
+  -moz-animation: spin 2s infinite linear;
+  -o-animation: spin 2s infinite linear;
+  animation: spin 2s infinite linear;
+  font-size: 25pt;
+}
+@-moz-keyframes spin {
+  from {
+    -moz-transform: rotate(0deg);
+  }
+  to {
+    -moz-transform: rotate(360deg);
+  }
+}
+@-webkit-keyframes spin {
+  from {
+    -webkit-transform: rotate(0deg);
+  }
+  to {
+    -webkit-transform: rotate(360deg);
+  }
+}
+@keyframes spin {
+  from {
+    transform: rotate(0deg);
+  }
+  to {
+    transform: rotate(360deg);
+  }
+}
+
+
+
+#divContent {
+	position: absolute;
+	top: 0px;
+	left: 210px;
+	right: 0px;
+	bottom: 0px;
+}
+
+#divContainerScroll {
+	position: absolute;
+	top: 0px;
+	left: 0px;
+	right: 0px;
+	bottom: 0px;
+	overflow-x: auto;
+	overflow-y: auto;
+	-webkit-overflow-scrolling: touch; /*adding this line will enable inertial scrolling - fix for mobile site*/
+}
+
+#divContainerFullTranscript {
+	position: relative;
+	width: auto;
+	height: 10000px;
+}
+
+#divContainerPartialTranscript {
+	position: absolute; 
+	bottom: 0px; 
+	top: auto;
+	padding: 100px;
+}
+
+div.div-float-left {
+	float: left;
+	height: 100%;
+	margin-right: 10px;
+}
+
+div.div_right_margin25 {
+	margin-right: 25px;
+}
+
+div.div-row {
+	clear: left;
+	white-space:nowrap;
+	overflow: visible;
+	display: -webkit-flex;
+	display: flex;
+}
+
+div.div-timestamp {
+	width: auto;
+	white-space:nowrap;
+	overflow: visible;
+	-webkit-text-stroke: 0px black;
+	text-shadow: 0px 0px 0px black;
+	color: black;
+	font-size: 11pt;
+	text-align: center;
+	margin-top: auto;
+	margin-bottom: auto;
+}
+
+div.div-line-number {
+	width: auto;
+	white-space:nowrap;
+	overflow: visible;
+	-webkit-text-stroke: 0px black;
+	text-shadow: 0px 0px 0px black;
+	color: black;
+	font-size: 11pt;
+	text-align: center;
+	margin-top: auto;
+	margin-bottom: auto;
+}
+
+div.div-data {
+	width: auto;
+	white-space:nowrap;
+	overflow: visible;
+	text-align: center;
+}
+
+#divCartOutter {
+	overflow: hidden;
+	height: 100%;
+	width: 100%;
+	
+}
+#divCartInner {
+	position: absolute;
+	top: 0px;
+	left: 0px;
+	right: -17px;
+	bottom: 0px;
+	overflow-x: auto;
+	overflow-y:scroll;
+	-webkit-overflow-scrolling: touch; /*adding this line will enable inertial scrolling - fix for mobile site*/
+}
+#divCartParagraphFull {
+	position: relative;
+	width: auto;
+}
+
+#divCartParagraphList {
+	margin: 100px;
+	position: absolute; 
+	bottom: 0px; 
+	top: auto;
+}
+
+
+body.noselect {
+  -webkit-touch-callout: none; /* iOS Safari */
+    -webkit-user-select: none; /* Safari */
+     -khtml-user-select: none; /* Konqueror HTML */
+       -moz-user-select: none; /* Firefox */
+        -ms-user-select: none; /* Internet Explorer/Edge */
+            user-select: none; /* Non-prefixed version, currently
+                                  supported by Chrome and Opera */
+}
+
+
+
+
+
+
+
+#divMenuToggle {
+	padding-top: 6px;
+	padding-bottom: 0px;
+	-webkit-user-select: none;
+	user-select: none;
+}
+
+#divMenuToggle input
+{
+	display: block;
+	width: 36px;
+	height: 36px;
+	position: absolute;
+	top: 7px;
+	right: 8px;
+	margin-top: 0px;
+	margin-right: 0px;
+
+	cursor: pointer;
+
+	opacity: 0; /* hide this */
+	z-index: 2; /* and place it over the hamburger */
+
+	-webkit-touch-callout: none;
+}
+
+
+
+/*
+ * Just a quick hamburger
+ */
+#divMenuToggle span
+{
+	display: block;
+	width: 33px;
+	height: 4px;
+	margin-bottom: 5px;
+	position: relative;
+
+	background-color: darkgray;
+	border-radius: 3px;
+
+	z-index: 1;
+
+	transform-origin: 4px 0px;
+
+	transition: transform 0.5s cubic-bezier(0.77,0.2,0.05,1.0),
+				background 0.5s cubic-bezier(0.77,0.2,0.05,1.0),
+				opacity 0.55s ease;
+}
+
+#divMenuToggle span:first-child
+{
+	transform-origin: 0% 0%;
+}
+
+#divMenuToggle  span:nth-last-child(2)
+{
+	transform-origin: 0% 100%;
+}
+
+/* 
+ * Transform all the slices of hamburger
+ * into a crossmark.
+ */
+#divMenuToggle input:checked ~ span
+{
+	opacity: 1;
+	transform: rotate(45deg) translate(-2px, -1px);
+	background-color: darkgray;
+}
+
+/*
+ * But let's hide the middle one.
+ */
+#divMenuToggle input:checked ~ span:nth-last-child(3)
+{
+	opacity: 0;
+	transform: rotate(0deg) scale(0.2, 0.2);
+}
+
+/*
+ * Ohyeah and the last one should go the other direction
+ */
+#divMenuToggle input:checked ~ span:nth-last-child(2)
+{
+	opacity: 1;
+	transform: rotate(-45deg) translate(0, -1px);
+}
+
+/*
+ * Make this absolute positioned
+ * at the top left of the screen
+ */
+#menu
+{
+	position: fixed;
+	width: 170px;
+	height: 170px;
+	margin-top: 5px;
+    margin-right: 0px;
+    margin-bottom: 0px;
+    margin-left: -100px;
+	padding: 50px;
+	padding-top: 20px;
+	background: #efefef;
+	list-style-type: none;
+	-webkit-font-smoothing: antialiased;
+	/* to stop flickering of text in safari */
+
+	transform-origin: 0% 0%;
+	transform: translate(100%, 0);
+
+	transition: transform 0.5s cubic-bezier(0.77,0.2,0.05,1.0);
+}
+
+#menu li
+{
+	padding: 10px 0;
+	font-size: 22px;
+	color: black;
+}
+
+#menu li:hover {
+	color: gray;
+}
+
+/*
+ * And let's fade it in from the left
+ */
+#divMenuToggle input:checked ~ ul
+{
+	transform: scale(1.0, 1.0);
+	opacity: 1;
+}
+
+#buttonEmail {
+	display: none;
+}
+
+#buttonSearch {
+	display: none;
+}
+
+#buttonChat {
+	display: none;
+}
+
+@media screen and (min-width: 480px) {
+
+	#divMenuToggle {
+		display: none;
+	}
+
+	#buttonEmail {
+		display: inline-block;
+	}
+
+	#buttonSearch {
+		display: inline-block;
+	}
+
+	#buttonChat {
+		display: inline-block;
+	}
+}
+
+
+
+
+
+
+div.divChatContainer {
+	display: none;
+	position: fixed;
+	top: 50px;
+	right: 0px;
+	width: 100%;
+	height: calc(100% - 50px);
+	padding: 5px;
+	background-color: #efefef;
+	-webkit-box-shadow: -5px 10px 10px 0px rgba(71,90,96,0.6);
+	-moz-box-shadow: -5px 10px 10px 0px rgba(71,90,96,0.6);
+	box-shadow: -5px 10px 10px 0px rgba(71,90,96,0.6);
+	font-family: sans-serif;
+}
+
+
+
+
+@media screen and (min-width: 480px) and (min-height: 480px) {
+	div.divChatContainer {
+		width: 300px;
+	}
+}
+
+div.divChatInnerContainer {
+	display: block;
+	width: 100%;
+	height: 100%;	
+}
+
+div.divChatContactListContainer {
+	display: inline-block;
+	float: left;
+	width: 100%;
+	height: 200px;
+	background-color: white;
+	box-sizing: border-box;
+	
+	overflow-x: hidden;
+	overflow-y: auto;
+	-webkit-overflow-scrolling: touch; /*adding this line will enable inertial scrolling - fix for mobile site*/
+}
+
+div.divChatContactListSeparator {
+	display: inline-block;
+	float: left;
+	background-color: #676464;
+	width: 100%;
+	height: 2px;
+	box-sizing: border-box;
+}
+
+
+div.divChatConversationContainer {
+	display: inline-block;
+	float: left;
+	width: 100%;
+	height: calc(100% - 202px);
+	background-color: #efefef;
+	box-sizing: border-box;
+}
+
+
+@media screen and (max-width: 480px) {
+	div.divChatContactListContainer {
+		width: 100%;
+		height: 100%;
+	}
+	div.divChatContactListSeparator {
+		display: none;
+		width: 30px;
+		height: 30px;
+	}
+	div.divChatConversationContainer {
+		display: none;
+		width: 100%;
+		height: 100%;
+	}
+}
+
+@media screen and (max-height: 480px) {
+	div.divChatContactListContainer {
+		width: 200px;
+		height: 100%;
+	}
+	div.divChatContactListSeparator {
+		width: 3px;
+		height: 100%;
+	}
+	div.divChatConversationContainer {
+		width: calc(100% - 203px);
+		height: 100%;
+	}
+}
+
+
+
+
+
+
+div.divChatContactListInner {
+    width: 100%;
+    min-height: 100%;
+}
+
+div.divChatContactListInner hr {
+	margin-top: 0;
+	margin-bottom: 0;
+	border: 1px solid #BBB8B7;
+}
+
+div.divContactListRow {
+	font-size: 15pt;
+	width: 100%;
+	height: 40px;
+	padding-right: 3px;
+	padding-left: 8px;
+	padding-top: 2px;
+	padding-bottom: 2px;
+	cursor: pointer;
+}
+
+
+div.divChatContactCircle {
+	display: inline-block;
+	float: left;
+	height: 100%;
+	width: 40px;
+	border-radius: 50%;
+	background: #064882;
+	text-align: center;
+	font-size: 18pt;
+	padding-top: 6px;
+	color: white;
+}
+
+div.divChatContactCircleOffline {
+	display: inline-block;
+	float: left;
+	height: 100%;
+	width: 40px;
+	border-radius: 50%;
+	background: gray;
+	text-align: center;
+	font-size: 18pt;
+	padding-top: 6px;
+	color: white;
+}
+
+div.divChatContactName {
+	display: inline-block;
+	float: left;
+	height: 100%;
+	width: calc(100% - 40px);
+	text-align: left;
+	font-size: 18pt;
+    padding-left: 8px;
+    padding-top: 5px;
+}
+
+
+div.divChatContactMessageNotification {
+	position: relative;
+	border-radius: 50%;
+	height: 20px;
+	width: 20px;
+	background-color: red;
+	top: 0px;
+	left: -8px;
+	border: 2px solid white;
+	text-align: center;
+	font-size: 10pt;
+
+}
+
+div.divContactListRowSelected {
+	background-color: lightgray;
+}
+
+div.divChatConversationHistory {
+	display: inline-block;
+	float: left;
+	width: 100%;
+	/*height: calc(100% - 82px);*/ /*JK*/
+	height: calc(100% - 100px); /*JK*/
+	box-sizing: border-box;
+	background-color: white;
+	
+}
+
+div.divChatConversationSeparator {
+	display: inline-block;
+	float: left;
+	width: 100%;
+	height : 2px;
+	background-color: #676464;
+	box-sizing: border-box;
+}
+
+div.divChatConversationCurrent {
+	display: inline-block;
+	float: left;
+	width: 100%;
+	height: 80px;
+	background-color: white;
+	box-sizing: border-box;
+}
+
+div.divChatConversationCurrentMessage {
+	display: inline-block;
+	float: right;
+	height: 80px;
+	width: calc(100% - 65px);
+	padding-right: 5px;
+	padding-top: 5px;
+	padding-bottom: 5px;
+	padding-left: 5px;
+}
+
+div.divChatConversationCurrentButton {
+	display: inline-block;
+	float: right;
+	padding-top: 10px;
+	padding-right: 5px;
+	padding-left:  5px;
+	padding-bottom: 35px;
+}
+
+button.buttonSendChatMessage {
+	height: 35px;
+	width: 55px;
+}
+
+textarea.textareaChatMessage {
+	width: 100%;
+	height: 100%;
+	font-size: 13pt;
+	resize: none;
+	border: none;
+}
+
+div.divConversationHistoryOutter {
+	display: block;
+	height: 100%;
+	width: 100%;
+	padding-left: 10px;
+	padding-right: 10px;
+	padding-top: 10px;
+	padding-bottom: 10px;
+	overflow-x: hidden;
+	overflow-y: hidden;
+}
+
+div.divConversationHistoryHeader {
+	display: inline-block;
+	height: 40px;
+	width: 100%;
+	text-align: center;
+}
+
+div.divConversationHistoryHeaderText {
+	display: inline-block;
+	float: left;
+	height: 100%;
+	width: 100%;
+	font-size: 19pt;
+	padding-top: 8px;
+	padding-bottom: 8px;
+	background-color: #efefef;
+}
+
+div.divChatBackButton {
+	display: none;
+	float: left;
+	height: 100%;
+	width: 40px;
+	font-size: 26pt;
+	font-weight:100;
+	padding-top: 0px;
+	padding-bottom: 0px;
+	background-color: #d3d3d3;
+	cursor: pointer;
+}
+
+@media screen and (max-width: 480px) {
+	div.divChatBackButton {
+		display: inline-block;
+	}
+	div.divConversationHistoryHeaderText {
+		width: calc(100% - 40px);
+	}
+}
+
+
+div.divConversationHistoryInner {
+	display: inline-block;
+	height: calc(100% - 40px);
+	width: 100%;
+	/*background-color: white;*/
+	padding-left: 10px;
+	padding-right: 10px;
+	padding-top: 10px;
+	padding-bottom: 10px;
+	overflow-x: hidden;
+	overflow-y: auto;
+	-webkit-overflow-scrolling: touch; /*adding this line will enable inertial scrolling - fix for mobile site*/
+}
+
+div.divConversationHistoryRow {
+	font-size: 13pt;
+	width: 100%;
+	min-height: 20px;
+	float: left;
+	padding-top: 5px;
+	padding-bottom: 5px;
+}
+
+
+div.divConversationHistoryRowFooter {
+	display: inline-block;
+	float: left;
+	height: 15px;
+	width: 100%;
+	text-align: center;
+	font-size: 10pt;
+	color: #9a9797;
+}
+
+div.divConversationHistoryRowFooterOffline {
+	display: inline-block;
+	float: left;
+	height: 15px;
+	width: 100%;
+	text-align: center;
+	font-size: 10pt;
+	color: red;
+}
+
+div.divAlignLeft {
+	text-align: left;
+}
+
+
+div.divAlignRight {
+	text-align: right;
+}
+
+div.divConversationHistoryMessage {
+	display:inline block;
+	max-width: 90%;
+	height: calc(100% - 10px);
+	padding-left: 15px;
+	padding-right: 15px;
+	padding-top: 10px;
+	padding-bottom: 10px;
+	border-radius: 13px;
+	white-space: pre-wrap;
+	word-wrap: break-word;
+}
+
+div.divFloatLeft {
+	float: left;
+	background-color: #efefef;
+}
+
+
+div.divFloatRight {
+	float: right;
+	background-color: #a6d3e0;
+}
+
+div.divChatNotification {
+	display: block;
+	position: fixed;
+	right: 4px;
+	top: 55px;
+	z-index: 21;
+	max-width: 270px;
+	min-width: 200px;
+	border: 1px solid black;
+	border-radius: 3px;
+	background-color: #d2ebf5;
+	padding-top: 4px;
+	padding-left: 4px;
+	padding-bottom: 4px;
+	padding-right: 4px;
+	overflow: hidden;
+	cursor: pointer;
+}
+
+div.divChatNotificationHeader {
+	display: inline-block;
+	float: left;
+	font-size: 15pt;
+    width: 100%;
+    height: 40px;
+    padding-right: 3px;
+    padding-left: 8px;
+    padding-top: 2px;
+    padding-bottom: 2px;
+}
+
+div.divChatNotificationBody {
+	display: inline-block;
+	float: left;
+	width: 100%;
+	height: 60px;
+	padding-top: 5px;
+	overflow: hidden;
+	font-size: 13pt;
+	white-space: pre-wrap;
+	word-wrap: break-word;
+}
+
+/* JK */
+#divCreateGroupContainer {
+	display: block;
+	text-align: right;
+	margin: 1px;
+}
+/* JK */
+#textInputCreatGroup {
+	float: left;
+	width: 65%;
+	font-size: 0.9em;
+	margin: 1px;
+}
+/* JK */
+::placeholder{
+	font-style: italic;
+}
+
