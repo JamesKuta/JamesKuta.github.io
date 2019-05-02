@@ -4342,6 +4342,7 @@ function OnChatUserList() {
         } else {
 
             var user = document.createElement('div');
+            
 
             user.setAttribute('class', 'divContactListRow');
 
@@ -4356,7 +4357,9 @@ function OnChatUserList() {
             user.setAttribute('onclick', 'onChatUserChanged(event, this);');
             //div.setAttribute('ontouchend', 'onChatUserChanged(event, this);');
             //div.setAttribute('ontouchmove', "onChatTouchMove()");
-
+            
+            // JK Testing user content structure. Remove!
+            addUserToGroupChatArray(user);
 
             var firstLetter = '';
             if (caseViewNet.ChatUsersList[i].name.length > 0) {
@@ -4386,6 +4389,8 @@ function OnChatUserList() {
             chatConversationMap.set(caseViewNet.ChatUsersList[i].guid, container);
 
             divChatContactListInner.appendChild(document.createElement('hr'));
+            
+            
         }
 
     }

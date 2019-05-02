@@ -23,7 +23,35 @@ header("Cache-Control: no-cache, must-revalidate");
 	<meta http-equiv="Expires" content="-1">
 	<meta http-equiv="Cache-Control" content="no-cache">
 	
-	
+	<!--JK Start-->
+	<div class="container">
+  
+  <!-- Trigger the modal with a button -->
+  <button type="button" class="btn btn-info btn-lg" data-toggle="modal" data-target="#myModal">Open Modal</button>
+
+  <!-- Modal -->
+  <div class="modal fade" id="myModal" role="dialog">
+    <div class="modal-dialog modal-sm">
+      <!-- Modal content-->
+      <div class="modal-content">
+        <div class="modal-header">
+          <button type="button" class="close" data-dismiss="modal">&times;</button>
+					<h1 class="modal-title modal-title-size">Name of the Chat Group Here</h1>
+					<div class="modal-instruction-text"><h2>Select the members for the group.</h2></div>
+				</div>
+				
+        <div class="modal-body">
+          <p></p>
+        </div>
+        <div class="modal-footer">
+					<button type="button" class="btn btn-success" data-dismiss="modal">OK</button>
+					<button type="button" class="btn btn-default" data-dismiss="modal">Cancel</button>
+        </div>
+      </div>
+    </div>
+  </div>
+
+	<!--JK End-->
 
 	<div id="divContent">
 		<div id="divContainerScroll">
@@ -239,10 +267,14 @@ header("Cache-Control: no-cache, must-revalidate");
 			</div><!--divMenuOption-->
 		</div><!--divEmailContainer-->
 		<div id="divChatContainer" class="divChatContainer">
-							<div id="divCreateGroupContainer"> <!--JK-->
-							<input id="textInputCreatGroup" class="" type="text" placeholder="Type Group Name"> <!--JK-->
-							<button id="buttonCreateGroup" class="btn btn-primary btn-xs">Create Group</button> <!--JK-->
-						</div> <!--JK-->
+							<!-- **Added By JK** START -->
+							<div id="divCreateGroupContainer"> 
+							<input id="textInputCreatGroup" class="" type="text" placeholder="Type a Group Chat Name"> 
+							<button id="buttonCreateGroup" class="btn btn-success btn-xs">Create Group</button>
+						</div> 
+						<!--JK End-->
+
+
 		
 			<div class="divChatInnerContainer">
 			
@@ -254,8 +286,8 @@ header("Cache-Control: no-cache, must-revalidate");
 						<hr>
 						<div id="divChatContactEveryone" class="divContactListRow" broadcast="true" online="true" onclick="onChatUserChanged(event, this);">
 							<div class="divChatContactCircle">E</div>
-							<div class="divChatContactName">Everyone
-						</div>
+							<div class="divChatContactName">Everyone</div>
+							
 							<!--<div class="divChatContactMessageNotification"></div>-->
 						</div>
 						<!--<div id="divChatContactEveryone" class="divContactListRow" broadcast="true" onclick="onChatUserChanged(event, this);" ontouchend="onChatUserChanged(event, this);" ontouchmove="onChatTouchMove();">Everyone</div>-->
@@ -287,6 +319,10 @@ header("Cache-Control: no-cache, must-revalidate");
 		</div><!--divChatContainer-->
 							
 	</div><!--divMenuContainer-->
+
+
+	
+
 	<script type="text/javascript">
 		var hostName = '<?php echo $hostName; ?>';
 		var sseUrl = 'https://' + hostName + '/stream';
@@ -306,7 +342,7 @@ header("Cache-Control: no-cache, must-revalidate");
 	<script type="text/javascript" src="smap-shim.js"></script>
 	<script type="text/javascript" src="caseViewNetSDK.js"></script>
 	<script type="text/javascript" src="caseViewNet.js"></script>
-	<script type="text/javascript" src="caseViewNetGroupChat.js"></script>
+	<script type="text/javascript" src="caseViewNetGroupChat.js"></script> <!--JK-->
 </body>
 </html>
 

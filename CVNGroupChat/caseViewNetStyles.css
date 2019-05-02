@@ -983,11 +983,16 @@ div.divChatContactName {
 	display: inline-block;
 	float: left;
 	height: 100%;
-	width: calc(100% - 40px);
+	width: calc(100% - 67px); /* JK changed from calc(100% - 40px) */
 	text-align: left;
 	font-size: 18pt;
     padding-left: 8px;
     padding-top: 5px;
+}
+
+/* JK */
+div.divChatGroupMenu {
+	
 }
 
 
@@ -1247,13 +1252,13 @@ div.divChatNotificationBody {
 /* JK */
 #divCreateGroupContainer {
 	display: block;
-	text-align: right;
+	/*text-align: right;*/
 	margin: 1px;
 }
 /* JK */
 #textInputCreatGroup {
-	float: left;
-	width: 65%;
+	/*float: left;*/
+	width: 67%;
 	font-size: 0.9em;
 	margin: 1px;
 }
@@ -1261,4 +1266,21 @@ div.divChatNotificationBody {
 ::placeholder{
 	font-style: italic;
 }
+
+/* JK */
+.modal-title-size {
+	font-size: 2em;
+}
+
+/* JK */
+.modal-instruction-text {
+	font-size: 1.2em;
+}
+
+/* JK */
+.modal-selected-user-color {
+	background-color: dodgerblue;
+}
+
+
 
