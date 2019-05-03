@@ -4358,8 +4358,9 @@ function OnChatUserList() {
             //div.setAttribute('ontouchend', 'onChatUserChanged(event, this);');
             //div.setAttribute('ontouchmove', "onChatTouchMove()");
             
-            // JK Testing user content structure. Remove!
+            // JK Start: send user DIVs for Group Chat creation
             addUserToGroupChatArray(user);
+            //JK End
 
             var firstLetter = '';
             if (caseViewNet.ChatUsersList[i].name.length > 0) {
@@ -4485,7 +4486,6 @@ function onChatUserBack(event) {
     divCurrentSelectedUser = null;
 
 };
-
 
 function onChatUserChanged(event, divSelectedUser) {
     if (event != null) {
