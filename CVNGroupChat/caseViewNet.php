@@ -23,36 +23,7 @@ header("Cache-Control: no-cache, must-revalidate");
 	<meta http-equiv="Expires" content="-1">
 	<meta http-equiv="Cache-Control" content="no-cache">
 	
-	<!--JK Start-->
-	<div class="container">
-  
-  <!-- Trigger the modal with a button -->
-  <button type="button" class="btn btn-info btn-lg" data-toggle="modal" data-target="#myModal">Open Modal</button>
-
-  <!-- Modal -->
-  <div class="modal fade" id="myModal" role="dialog">
-    <div class="modal-dialog modal-sm">
-      <!-- Modal content-->
-      <div class="modal-content">
-        <div class="modal-header">
-          <button type="button" class="close" data-dismiss="modal">&times;</button>
-					<h1 class="modal-title modal-title-size">Name of the Chat Group Here</h1>
-					<div class="modal-instruction-text"><h2>Select the members for the group.</h2></div>
-				</div>
-				
-        <div class="modal-body">
-          <p></p>
-        </div>
-        <div class="modal-footer">
-					<button type="button" class="btn btn-success" data-dismiss="modal">OK</button>
-					<button type="button" class="btn btn-default" data-dismiss="modal">Cancel</button>
-        </div>
-      </div>
-    </div>
-  </div>
-
-	<!--JK End-->
-
+	
 	<div id="divContent">
 		<div id="divContainerScroll">
 			<div id="divContainerFullTranscript">
@@ -319,6 +290,37 @@ header("Cache-Control: no-cache, must-revalidate");
 		</div><!--divChatContainer-->
 							
 	</div><!--divMenuContainer-->
+
+	<!--JK Start-->
+	<div class="container">
+  
+  <!-- Trigger the modal with a button -->
+  <button type="button" class="btn btn-info btn-lg" data-toggle="modal" data-target="#myModal">Open Modal</button>
+
+  <!-- Modal -->
+  <div class="modal fade" id="myModal" role="dialog">
+    <div class="modal-dialog modal-md">
+      <!-- Modal content-->
+      <div class="modal-content">
+        <div class="modal-header">
+          <button type="button" class="close" data-dismiss="modal">&times;</button>
+					<h1 class="modal-title modal-title-size">Name of the Chat Group Here</h1>
+					<div class="modal-instruction-text"><h2>Select the members to add to this group.</h2></div>
+				</div>
+				
+        <div class="modal-body">
+          <p></p>
+        </div>
+        <div class="modal-footer">
+					<button id="modal-ok" type="button" class="btn btn-success" data-dismiss="modal">OK</button>
+					<button type="button" class="btn btn-default" data-dismiss="modal">Cancel</button>
+        </div>
+      </div>
+    </div>
+  </div>
+
+	<!--JK End-->
+
 
 
 	
