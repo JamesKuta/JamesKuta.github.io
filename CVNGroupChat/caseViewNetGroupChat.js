@@ -1,40 +1,52 @@
+/**
+ **Title: CaseViewNet Browser Edition Group Chat
+ **Author: James Kuta
+ **Version: 1.0
+ **Release Date: XX-XX-XXXX
+ **/
+
 let groupChatButton = document.getElementById('buttonCreateGroup');
 let inputTextGroupChat = document.getElementById('textInputCreatGroup');
 
 //place to store the chat users.
 let chatUsersArray = [];
-let selectedUsers = [];
+
+// array of chat group names and users
 let chatGroups = [];
+
+//keep track of how many users are selected in modal
+let selectedCount = 0;
 
 
 function addUserToGroupChatArray(user)
 {
     let okToAddUser = true;
-    //See if user is already in the chatUsersArray
+    //See if user is already in the chatUsersArray. Don't add again if it is found.
     for (let i = 0; i < chatUsersArray.length; i++)
     {
         if (user.getAttribute('guid') === chatUsersArray[ i ].getAttribute('guid'))
         {
             okToAddUser = false;
-            break;
+            return; // found it, so stop.
         }
     }
 
-    //if user is not found in chatUsersArray add to chatUsersArray
+    //if user is not found in chatUsersArray, add to chatUsersArray
     if (okToAddUser)
     {
         chatUsersArray.push(user);
-        console.log('group: ', user.getAttribute('guid'));
+        console.log('group: ', user.getAttribute('guid')); // remove for production
     }
 }
 
 function createChatGroupModal(modalType)
 {
 
-    //Get Rid of spaces at begining and end of group name
-    let groupName = inputTextGroupChat.value.trim();
+    //Get Rid of spaces at begining and end of group name and store the text
+    let groupName = inputTextGroupChat.value
+    groupName = groupName.trim();
 
-    //Was the group name null or just spaces?
+    //Make sure groupName was not empty or just spaces.
     if (groupName != '')
     {
         //Add Group Chat Name to Modal
@@ -44,44 +56,51 @@ function createChatGroupModal(modalType)
         //Create Add Modal Type
         if (modalType == 'add')
         {
-            //Add Chat Users to Modal
+            // grap the the Modal body
             let modalBody = document.querySelector(".modal-body");
 
             //Clear any previous content of the modal body
             modalBody.innerHTML = '';
 
+            //loop through the current list of available chat users
             for (let i = 0; i < chatUsersArray.length; i++)
             {
-                // make a copy (clone) of each element in the Array
+                // make a copy (clone) of each element in the chatUserArray. Don't want to change the Divs already there.
                 let clone = chatUsersArray[ i ].cloneNode(true);
-                //don't want onclick to update chat pane.
+                
+                //give each DIV it's own onclick event
                 clone.setAttribute('onclick', "userSelected(this)");
+
+                //Don't want the selected color to be applied to Modal listing if it was selected in chat pane
                 if (clone.classList.contains("divContactListRowSelected"))
                 {
                     clone.classList.remove("divContactListRowSelected");
                 }
 
-                //clone.classList.add("divModalDisplayUser");
-
                 //add chat user to modalBody
                 modalBody.appendChild(clone);
             }
 
-            //Change Instruction Text
+            //Change modal Instruction Text
             let instructionText = document.querySelector('.modal-instruction-text');
             instructionText.innerHTML = "Select the members for this group.";
 
+            //clear the create group chat text field
             inputTextGroupChat.value = '';
+            
+            //show the modal dialog
             $('#myModal').modal('show');
 
+            //grap the OK button on the modal dialog
             let okButton = document.getElementById("modal-ok");
 
+            //do this when OK is clicked and there is user(s) selected in the modal dialog
             okButton.addEventListener('click', function ()
             {
-                //if (selectedUsers.length > 0)
-                //{
+                if(selectedCount > 0)
+                {
                     createGroup(groupName);
-                //}
+                }
             });
 
 
@@ -92,10 +111,12 @@ function createChatGroupModal(modalType)
         {
             //Do Some Stuff
         }
-
+    //If groupName was empty or just white spaces...
     } else
     {
+        //clear groupName field
         inputTextGroupChat.value = '';
+        //set cursor focus back to groupName field
         inputTextGroupChat.focus();
     }
 }
@@ -114,19 +135,19 @@ function userSelected(currentSelectedUser)
             && !currentSelectedUser.classList.contains(selectedUserClass))
         {
             myUsers[ i ].classList.add(selectedUserClass);
-            return;
+            return selectedCount++;
         }
         else if (currentSelectedUser.getAttribute('guid') == myUsers[ i ].getAttribute('guid')
             && currentSelectedUser.classList.contains(selectedUserClass))
         {
             myUsers[ i ].classList.remove(selectedUserClass);
-            return;
+            return selectedCount--;
         }
     }
 }
 
 //Create Group
-function createGroup(groupName)
+function createGroup(groupNameValue)
 {
     // create structure for chatGroups array
     let modalBody = document.querySelector(".modal-body");
@@ -135,7 +156,7 @@ function createGroup(groupName)
     let group = {};
     
     //Add name property to group object
-    group.name = groupName;
+    group.name = groupNameValue;
     group.users = [];
     
     //add selected users to chat group
@@ -144,12 +165,18 @@ function createGroup(groupName)
         if(myUsers[i].classList.contains(selectedUserClass))
         {
             group.users.push(myUsers[i]);
-            //console.log(group);
         }      
     }
     // add the group to the chatGrops array
     chatGroups.push(group);
+    
+    //reset selected count for next group creation
+    selectedCount = 0;
+    
     console.log(chatGroups);
+
+    //hide the modal
+    $('#myModal').modal('hide');
 }
 
 

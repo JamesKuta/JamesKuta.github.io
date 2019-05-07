@@ -312,7 +312,7 @@ header("Cache-Control: no-cache, must-revalidate");
           <p></p>
         </div>
         <div class="modal-footer">
-					<button id="modal-ok" type="button" class="btn btn-success" data-dismiss="modal">OK</button>
+					<button id="modal-ok" type="button" class="btn btn-success" data-dismiss="">OK</button>
 					<button type="button" class="btn btn-default" data-dismiss="modal">Cancel</button>
         </div>
       </div>
