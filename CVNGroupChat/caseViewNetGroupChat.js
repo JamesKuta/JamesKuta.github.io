@@ -8,6 +8,7 @@
 let groupChatButton = document.getElementById('buttonCreateGroup');
 let inputTextGroupChat = document.getElementById('textInputCreatGroup');
 
+
 //place to store the chat users.
 let chatUsersArray = [];
 
@@ -41,7 +42,7 @@ function addUserToGroupChatArray(user)
 
 function createChatGroupModal(modalType)
 {
-
+    
     //Get Rid of spaces at begining and end of group name and store the text
     let groupName = inputTextGroupChat.value
     groupName = groupName.trim();
@@ -79,6 +80,7 @@ function createChatGroupModal(modalType)
 
                 //add chat user to modalBody
                 modalBody.appendChild(clone);
+                modalBody.appendChild(document.createElement('hr'));
             }
 
             //Change modal Instruction Text
@@ -99,11 +101,9 @@ function createChatGroupModal(modalType)
             {
                 if(selectedCount > 0)
                 {
-                    createGroup(groupName);
+                    createGroup();
                 }
             });
-
-
         }
 
         //Create Remove Users From Chat Modal Type
@@ -147,17 +147,23 @@ function userSelected(currentSelectedUser)
 }
 
 //Create Group
-function createGroup(groupNameValue)
+function createGroup()
 {
     // create structure for chatGroups array
+    let modalHeading = document.querySelector(".modal-title");
     let modalBody = document.querySelector(".modal-body");
     let myUsers = modalBody.querySelectorAll('.divContactListRow');
     let selectedUserClass = "modal-selected-user"
     let group = {};
     
     //Add name property to group object
-    group.name = groupNameValue;
+    group.name = modalHeading.innerHTML;
     group.users = [];
+
+    //classes
+    //<div class="divContactListRow" name=groupname guid=xx>
+    //<div> class=divChatContactCircle>icon
+    //<div class=divChatContactName>group.name
     
     //add selected users to chat group
     for (let i = 0; i < myUsers.length; i++)
