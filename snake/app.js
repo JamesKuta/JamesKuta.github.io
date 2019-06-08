@@ -119,15 +119,7 @@ function clearScreen()
 function drawBackground()
 {
     //Main Field
-    // context.fillStyle = '#679933';
-    // context.fillRect(0, 0, canvas.width, canvas.height);
-    // context.strokeStyle = 'red';
-    // context.strokeRect(0, 0, canvas.width, canvas.height);
     context.drawImage(background, 0, 0);
-
-    //Score area
-    // context.fillStyle = '#20241c';
-    // context.fillRect(0, 0, canvas.width, 3 * gridSize);
 
     //Game Name Text line 1
     context.font = "20px Comic Sans MS";
@@ -336,7 +328,12 @@ function collisionCheck()
         {
             animate = false;
         }
-    } 
+    }
+
+    if(easyMode)
+    {
+        //Update Code
+    }
 }
 
 document.onkeydown = function (e)
@@ -376,7 +373,25 @@ document.onkeydown = function (e)
 
 function easyModeSelect() 
 {
-    console.log('test');
+    if(!easyMode)
+    {
+        easyMode = true;
+        if(easyButton.classList.contains('btn-danger'))
+        {
+            easyButton.classList.remove('btn-danger');
+            easyButton.classList.add('btn-success');
+        }
+        easyButton.innerHTML = 'ON';
+    } else
+    {
+        easyMode = false;
+        if(easyButton.classList.contains('btn-success'))
+        {
+            easyButton.classList.remove('btn-success');
+            easyButton.classList.add('btn-danger');
+        }
+        easyButton.innerHTML ='OFF';
+    }
 }
 
 easyButton.addEventListener('click', easyModeSelect);
