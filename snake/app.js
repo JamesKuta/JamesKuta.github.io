@@ -13,12 +13,6 @@ let foodImg = new Image();
 foodImg.src = 'images/food.png';
 
 
-//let height = 4;
-//let width = 4;
-//let aspectRatio = height / width;
-
-let jamesTextLine1 = 'ROKU SNAKE GAME';
-let jamesTextLine2 = 'A game for James. It was an old game. It was 100 years ago!'
 canvas.height = 768;
 canvas.width = 768;
 
@@ -43,10 +37,6 @@ let snake =
             y: 0,
         },
 
-        {
-            x: 13 * gridSize,
-            y: 12 * gridSize,
-        },
     ];
 
 let food =
@@ -69,7 +59,7 @@ function init()
     score = 0;
     snake[0].x = 12 * gridSize;
     snake[0].y = 12 * gridSize;
-    render();
+    draw();
 }
 
 function mainLoop(timeStamp)
@@ -84,66 +74,55 @@ function mainLoop(timeStamp)
     {
         if ((timeStamp - setLimiter) > gameSpeed)
         {
-            render();
+            draw();
             setLimiter = timeStamp;
         }
     }
 }
 
-function update()
-{
-
-}
-
-function render()
-{
-    draw();
-}
-
 function draw()
 {
-    //clearScreen();
     drawBackground();
-    moveSnake();
     createFood();
     drawFood();
+    moveSnake();
+    
+    
     collisionCheck();
-}
-
-function clearScreen()
-{
-    context.fillStyle = 'silver';
-    context.fillRect(0, 0, canvas.width, canvas.height);
 }
 
 function drawBackground()
 {
+
+    let jamesTextLine1 = 'SNAKE GAME';
+    let jamesTextLine2 = 'A game for James. It was an old game. It was 100 years ago!'
+    
     //Main Field
     context.drawImage(background, 0, 0);
 
     //Game Name Text line 1
-    context.font = "20px Comic Sans MS";
-    context.fillStyle = '#7BF300'; //#7BF300
+    context.font = "900 40px Comic Sans MS";
+    context.fillStyle = '#022107'; //#7BF300
     context.textAlign = 'center';
-    context.fillText(jamesTextLine1, canvas.width / 2, 20);
+    context.fillText(jamesTextLine1, canvas.width / 2, 40);
 
     //Game Name Text line 2
-    context.font = "20px Comic Sans MS";
-    context.fillStyle = '#7BF300'; //#7BF300
+    context.font = "900 20px Comic Sans MS";
+    context.fillStyle = '#022107'; //#7BF300
     context.textAlign = 'center';
-    context.fillText(jamesTextLine2, canvas.width / 2, 40);
+    context.fillText(jamesTextLine2, canvas.width / 2, 758);
 
     //Score Fruit
-    context.fillStyle = '#b9e1b6';
-    context.fillRect(0, 1 * gridSize, gridSize, gridSize);
+    context.fillStyle = '#de0d14';
+    context.fillRect(gridSize, 2 * gridSize, gridSize, gridSize);
     context.strokeStyle = 'red';
     context.strokeRect(0, 0, canvas.width, canvas.height);
 
     //Score Text
-    context.font = "38px Comic Sans MS";
-    context.fillStyle = '#7BF300';
+    context.font = "900 38px Comic Sans MS";
+    context.fillStyle = '#022107';
     context.textAlign = 'left';
-    context.fillText(score, gridSize +4, 2 * gridSize - 2);
+    context.fillText(score, 2 * gridSize + 4, 3 * gridSize - 2);
 
     //draw Snake
 
@@ -232,7 +211,7 @@ function moveSnake()
 
     for (let i = 0; i < snake.length; i++)
     {
-        let color = context.fillStyle = (i == 0) ? "#87ff0d" : "#ffffff";
+        let color = context.fillStyle = (i == 0) ? "#022107" : "#ccf3bc";
         drawRect(snake[i].x, snake[i].y, gridSize, gridSize, color);
     }
 
@@ -240,9 +219,8 @@ function moveSnake()
 
 function drawFood()
 {
-    context.fillStyle = '#b9e1b6';
+    context.fillStyle = '#de0d14';
     drawRect(food[0].x, food[0].y, gridSize, gridSize);
-    //context.drawImage(foodImg, food[0].x, food[0].y);
 }
 
 function collisionCheck()
@@ -395,27 +373,3 @@ function easyModeSelect()
 }
 
 easyButton.addEventListener('click', easyModeSelect);
-
-// function resize()
-// {
-//     canvas.width = document.documentElement.clientWidth;
-//     canvas.height = document.documentElement.clientHeight;
-//     if (canvas.height / canvas.width > aspectRatio)
-//     {
-//         canvas.height = canvas.width * aspectRatio;
-//         canvas.width = canvas.width;
-//     } else
-//     {
-//         canvas.height = canvas.height;
-//         canvas.width = canvas.height / aspectRatio;
-//     }
-//     init();
-//     render();
-// }
-
-//window.addEventListener('resize', resize);
-
-// function getRandomArbitrary(min, max) 
-// {
-//     return Math.random() * (max - min) + min;
-// }
