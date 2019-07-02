@@ -1,8 +1,10 @@
-function Snake(gridSize, currentDirection)
+function Snake(gridSize, currentDirection, image)
 {
     this.gridSize = gridSize;
     this.currentDirection = currentDirection;
     this.grow = false;
+    this.head = new Image();
+    this.head.src = image;
 
     this.body =
         [
@@ -16,8 +18,16 @@ function Snake(gridSize, currentDirection)
     {
         for (let i = 0; i < this.body.length; i++)
         {
-            let color = context.fillStyle = (i == 0) ? "#022107" : "#ccf3bc";
-            drawRect(this.body[i].x, this.body[i].y, this.gridSize, this.gridSize, color);
+            if(i == 0)
+            {
+                context.drawImage(this.head, this.body[0].x, this.body[0].y);
+            }else
+            {
+                let color = context.fillStyle = "#ccf3bc";
+                drawRect(this.body[i].x, this.body[i].y, this.gridSize, this.gridSize, color);
+            }
+            // let color = context.fillStyle = (i == 0) ? this.image : "#ccf3bc"; //"#022107"
+            // drawRect(this.body[i].x, this.body[i].y, this.gridSize, this.gridSize, color);
         }
     }
 

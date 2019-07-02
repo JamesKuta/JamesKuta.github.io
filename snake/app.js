@@ -12,7 +12,7 @@ let gameSpeed = 125;  //125
 
 let world = new World(canvas.width, canvas.height, gridSize, 'images/background.png')
 let food = new Food(/*'images/food.png'*/ gridSize);
-let snake = new Snake(gridSize, null);
+let snake = new Snake(gridSize, null, 'images/snake.png');
 
 //let currentDirection;
 
