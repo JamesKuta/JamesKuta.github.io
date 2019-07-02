@@ -8,12 +8,13 @@ let gridSize = 32;
 let easyButton = document.getElementById('easy-mode');
 let easyMode = false;
 
-let gameSpeed = 125;
+let gameSpeed = 125;  //125
 
 let world = new World(canvas.width, canvas.height, gridSize, 'images/background.png')
 let food = new Food(/*'images/food.png'*/ gridSize);
+let snake = new Snake(gridSize, null);
 
-let currentDirection;
+//let currentDirection;
 
 let animate = true;
 let pause = false;
@@ -25,15 +26,6 @@ deltaLimiter = 0;
 
 let score;
 
-let snake =
-    [
-        {
-            x: 0,
-            y: 0,
-        },
-
-    ];
-
 window.onload = function ()
 {
     //resize();
@@ -44,8 +36,6 @@ window.onload = function ()
 function init()
 {
     score = 0;
-    snake[0].x = ((canvas.width / gridSize) / 2) * gridSize;
-    snake[0].y = ((canvas.height / gridSize) / 2) * gridSize;
 }
 
 function mainLoop(timeStamp)
@@ -69,16 +59,16 @@ function mainLoop(timeStamp)
 function draw()
 {
     world.draw();
-    if(needNewFood)
+    if (needNewFood)
     {
         food.createNewFood();
         needNewFood = false;
     }
     food.draw();
-    moveSnake();
-    
-    
-    //collisionCheck();
+    snake.move(snake.currentDirection);
+    collisionCheck();
+    snake.draw();
+    //snake.didSnakeEatFood(food.xPos, food.yPos);
 }
 
 function drawRect(x, y, w, h, color)
@@ -89,156 +79,34 @@ function drawRect(x, y, w, h, color)
     context.strokeRect(x, y, w, h);
 }
 
-function moveSnake()
-{
-    if (currentDirection === 'left')
-    {
-        //get head of snake and remember it
-        let snakeHead =
-        {
-            x: snake[0].x - gridSize,
-            y: snake[0].y
-        };
 
-        snake.unshift(snakeHead);
-        snake.pop();
-    }
-
-    if (currentDirection === 'right')
-    {
-        //get head of snake and remember it
-        let snakeHead =
-        {
-            x: snake[0].x + gridSize,
-            y: snake[0].y
-        };
-
-        snake.unshift(snakeHead);
-        snake.pop();
-    }
-
-    if (currentDirection === 'up')
-    {
-        //get head of snake and remember it
-        let snakeHead =
-        {
-            x: snake[0].x,
-            y: snake[0].y - gridSize
-        };
-
-        snake.unshift(snakeHead);
-        snake.pop();
-    }
-
-    if (currentDirection === 'down')
-    {
-        //get head of snake and remember it
-        let snakeHead =
-        {
-            x: snake[0].x,
-            y: snake[0].y + gridSize
-        };
-
-        snake.unshift(snakeHead);
-        snake.pop();
-    }
-
-    for (let i = 0; i < snake.length; i++)
-    {
-        let color = context.fillStyle = (i == 0) ? "#022107" : "#ccf3bc";
-        drawRect(snake[i].x, snake[i].y, gridSize, gridSize, color);
-    }
-
-}
 
 function collisionCheck()
 {
     //Snake ate food?
-    if (snake[0].x == food[0].x && snake[0].y == food[0].y)
+    if (snake.body[0].x == food.xPos && snake.body[0].y == food.yPos)
     {
-        if (currentDirection === 'left')
-        {
-            //get head of snake and remember it
-            let snakeHead =
-            {
-                x: snake[0].x - gridSize,
-                y: snake[0].y
-            };
+        snake.grow = true;
+        score++;
+        needNewFood = true;
+        
+        //Snake ran into wall
+        //     if(!easyMode)
+        //     {
+        //         if(snake[0].x <= 0 || snake[0].x === 23 * gridSize)
+        //         {
+        //             animate = false;
+        //         }
 
-            snake.unshift(snakeHead);
-            score++;
-            needNewFood = true;
-        }
+        //         if(snake[0].y === gridSize * 2 || snake[0].y === 23 * gridSize)
+        //         {
+        //             animate = false;
+        //         }
+        //     }
 
-        if (currentDirection === 'right')
-        {
-            //get head of snake and remember it
-            let snakeHead =
-            {
-                x: snake[0].x + gridSize,
-                y: snake[0].y
-            };
-
-            snake.unshift(snakeHead);
-            score++;
-            needNewFood = true;
-        }
-
-        if (currentDirection === 'up')
-        {
-            //get head of snake and remember it
-            let snakeHead =
-            {
-                x: snake[0].x,
-                y: snake[0].y - gridSize
-            };
-
-            snake.unshift(snakeHead);
-            score++;
-            needNewFood = true;
-        }
-
-        if (currentDirection === 'down')
-        {
-            //get head of snake and remember it
-            let snakeHead =
-            {
-                x: snake[0].x,
-                y: snake[0].y + gridSize
-            };
-
-            snake.unshift(snakeHead);
-            score++;
-            needNewFood = true;
-        }
-    }
-
-    //Snake ran into itself?
-    for(let i = 1; i < snake.length; i++)
-    {
-        if(snake[0].x === snake[i].x && snake[0].y === snake[i].y)
-        {
-            animate = false;
-        }
-    }
-
-    //Snake ran into wall
-    if(!easyMode)
-    {
-        if(snake[0].x <= 0 || snake[0].x === 23 * gridSize)
-        {
-            animate = false;
-        }
-
-        if(snake[0].y === gridSize * 2 || snake[0].y === 23 * gridSize)
-        {
-            animate = false;
-        }
-    }
-
-    if(easyMode)
-    {
-        //Update Code
+        //     if(easyMode)
+        //     {
+        //         //Update Code
     }
 }
 
@@ -248,30 +116,30 @@ document.onkeydown = function (e)
     switch (e.keyCode)
     {
         case 37:
-            if (currentDirection != 'right')
+            if (snake.currentDirection != 'right')
             {
-                currentDirection = 'left';
+                snake.currentDirection = 'left';
             }
             break;
 
         case 38:
-            if (currentDirection != 'down')
+            if (snake.currentDirection != 'down')
             {
-                currentDirection = 'up';
+                snake.currentDirection = 'up';
             }
             break;
 
         case 39:
-            if (currentDirection != 'left')
+            if (snake.currentDirection != 'left')
             {
-                currentDirection = 'right';
+                snake.currentDirection = 'right';
             }
             break;
 
         case 40:
-            if (currentDirection != 'up')
+            if (snake.currentDirection != 'up')
             {
-                currentDirection = 'down';
+                snake.currentDirection = 'down';
             }
             break;
     }
@@ -279,10 +147,10 @@ document.onkeydown = function (e)
 
 function easyModeSelect() 
 {
-    if(!easyMode)
+    if (!easyMode)
     {
         easyMode = true;
-        if(easyButton.classList.contains('btn-danger'))
+        if (easyButton.classList.contains('btn-danger'))
         {
             easyButton.classList.remove('btn-danger');
             easyButton.classList.add('btn-success');
@@ -291,12 +159,12 @@ function easyModeSelect()
     } else
     {
         easyMode = false;
-        if(easyButton.classList.contains('btn-success'))
+        if (easyButton.classList.contains('btn-success'))
         {
             easyButton.classList.remove('btn-success');
             easyButton.classList.add('btn-danger');
         }
-        easyButton.innerHTML ='OFF';
+        easyButton.innerHTML = 'OFF';
     }
 }
 
