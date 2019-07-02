@@ -36,7 +36,6 @@ function Snake(gridSize, currentDirection)
             if (!this.grow)
             {
                 this.body.pop();
-                
                 return;
             } else
             {
@@ -58,7 +57,6 @@ function Snake(gridSize, currentDirection)
             if (!this.grow)
             {
                 this.body.pop();
-                
                 return;
             } else
             {
@@ -80,7 +78,6 @@ function Snake(gridSize, currentDirection)
             if (!this.grow)
             {
                 this.body.pop();
-                
                 return;
             } else
             {
@@ -102,7 +99,6 @@ function Snake(gridSize, currentDirection)
             if (!this.grow)
             {
                 this.body.pop();
-                
                 return;
             } else
             {
@@ -111,68 +107,4 @@ function Snake(gridSize, currentDirection)
             }
         }
     }
-
-    this.didSnakeEatFood = function (foodX, foodY)
-    {
-        if (this.body[0].x == foodX && this.body[0].y == foodY)
-        {
-            this.grow = true;
-            if (this.currentDirection === 'left')
-            {
-                //get head of snake and remember it
-                let snakeHead =
-                {
-                    x: this.body[0].x - gridSize,
-                    y: this.body[0].y
-                };
-
-                this.body.unshift(snakeHead);
-                score++;
-                needNewFood = true;
-            }
-
-            if (this.currentDirection === 'right')
-            {
-                //get head of snake and remember it
-                let snakeHead =
-                {
-                    x: this.body[0].x + gridSize,
-                    y: this.body[0].y
-                };
-
-                this.body.unshift(snakeHead);
-                score++;
-                needNewFood = true;
-            }
-
-            if (this.currentDirection === 'up')
-            {
-                //get head of snake and remember it
-                let snakeHead =
-                {
-                    x: this.body[0].x,
-                    y: this.body[0].y - gridSize
-                };
-
-                this.body.unshift(snakeHead);
-                score++;
-                needNewFood = true;
-            }
-
-            if (this.currentDirection === 'down')
-            {
-                //get head of snake and remember it
-                let snakeHead =
-                {
-                    x: this.body[0].x,
-                    y: this.body[0].y + gridSize
-                };
-
-                this.body.unshift(snakeHead);
-                score++;
-                needNewFood = true;
-            }
-        }
-    }
-
 }

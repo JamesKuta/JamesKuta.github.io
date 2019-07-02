@@ -66,9 +66,8 @@ function draw()
     }
     food.draw();
     snake.move(snake.currentDirection);
-    collisionCheck();
+    collisionCheck();    
     snake.draw();
-    //snake.didSnakeEatFood(food.xPos, food.yPos);
 }
 
 function drawRect(x, y, w, h, color)
@@ -89,24 +88,25 @@ function collisionCheck()
         snake.grow = true;
         score++;
         needNewFood = true;
-        
-        //Snake ran into wall
-        //     if(!easyMode)
-        //     {
-        //         if(snake[0].x <= 0 || snake[0].x === 23 * gridSize)
-        //         {
-        //             animate = false;
-        //         }
+    }
 
-        //         if(snake[0].y === gridSize * 2 || snake[0].y === 23 * gridSize)
-        //         {
-        //             animate = false;
-        //         }
-        //     }
+    //Snake ran into wall
+    if (!easyMode)
+    {
+        if (snake.body[0].x <= 0 || snake.body[0].x === 23 * world.gridSize)
+        {
+            animate = false;
+        }
 
-        //     if(easyMode)
-        //     {
-        //         //Update Code
+        if (snake.body[0].y === world.gridSize * 2 || snake.body[0].y === 22 * world.gridSize)
+        {
+            animate = false;
+        }
+    }
+
+    if (easyMode)
+    {
+        //Update Code
     }
 }
 
