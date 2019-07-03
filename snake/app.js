@@ -8,11 +8,11 @@ let gridSize = 32;
 let easyButton = document.getElementById('easy-mode');
 let easyMode = false;
 
-let gameSpeed = 125;  //125
+let gameSpeed = 155;  //125
 
 let world = new World(canvas.width, canvas.height, gridSize, 'images/background.png')
 let food = new Food(/*'images/food.png'*/ gridSize);
-let snake = new Snake(gridSize, null, 'images/snake.png');
+let snake = new Snake(gridSize, null, 'images/headSprite.png');
 
 //let currentDirection;
 
@@ -68,6 +68,7 @@ function draw()
     snake.move(snake.currentDirection);
     collisionCheck();    
     snake.draw();
+    
 }
 
 function drawRect(x, y, w, h, color)
@@ -87,18 +88,22 @@ function collisionCheck()
     {
         snake.grow = true;
         score++;
+        if(score % 5 == 0 && gameSpeed != 15)
+        {
+            gameSpeed -= 10;
+        }
         needNewFood = true;
     }
 
     //Snake ran into wall
     if (!easyMode)
     {
-        if (snake.body[0].x <= 0 || snake.body[0].x === 23 * world.gridSize)
+        if (snake.body[0].x < world.gridSize || snake.body[0].x > 22 * world.gridSize)
         {
             animate = false;
         }
 
-        if (snake.body[0].y === world.gridSize * 2 || snake.body[0].y === 22 * world.gridSize)
+        if (snake.body[0].y < world.gridSize * 3 || snake.body[0].y > 22 * world.gridSize)
         {
             animate = false;
         }
@@ -106,7 +111,17 @@ function collisionCheck()
 
     if (easyMode)
     {
-        //Update Code
+        //James wants an option to go through walls.
+    }
+
+    
+    //Snake hit itself
+    for(let i = 1; i < snake.body.length; i++)
+    {
+        if(snake.body[0].x == snake.body[i].x && snake.body[0].y == snake.body[i].y)
+        {
+            animate = false;
+        }
     }
 }
 

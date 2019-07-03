@@ -1,10 +1,10 @@
-function Food(/*image*/gridSize)
+function Food(gridSize/*,image*/)
 {
     this.xPos = 0;
     this.yPos = 0;
     this.gridSize = gridSize
-    // this.image = new Image();
-    // this.image.src = this.image;
+    // this.foodImage = new Image();
+    // this.foodImage.src = this.image;
 
     this.createNewFood = function()
     {

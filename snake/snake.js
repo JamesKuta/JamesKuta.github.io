@@ -3,8 +3,8 @@ function Snake(gridSize, currentDirection, image)
     this.gridSize = gridSize;
     this.currentDirection = currentDirection;
     this.grow = false;
-    this.head = new Image();
-    this.head.src = image;
+    this.snakeImage = new Image();
+    this.snakeImage.src = image;
 
     this.body =
         [
@@ -20,14 +20,39 @@ function Snake(gridSize, currentDirection, image)
         {
             if(i == 0)
             {
-                context.drawImage(this.head, this.body[0].x, this.body[0].y);
-            }else
+                
+                if(this.currentDirection == 'right' || this.currentDirection == null)
+                {
+                    context.drawImage(this.snakeImage, 0, 0, this.gridSize, this.gridSize, this.body[0].x, this.body[0].y, this.gridSize, this.gridSize);
+                }
+
+                if(this.currentDirection == 'left')
+                {
+                    context.drawImage(this.snakeImage, 96, 0, this.gridSize, this.gridSize, this.body[0].x, this.body[0].y, this.gridSize, this.gridSize);
+                }
+
+                if(this.currentDirection == 'up')
+                {
+                    context.drawImage(this.snakeImage, 32, 0, this.gridSize, this.gridSize, this.body[0].x, this.body[0].y, this.gridSize, this.gridSize);
+                }
+
+                if(this.currentDirection == 'down')
+                {
+                    context.drawImage(this.snakeImage, 64, 0, this.gridSize, this.gridSize, this.body[0].x, this.body[0].y, this.gridSize, this.gridSize);
+                }
+
+            }else if(i == this.body.length - 1)
             {
-                let color = context.fillStyle = "#ccf3bc";
-                drawRect(this.body[i].x, this.body[i].y, this.gridSize, this.gridSize, color);
+                context.drawImage(this.snakeImage, 160, 0, this.gridSize, this.gridSize, this.body[i].x, this.body[i].y, this.gridSize, this.gridSize);
+                
+                //let color = context.fillStyle = "black";
+                //drawRect(this.body[i].x, this.body[i].y, this.gridSize, this.gridSize, color);
+            }else
+            {  
+                context.drawImage(this.snakeImage, 128, 0, this.gridSize, this.gridSize, this.body[i].x, this.body[i].y, this.gridSize, this.gridSize); 
+                //let color = context.fillStyle = "#ccf3bc";
+                //drawRect(this.body[i].x, this.body[i].y, this.gridSize, this.gridSize, color);
             }
-            // let color = context.fillStyle = (i == 0) ? this.image : "#ccf3bc"; //"#022107"
-            // drawRect(this.body[i].x, this.body[i].y, this.gridSize, this.gridSize, color);
         }
     }
 
