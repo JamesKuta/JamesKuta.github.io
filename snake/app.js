@@ -4,6 +4,7 @@ let context = canvas.getContext('2d');
 canvas.height = 768;
 canvas.width = 768;
 let gridSize = 32;
+let gameOver = false;
 
 let easyButton = document.getElementById('easy-mode');
 let easyMode = false;
@@ -13,8 +14,6 @@ let gameSpeed = 155;  //125
 let world = new World(canvas.width, canvas.height, gridSize, 'images/background.png')
 let food = new Food(/*'images/food.png'*/ gridSize);
 let snake = new Snake(gridSize, null, 'images/headSprite.png');
-
-//let currentDirection;
 
 let animate = true;
 let pause = false;
@@ -65,10 +64,9 @@ function draw()
         needNewFood = false;
     }
     food.draw();
-    snake.move(snake.currentDirection);
+    snake.move();
     collisionCheck();    
     snake.draw();
-    
 }
 
 function drawRect(x, y, w, h, color)
@@ -100,12 +98,14 @@ function collisionCheck()
     {
         if (snake.body[0].x < world.gridSize || snake.body[0].x > 22 * world.gridSize)
         {
-            animate = false;
+            gameOver = true;
+            //animate = false;
         }
 
         if (snake.body[0].y < world.gridSize * 3 || snake.body[0].y > 22 * world.gridSize)
         {
-            animate = false;
+            gameOver = true;
+            //animate = false;
         }
     }
 
@@ -120,7 +120,8 @@ function collisionCheck()
     {
         if(snake.body[0].x == snake.body[i].x && snake.body[0].y == snake.body[i].y)
         {
-            animate = false;
+            gameOver = true;
+            //animate = false;
         }
     }
 }
