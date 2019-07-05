@@ -21,15 +21,17 @@ function Snake(gridSize, currentDirection, image)
             y: this.body[0].y,
         };
 
-
+    this.newSnakeHead =
+        {
+            x: this.body[0].x,
+            y: this.body[0].y,
+        };
 
     this.draw = function ()
     {
-        1
-        if (gameOver)
+        if (!collision)
         {
-            this.body[0].x = this.headOneMoveAgo.x;
-            this.body[0].y = this.headOneMoveAgo.y;
+            this.animateSnake();
         }
 
         for (let i = 0; i < this.body.length; i++)
@@ -60,14 +62,9 @@ function Snake(gridSize, currentDirection, image)
             } else if (i == this.body.length - 1)
             {
                 context.drawImage(this.snakeImage, 160, 0, this.gridSize, this.gridSize, this.body[i].x, this.body[i].y, this.gridSize, this.gridSize);
-
-                //let color = context.fillStyle = "black";
-                //drawRect(this.body[i].x, this.body[i].y, this.gridSize, this.gridSize, color);
             } else
             {
                 context.drawImage(this.snakeImage, 128, 0, this.gridSize, this.gridSize, this.body[i].x, this.body[i].y, this.gridSize, this.gridSize);
-                //let color = context.fillStyle = "#ccf3bc";
-                //drawRect(this.body[i].x, this.body[i].y, this.gridSize, this.gridSize, color);
             }
         }
     }
@@ -75,63 +72,56 @@ function Snake(gridSize, currentDirection, image)
     this.move = function () 
     {
         //get head of snake and remember it
-        this.headOneMoveAgo.x = this.body[0].x;
-        this.headOneMoveAgo.y = this.body[0].y;
+        // this.headOneMoveAgo.x = this.body[0].x;
+        // this.headOneMoveAgo.y = this.body[0].y;
 
         //move head to new position
         if (!gameOver)
         {
             if (this.currentDirection === 'left')
             {
-                let snakeHead =
-                {
-                    x: this.body[0].x - gridSize,
-                    y: this.body[0].y
-                };
-
-                this.animateSnake(snakeHead);
+                this.newSnakeHead =
+                    {
+                        x: this.body[0].x - gridSize,
+                        y: this.body[0].y
+                    };
             }
 
             if (this.currentDirection === 'right')
             {
                 //get head of snake and remember it
-                let snakeHead =
-                {
-                    x: this.body[0].x + gridSize,
-                    y: this.body[0].y
-                };
-
-                this.animateSnake(snakeHead);
+                this.newSnakeHead =
+                    {
+                        x: this.body[0].x + gridSize,
+                        y: this.body[0].y
+                    };
             }
 
             if (this.currentDirection === 'up')
             {
                 //get head of snake and remember it
-                let snakeHead =
-                {
-                    x: this.body[0].x,
-                    y: this.body[0].y - gridSize
-                };
-                this.animateSnake(snakeHead);
+                this.newSnakeHead =
+                    {
+                        x: this.body[0].x,
+                        y: this.body[0].y - gridSize
+                    };
             }
 
             if (this.currentDirection === 'down')
             {
                 //get head of snake and remember it
-                let snakeHead =
-                {
-                    x: this.body[0].x,
-                    y: this.body[0].y + gridSize
-                };
-                
-                this.animateSnake(snakeHead);
+                this.newSnakeHead =
+                    {
+                        x: this.body[0].x,
+                        y: this.body[0].y + gridSize
+                    };
             }
         }
     }
 
-    this.animateSnake = function (snakeHead)
+    this.animateSnake = function ()
     {
-        this.body.unshift(snakeHead);
+        this.body.unshift(this.newSnakeHead);
         if (!this.grow)
         {
             this.body.pop();

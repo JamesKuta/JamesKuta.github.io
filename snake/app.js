@@ -17,6 +17,7 @@ let snake = new Snake(gridSize, null, 'images/headSprite.png');
 
 let animate = true;
 let pause = false;
+let collision = false;
 
 let needNewFood = true;
 
@@ -82,7 +83,7 @@ function drawRect(x, y, w, h, color)
 function collisionCheck()
 {
     //Snake ate food?
-    if (snake.body[0].x == food.xPos && snake.body[0].y == food.yPos)
+    if (snake.newSnakeHead.x == food.xPos && snake.newSnakeHead.y == food.yPos)
     {
         snake.grow = true;
         score++;
@@ -96,15 +97,19 @@ function collisionCheck()
     //Snake ran into wall
     if (!easyMode)
     {
-        if (snake.body[0].x < world.gridSize || snake.body[0].x > 22 * world.gridSize)
+        if (snake.newSnakeHead.x < world.gridSize || snake.newSnakeHead.x > 22 * world.gridSize)
         {
             gameOver = true;
+            collision = true;
+            //gameOverKill();
             //animate = false;
         }
 
-        if (snake.body[0].y < world.gridSize * 3 || snake.body[0].y > 22 * world.gridSize)
+        if (snake.newSnakeHead.y < world.gridSize * 3 || snake.newSnakeHead.y > 22 * world.gridSize)
         {
             gameOver = true;
+            collision = true;
+            //gameOverKill();
             //animate = false;
         }
     }
@@ -118,11 +123,21 @@ function collisionCheck()
     //Snake hit itself
     for(let i = 1; i < snake.body.length; i++)
     {
-        if(snake.body[0].x == snake.body[i].x && snake.body[0].y == snake.body[i].y)
+        if(snake.newSnakeHead.x == snake.body[i].x && snake.newSnakeHead.y == snake.body[i].y)
         {
             gameOver = true;
+            collision = true;
+
             //animate = false;
         }
+    }
+}
+
+function gameOverKill()
+{
+    for(let i = 0; i < snake.body.length; i++)
+    {
+        snake.body.pop();
     }
 }
 
