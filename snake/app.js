@@ -66,7 +66,11 @@ function draw()
     }
     food.draw();
     snake.move();
-    collisionCheck();    
+    collisionCheck();
+    if (collision)
+    {
+        gameOverKill();
+    }
     snake.draw();
 }
 
@@ -87,7 +91,7 @@ function collisionCheck()
     {
         snake.grow = true;
         score++;
-        if(score % 5 == 0 && gameSpeed != 15)
+        if (score % 5 == 0 && gameSpeed != 15)
         {
             gameSpeed -= 10;
         }
@@ -101,29 +105,43 @@ function collisionCheck()
         {
             gameOver = true;
             collision = true;
-            //gameOverKill();
-            //animate = false;
         }
 
         if (snake.newSnakeHead.y < world.gridSize * 3 || snake.newSnakeHead.y > 22 * world.gridSize)
         {
             gameOver = true;
             collision = true;
-            //gameOverKill();
-            //animate = false;
         }
     }
 
     if (easyMode)
     {
-        //James wants an option to go through walls.
+        if (snake.newSnakeHead.x < world.gridSize)
+        {
+            snake.newSnakeHead.x = 22 * world.gridSize;
+        }
+
+        if (snake.newSnakeHead.x > 22 * world.gridSize)
+        {
+            snake.newSnakeHead.x = gridSize;
+        }
+
+        if (snake.newSnakeHead.y < world.gridSize * 3)
+        {
+            snake.newSnakeHead.y = 22 * world.gridSize;
+        }
+
+        if (snake.newSnakeHead.y > 22 * world.gridSize)
+        {
+            snake.newSnakeHead.y = 3 * world.gridSize;
+        }
     }
 
-    
+
     //Snake hit itself
-    for(let i = 1; i < snake.body.length; i++)
+    for (let i = 1; i < snake.body.length; i++)
     {
-        if(snake.newSnakeHead.x == snake.body[i].x && snake.newSnakeHead.y == snake.body[i].y)
+        if (snake.newSnakeHead.x == snake.body[i].x && snake.newSnakeHead.y == snake.body[i].y)
         {
             gameOver = true;
             collision = true;
@@ -135,10 +153,18 @@ function collisionCheck()
 
 function gameOverKill()
 {
-    for(let i = 0; i < snake.body.length; i++)
+    snake.body.pop();
+    if(snake.body.length == 0)
     {
-        snake.body.pop();
+        gameOverScreen();
     }
+}
+
+function gameOverScreen()
+{
+    context.font = "45px Arial";
+    context.textAlign = "center";
+    context.fillText("Game Over", canvas.width/2, canvas.height/2);
 }
 
 document.onkeydown = function (e)

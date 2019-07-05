@@ -15,7 +15,9 @@ function Food(gridSize/*,image*/)
 
     this.draw = function()
     {
+        context.save();
         context.fillStyle = '#de0d14';
         drawRect(this.xPos, this.yPos, this.gridSize, this.gridSize);
+        context.restore();
     }
 }

@@ -32,6 +32,7 @@ function World(width, height, gridSize, image)
         context.strokeRect(0, 0, canvas.width, canvas.height);
 
         //Score Text
+        
         context.font = "900 38px Comic Sans MS";
         context.fillStyle = '#022107';
         context.textAlign = 'left';
