@@ -4,6 +4,8 @@ let context = canvas.getContext('2d');
 canvas.height = 768;
 canvas.width = 768;
 let gridSize = 32;
+let gameWidth = 0;
+
 let gameOver = false;
 
 let easyButton = document.getElementById('easy-mode');
@@ -35,7 +37,22 @@ window.onload = function ()
 
 function init()
 {
+    //snake.currentDirection = null;
+    if (snake.body.length == 0)
+    {
+        let newSnake =
+        {
+            x: ((canvas.width / snake.gridSize) / 2) * snake.gridSize,
+            y: ((canvas.height / snake.gridSize) / 2) * snake.gridSize,
+        };
+        
+        snake.body.push(newSnake);
+        
+    }
+    collision = false;
+    gameOver = false;
     score = 0;
+    
 }
 
 function mainLoop(timeStamp)
@@ -154,7 +171,7 @@ function collisionCheck()
 function gameOverKill()
 {
     snake.body.pop();
-    if(snake.body.length == 0)
+    if (snake.body.length == 0)
     {
         gameOverScreen();
     }
@@ -162,9 +179,19 @@ function gameOverKill()
 
 function gameOverScreen()
 {
-    context.font = "45px Arial";
+    context.save();
+    context.font = "100px Arial";
+    context.fillStyle = "red";
     context.textAlign = "center";
-    context.fillText("Game Over", canvas.width/2, canvas.height/2);
+    context.fillText("Game Over", canvas.width / 2, canvas.height / 2);
+    context.restore();
+
+    context.save();
+    context.font = "45px Arial";
+    context.fillStyle = "white";
+    context.textAlign = "center";
+    context.fillText("Press ENTER to play again", canvas.width / 2, canvas.height / 2 + 120);
+    context.restore();
 }
 
 document.onkeydown = function (e)
@@ -199,6 +226,12 @@ document.onkeydown = function (e)
                 snake.currentDirection = 'down';
             }
             break;
+
+        case 13:
+            if (gameOver)
+            {
+                init();
+            }
     }
 };
 
