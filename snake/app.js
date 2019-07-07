@@ -9,12 +9,12 @@ let gameWidth = 0;
 let gameOver = false;
 
 let easyButton = document.getElementById('easy-mode');
-let easyMode = false;
+let easyMode = true;
 
 let gameSpeed = 155;  //125
 
-let world = new World(canvas.width, canvas.height, gridSize, 'images/background.png')
-let food = new Food(/*'images/food.png'*/ gridSize);
+let world = new World(canvas.width, canvas.height, gridSize, 'images/background.png' )
+let food = new Food(gridSize, 'images/food.png');
 let snake = new Snake(gridSize, null, 'images/headSprite.png');
 
 let animate = true;
@@ -37,22 +37,8 @@ window.onload = function ()
 
 function init()
 {
-    //snake.currentDirection = null;
-    if (snake.body.length == 0)
-    {
-        let newSnake =
-        {
-            x: ((canvas.width / snake.gridSize) / 2) * snake.gridSize,
-            y: ((canvas.height / snake.gridSize) / 2) * snake.gridSize,
-        };
-        
-        snake.body.push(newSnake);
-        
-    }
-    collision = false;
-    gameOver = false;
     score = 0;
-    
+    snake.currentDirection = 'start';
 }
 
 function mainLoop(timeStamp)
@@ -162,8 +148,6 @@ function collisionCheck()
         {
             gameOver = true;
             collision = true;
-
-            //animate = false;
         }
     }
 }
@@ -230,7 +214,7 @@ document.onkeydown = function (e)
         case 13:
             if (gameOver)
             {
-                init();
+                location.reload(true);
             }
     }
 };

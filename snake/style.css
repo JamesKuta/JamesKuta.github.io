@@ -1,9 +1,11 @@
 body
 {
+    margin: auto;
+    text-align: center;
     background-image: url('images/ground1.png');
 }
 div {
     padding: 0;
-    margin: auto;
+    /*margin: auto;*/
     display: block;
 }

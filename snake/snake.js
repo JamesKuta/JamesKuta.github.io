@@ -14,18 +14,64 @@ function Snake(gridSize, currentDirection, image)
             }
         ];
 
-    this.headOneMoveAgo =
+    // this.headOneMoveAgo =
 
-        {
-            x: this.body[0].x,
-            y: this.body[0].y,
-        };
+    //     {
+    //         x: this.body[0].x,
+    //         y: this.body[0].y,
+    //     };
 
     this.newSnakeHead =
         {
             x: this.body[0].x,
             y: this.body[0].y,
         };
+    
+        this.move = function () 
+        {
+            //move head to new position
+            if (!gameOver)
+            {
+                if (this.currentDirection === 'left')
+                {
+                    this.newSnakeHead =
+                        {
+                            x: this.body[0].x - gridSize,
+                            y: this.body[0].y
+                        };
+                }
+    
+                if (this.currentDirection === 'right')
+                {
+                    //get head of snake and remember it
+                    this.newSnakeHead =
+                        {
+                            x: this.body[0].x + gridSize,
+                            y: this.body[0].y
+                        };
+                }
+    
+                if (this.currentDirection === 'up')
+                {
+                    //get head of snake and remember it
+                    this.newSnakeHead =
+                        {
+                            x: this.body[0].x,
+                            y: this.body[0].y - gridSize
+                        };
+                }
+    
+                if (this.currentDirection === 'down')
+                {
+                    //get head of snake and remember it
+                    this.newSnakeHead =
+                        {
+                            x: this.body[0].x,
+                            y: this.body[0].y + gridSize
+                        };
+                }
+            }
+        }
 
     this.draw = function ()
     {
@@ -39,7 +85,7 @@ function Snake(gridSize, currentDirection, image)
             if (i == 0)
             {
 
-                if (this.currentDirection == 'right' || this.currentDirection == null)
+                if (this.currentDirection == 'right' || this.currentDirection == 'start')
                 {
                     context.drawImage(this.snakeImage, 0, 0, this.gridSize, this.gridSize, this.body[0].x, this.body[0].y, this.gridSize, this.gridSize);
                 }
@@ -65,56 +111,6 @@ function Snake(gridSize, currentDirection, image)
             } else
             {
                 context.drawImage(this.snakeImage, 128, 0, this.gridSize, this.gridSize, this.body[i].x, this.body[i].y, this.gridSize, this.gridSize);
-            }
-        }
-    }
-
-    this.move = function () 
-    {
-        //get head of snake and remember it
-        // this.headOneMoveAgo.x = this.body[0].x;
-        // this.headOneMoveAgo.y = this.body[0].y;
-
-        //move head to new position
-        if (!gameOver)
-        {
-            if (this.currentDirection === 'left')
-            {
-                this.newSnakeHead =
-                    {
-                        x: this.body[0].x - gridSize,
-                        y: this.body[0].y
-                    };
-            }
-
-            if (this.currentDirection === 'right')
-            {
-                //get head of snake and remember it
-                this.newSnakeHead =
-                    {
-                        x: this.body[0].x + gridSize,
-                        y: this.body[0].y
-                    };
-            }
-
-            if (this.currentDirection === 'up')
-            {
-                //get head of snake and remember it
-                this.newSnakeHead =
-                    {
-                        x: this.body[0].x,
-                        y: this.body[0].y - gridSize
-                    };
-            }
-
-            if (this.currentDirection === 'down')
-            {
-                //get head of snake and remember it
-                this.newSnakeHead =
-                    {
-                        x: this.body[0].x,
-                        y: this.body[0].y + gridSize
-                    };
             }
         }
     }

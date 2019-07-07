@@ -26,10 +26,10 @@ function World(width, height, gridSize, image)
         context.fillText(jamesTextLine2, canvas.width / 2, 758);
 
         //Score Fruit
-        context.fillStyle = '#de0d14';
-        context.fillRect(this.gridSize, 2 * this.gridSize, this.gridSize, this.gridSize);
-        context.strokeStyle = 'red';
-        context.strokeRect(0, 0, canvas.width, canvas.height);
+        // context.fillStyle = '#de0d14';
+        context.drawImage(food.foodImage, 0, 0, this.gridSize, this.gridSize, this.gridSize, 2 * this.gridSize, this.gridSize, this.gridSize);
+        // context.strokeStyle = 'red';
+        // context.strokeRect(0, 0, canvas.width, canvas.height);
 
         //Score Text
         
