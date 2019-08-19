@@ -8,8 +8,8 @@ Created By James Kuta
 
 //create new world
 let world = new World(16, 9);
-let level = new Levels(Math.floor(world.canvas.width / 20), Math.floor(world.canvas.height / 20));
-
+let level = new Levels(world.canvas.width / 20, world.canvas.height / 20);
+let currentLevel = 0;
 //add world to html body
 document.body.appendChild(world.canvas);
 
@@ -21,8 +21,12 @@ let mouse =
 };
 
 //image array
-let images = null;
+let images = new Images();
 let imageLoaded = false;
+
+let highSky = new Image();
+let midSky = new Image();
+let unicorn = new Image();
 
 // used to pause game.
 let pause = false;
@@ -32,18 +36,32 @@ let animate = false;
 
 window.onload = function()
 {
-    let tileSheet = new Image()
-    tileSheet.onload = function()
+    highSky.onload = function()
     {
-        images = tileSheet;
         imageLoaded = true;
     }
-    tileSheet.src = 'img/unicorn.png';
+    highSky.src = 'img/highsky.png';
+
+    midSky.onload = function()
+    {
+        imageLoaded = true;
+    }
+    midSky.src = 'img/midSky.png';
+
+    unicorn.onload = function()
+    {
+        imageLoaded = true;
+    }
+    unicorn.src = 'img/unicorn.png';
+    
     world.resize();
-    level.tileWidth = Math.floor(world.canvas.width / 20);
-    level.tileHeight = Math.floor(world.canvas.height / 20);
+    level.tileWidth = world.canvas.width / 20;
+    level.tileHeight = world.canvas.height / 20;
 
 }
+
+images.assignTile(highSky, 0, 0, 32, 32);
+images.assignTile(midSky, 0, 0, 32, 32);
 
 
 // main loop
@@ -68,7 +86,7 @@ function render()
     world.clearScreen();
     if (imageLoaded)
     {
-        level.draw(world.context, level.levelList[2], images);
+        level.draw(world.context, level.levelList[currentLevel]);
     }
 }
 
@@ -80,8 +98,8 @@ function render()
 window.addEventListener('resize', function()
 {
     world.resize()
-    level.tileWidth = Math.floor(world.canvas.width / 20);
-    level.tileHeight = Math.floor(world.canvas.height / 20);
+    level.tileWidth = world.canvas.width / 20;
+    level.tileHeight = world.canvas.height / 20;
     render();
 });
 
