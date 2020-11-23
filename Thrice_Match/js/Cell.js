@@ -1,6 +1,6 @@
 class Cell
 {
-    constructor(canvas, type)
+    constructor(canvas, type, animations)
     {
         //TODO ADD ANIMATION SET TO CONSTRUCTOR AND PROPERTIES
 
@@ -12,6 +12,10 @@ class Cell
 
         //cell type
         cell.type = type;
+        cell.currentType = cell.type;
+        cell.animations = animations;
+        cell.currentAnimationIndex = -1;
+        //console.log(cell.animations);
         
         //animation states
         cell.animationStates = 
@@ -21,9 +25,10 @@ class Cell
             matched: 2
         };
 
-        cell.animationState = cell.animationStates.notSelected;
+        cell.animationState = cell.animationStates.matched;
         cell.animationTimer = 0;
-        cell.animationInterval = 30; // 1/2 of a second.
+        cell.animationIntervalSelected = 30; // 1/2 second
+        cell.animationIntervalMatched = 5; // 1/12 second
 
         //cell image
         cell.image = null;
@@ -41,22 +46,40 @@ class Cell
 
     Draw()
     {
-        //When not selected make sure there is no animations
+        //reference to self
+        let cell = this;
+
         if(cell.animationState == cell.animationStates.notSelected)
         {
-            //just make sure no animation is playing
+            cell.currentType = cell.type;
             cell.animationTimer = 0;
         }
-        //When selected play the "selected" animations for cell type
-        if(cell.animationState == cell.animationStates.selected)
-        {
-            if(cell.animationTimer % cell.animationInterval == 0)
+        
+        //Selected Animation
+
+
+        //Matched Animation
+        if(cell.animationState == cell.animationStates.matched)
+        {   
+            if(cell.animationTimer % cell.animationIntervalMatched == 0)
             {
-                //change image to next in array of animation images
-                //if at end of array go back to the beginning
+                if(cell.currentAnimationIndex < cell.animations.length - 1)
+                {
+                    cell.currentAnimationIndex++;
+                    cell.currentType = cell.animations[cell.currentAnimationIndex];
+                } else
+                {
+                    cell.currentAnimationIndex = - 1;
+                    cell.animationState = cell.animationStates.notSelected;
+                }
             }
         }
+
+        if(!cell.empty)
+        {
+            cell.context.drawImage(cell.currentType, cell.x, cell.y, cell.width, cell.height);
+        }
         
-        cell.context.drawImage(cell.type, cell.x, cell.y, cell.width, cell.height);
+        cell.animationTimer++;
     }
 }

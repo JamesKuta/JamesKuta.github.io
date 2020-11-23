@@ -62,14 +62,15 @@ class Game
 
         game.ImagesForCells = [];
 
-        game.ImagesForCells = 
-        [
-            game.blueSwirl, 
-            game.redBean, 
-            game.yellowDrop, 
-            game.greenWrapper, game.purpleFlower
-        ];
+        game.animationImagesForCells = [];
 
+        //Keep Track Of Selected Cell
+        game.selectedCellIndex = -1;
+
+        //mouse position
+        game.mouse = {x: null, y: null};
+        game.dragging = false;
+        
         //Set Event Listeners for Game
         game.Events();
     }
@@ -87,7 +88,25 @@ class Game
                 { imgName: game.yellowDrop, source: "img/assets/size3/jelly_yellow.png" },
                 { imgName: game.greenWrapper, source: "img/assets/size3/wrappedsolid_green.png" },
                 { imgName: game.purpleFlower, source: "img/assets/size3/lollipop_purple.png" },
-                { imgName: game.cookie, source: "img/assets/size3/mm_brown.png" }
+                { imgName: game.cookie, source: "img/assets/size3/mm_brown.png" },
+
+                { imgName: game.explosionBlue1, source: "img/assets/size3/explosionblue01.png" },
+                { imgName: game.explosionBlue2, source: "img/assets/size3/explosionblue02.png" },
+                { imgName: game.explosionBlue3, source: "img/assets/size3/explosionblue03.png" },
+                { imgName: game.explosionBlue4, source: "img/assets/size3/explosionblue04.png" },
+                { imgName: game.explosionBlue5, source: "img/assets/size3/explosionblue05.png" },
+
+                { imgName: game.explosionGreen1, source: "img/assets/size3/explosiongreen01.png" },
+                { imgName: game.explosionGreen2, source: "img/assets/size3/explosiongreen02.png" },
+                { imgName: game.explosionGreen3, source: "img/assets/size3/explosiongreen03.png" },
+                { imgName: game.explosionGreen4, source: "img/assets/size3/explosiongreen04.png" },
+                { imgName: game.explosionGreen5, source: "img/assets/size3/explosiongreen05.png" },
+
+                { imgName: game.explosionPink1, source: "img/assets/size3/explosionpink01.png" },
+                { imgName: game.explosionPink2, source: "img/assets/size3/explosionpink02.png" },
+                { imgName: game.explosionPink3, source: "img/assets/size3/explosionpink03.png" },
+                { imgName: game.explosionPink4, source: "img/assets/size3/explosionpink04.png" },
+                { imgName: game.explosionPink5, source: "img/assets/size3/explosionpink05.png" }
             ];
 
         game.imageCount = imageList.length;
@@ -126,7 +145,7 @@ class Game
         //Create Objects
         game.background = new Background(game.canvas, game.backgroundImg);
         //game.background = new Background(game.canvas, "img/background/clouds.png");
-        game.grid = new Grid(game.canvas, "img/grid/grid_playing_field.png", game.ImagesForCells);
+        game.grid = new Grid(game.canvas, "img/grid/grid_playing_field.png", game.ImagesForCells, game.animationImagesForCells);
         game.score = new Menu(game.canvas, game.menuUI);
     }
 
@@ -135,22 +154,50 @@ class Game
         //reference to self
         let game = this;
 
+        //Mouse Button Down Event
+        game.canvas.onmousedown = game.MouseDown.bind(game);
+
+        //Mouse Button Up Event
+        game.canvas.onmouseup = game.MouseUp.bind(game);
+
         //Mouse Movement Event
-        game.canvas.addEventListener("mousemove", function (e)
-        {
-            //console.log(e.clientX);
-        })
+        game.canvas.onmousemove = game.MousePositionUpdate.bind(game);
 
         // Screen Size Change Event
-        window.addEventListener("resize", function (e)
-        {
-            //update game canvas size Properties
-            game.canvas.width = window.innerWidth;
-            game.canvas.height = window.innerHeight;
+        window.onresize = game.ScreenResize.bind(game);
+    }
 
-            //set the screen aspect state
-            game.wideScreen = (game.canvas.width >= game.canvas.height) ? true : false;
-        });
+    ScreenResize()
+    {
+        let game = this;
+        console.log("I'm here");
+
+        //update game canvas size Properties
+        game.canvas.width = window.innerWidth;
+        game.canvas.height = window.innerHeight;
+
+        //set the screen aspect state
+        game.wideScreen = (game.canvas.width >= game.canvas.height) ? true : false;
+    }
+
+    MouseDown(e)
+    {
+        let game = this;
+        //console.log(e);
+        game.dragging = true;
+    }
+
+    MouseUp(e)
+    {
+        let game = this;
+        //console.log(e)
+        game.dragging = false;
+    }
+
+    MousePositionUpdate(e)
+    {
+        let game = this;
+        //console.log(e);
     }
 
     Start()
@@ -213,6 +260,7 @@ class Game
 
         game.DrawBackground();
         game.DrawGrid();
+        game.DrawCells();
         game.DrawScoreMenu();
     }
 
@@ -233,8 +281,18 @@ class Game
             game.redBean, 
             game.yellowDrop, 
             game.greenWrapper,
-            game.purpleFlower
+            game.purpleFlower,
         ];
+
+        //Keep this in the order that each element matches the type element of ImagesForCells
+        game.animationImagesForCells =
+        [
+            [game.explosionBlue1, game.explosionBlue2, game.explosionBlue3, game.explosionBlue4, game.explosionBlue5],
+            [game.explosionGreen1, game.explosionGreen2, game.explosionGreen3, game.explosionGreen4, game.explosionGreen5],
+            [game.explosionPink1, game.explosionPink2, game.explosionPink3, game.explosionPink4, game.explosionPink5],
+            [game.explosionBlue1, game.explosionBlue2, game.explosionBlue3, game.explosionBlue4, game.explosionBlue5],
+            [game.explosionBlue1, game.explosionBlue2, game.explosionBlue3, game.explosionBlue4, game.explosionBlue5]
+        ]
     }
 
     UpdateBackground()
@@ -277,6 +335,24 @@ class Game
 
         //Draw the grid object
         game.grid.Draw();
+    }
+
+    DrawCells()
+    {
+        let game = this;
+        for(let row = 0; row < game.grid.rows; row++)
+        {
+            for(let col = 0; col < game.grid.cols; col++)
+            {
+                let currentIndex = Utilities.GetElementFromRowCol(row,col,game.grid.cols);
+                game.grid.cells[currentIndex].width = game.grid.width / game.grid.cols;
+                game.grid.cells[currentIndex].height = game.grid.height / game.grid.rows;
+                game.grid.cells[currentIndex].x = game.grid.x + game.grid.cells[currentIndex].width * col;
+                game.grid.cells[currentIndex].y = game.grid.y + game.grid.cells[currentIndex].height * row;
+                //game.grid.cells[5].animationState = 2;
+                game.grid.cells[currentIndex].Draw();
+            }
+        }
     }
 
     UpdateScoreMenu()

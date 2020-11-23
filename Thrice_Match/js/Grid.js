@@ -1,6 +1,6 @@
 class Grid
 {
-    constructor(canvas, backgroundImage, imagesForCells)
+    constructor(canvas, backgroundImage, imagesForCells, animationsForCells)
     {
         //reference to self
         let grid = this;
@@ -25,8 +25,9 @@ class Grid
 
         grid.cells = []; // Keep Array of objects for grid cells
         grid.cellImg = imagesForCells;
+        //console.log(grid.cellImg);
         //images that make up the animation states
-        grid.cellAnimationSet = null; //Set to animation set
+        grid.cellAnimationSet = animationsForCells; //Set to animation set
 
         //For storing matches
         grid.matches = []; //{cells}
@@ -59,8 +60,9 @@ class Grid
         {
             let randomType = Utilities.RandomIntegerBetweenMinMax(grid.cellImg.length);
             let cellImg = grid.cellImg[randomType];
-            let cellAnimationSet = null;
-            let cell = new Cell(grid.canvas, cellImg);
+            let cellAnimationSet = grid.cellAnimationSet[randomType];
+            //console.log(cellAnimationSet);
+            let cell = new Cell(grid.canvas, cellImg, cellAnimationSet);
             grid.cells.push(cell);
         }
     }
@@ -77,17 +79,17 @@ class Grid
 
         
         /// TO DO: MAKE THIS DRAWING IN THE CELL OBJECT, GAME OBJECT TO TELL WHERE TO DRAW
-        for(let row = 0; row < grid.rows; row++)
-        {
-            for(let col = 0; col < grid.cols; col++)
-            {
-                let currentIndex = Utilities.GetElementFromRowCol(row,col,grid.cols);
-                grid.cells[currentIndex].width = grid.width / grid.cols;
-                grid.cells[currentIndex].height = grid.height / grid.rows;
-                grid.cells[9].selected = true;
-                grid.context.drawImage(grid.cells[currentIndex].type, grid.x + grid.cells[currentIndex].width * col, grid.y + grid.cells[currentIndex].height * row, grid.cells[currentIndex].width, grid.cells[currentIndex].height);
-            }
-        }
+        // for(let row = 0; row < grid.rows; row++)
+        // {
+        //     for(let col = 0; col < grid.cols; col++)
+        //     {
+        //         let currentIndex = Utilities.GetElementFromRowCol(row,col,grid.cols);
+        //         grid.cells[currentIndex].width = grid.width / grid.cols;
+        //         grid.cells[currentIndex].height = grid.height / grid.rows;
+        //         //grid.cells[9].selected = true;
+        //         grid.context.drawImage(grid.cells[currentIndex].type, grid.x + grid.cells[currentIndex].width * col, grid.y + grid.cells[currentIndex].height * row, grid.cells[currentIndex].width, grid.cells[currentIndex].height);
+        //     }
+        // }
 
         //Figure out why these won't show correctly.
         // if(grid.showGridLines)
