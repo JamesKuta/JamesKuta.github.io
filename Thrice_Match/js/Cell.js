@@ -1,6 +1,6 @@
 class Cell
 {
-    constructor(canvas, type, animations)
+    constructor(canvas, matchNum, type, index, animations)
     {
         //TODO ADD ANIMATION SET TO CONSTRUCTOR AND PROPERTIES
 
@@ -12,10 +12,14 @@ class Cell
 
         //cell type
         cell.type = type;
+        cell.matchNum = matchNum;
         cell.currentType = cell.type;
+
+        //Keep the index in the grid of the cell for matching and moving
+        cell.index = index;
+        
         cell.animations = animations;
-        cell.currentAnimationIndex = -1;
-        //console.log(cell.animations);
+        cell.currentAnimationIndex = 0;
         
         //animation states
         cell.states = 
@@ -26,9 +30,24 @@ class Cell
         };
 
         cell.state = cell.states.matched;
+        cell.timers =
+        {
+            counter: 0,
+            selected: 5,
+            matched: 5
+        };
+        
         cell.animationTimer = 0;
-        cell.animationIntervalSelected = 30; // 1/2 second
+        cell.animationIntervalSelected = 5; // 1/2 second
         cell.animationIntervalMatched = 5; // 1/12 second
+        cell.selectedAlphas = 
+        [
+            0.1, 0.2, 0.3, 0.4, 0.5, 
+            0.6, 0.7, 0.8, 0.9, 1.0, 
+            1.0, 1.0, 1.0, 1.0, 1.0,
+            0.9, 0.8, 0.7, 0.6, 0.5,
+            0.4, 0.3, 0.2, 0.1
+        ];
 
         //cell image
         cell.image = null;
@@ -53,13 +72,26 @@ class Cell
         {
             cell.currentType = cell.type;
             cell.animationTimer = 0;
-
-            //Make the cell.x 5% over from left of grid space
-            
         }
         
         //Selected Animation
-
+        if(cell.state == cell.states.selected)
+        {
+            if(cell.currentAnimationIndex < cell.selectedAlphas.length - 1)
+            {
+                cell.context.strokeStyle = `rgba(255,255,255,${cell.selectedAlphas[cell.currentAnimationIndex]})`;
+                cell.context.lineWidth = 2;
+                cell.context.strokeRect(cell.x, cell.y, cell.width, cell.height);
+                if(cell.animationTimer % cell.animationIntervalSelected == 0)
+                {
+                    cell.currentAnimationIndex++;
+                }
+                
+            } else
+            {
+                cell.currentAnimationIndex = 0;
+            }   
+        }
 
         //Matched Animation
         if(cell.state == cell.states.matched)
@@ -68,11 +100,12 @@ class Cell
             {
                 if(cell.currentAnimationIndex < cell.animations.length - 1)
                 {
-                    cell.currentAnimationIndex++;
+                    
                     cell.currentType = cell.animations[cell.currentAnimationIndex];
+                    cell.currentAnimationIndex++;
                 } else
                 {
-                    cell.currentAnimationIndex = - 1;
+                    cell.currentAnimationIndex = 0;
                     cell.state = cell.states.notSelected;
                 }
             }
@@ -82,7 +115,6 @@ class Cell
         {
             cell.context.drawImage(cell.currentType, cell.x, cell.y, cell.width, cell.height);
         }
-        
         cell.animationTimer++;
     }
 }

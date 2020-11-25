@@ -10,10 +10,11 @@ class Game
 
         game.gameStates =
         {
-            loading: 0,
-            start: 1,
-            running: 2,
-            matching: 3
+            loading: 0, // to show loading screen
+            start: 1, // to kick off Init
+            running: 2, // allow user to select and swap
+            matching: 3, // clear matches
+            moving: 4 // move the grid and create new cell objects
         }
 
         game.gameState = game.gameStates.loading;
@@ -65,7 +66,7 @@ class Game
         game.animationImagesForCells = [];
 
         //Keep Track Of Selected Cell
-        game.selectedCellIndex = -1;
+        game.lastSelectedCellIndex = -1;
 
         //mouse position
         game.mouse = {x: null, y: null};
@@ -187,9 +188,6 @@ class Game
         let pointClickedY = game.mouse.y;
 
         //Is the click within the grid of cells?
-        let pointClickedXInsideGrid = game.IsMouseXInGrid(pointClickedX);
-        let pointClickedYInsideGrid = game.IsMouseYInGrid(pointClickedY);
-        
         //If it is within the grid figure out the row and column
         if(game.IsPointClickedInsideGrid(pointClickedX, pointClickedY))
         {
@@ -203,7 +201,23 @@ class Game
             let clickedCell = Utilities.GetElementFromRowCol(row, col, game.grid.cols);
             //set the animation state to selected if not already selected.
             //TODO rewrite for selected animation, just testing with matched for now.
-            game.grid.cells[clickedCell].state = game.grid.cells[clickedCell].states.matched;
+            if(game.grid.cells[clickedCell].state == game.grid.cells[clickedCell].states.selected)
+            {
+               //unselect the cell
+               game.grid.cells[clickedCell].state = game.grid.cells[clickedCell].states.notSelected
+               game.lastSelectedCellIndex = -1;
+               //console.log(game.lastSelectedCellIndex);
+            }else
+            {
+                //select the cell
+                if(game.lastSelectedCellIndex != -1)
+                {
+                    game.grid.cells[game.lastSelectedCellIndex].state = game.grid.cells[game.lastSelectedCellIndex].states.notSelected;
+                }
+                game.grid.cells[clickedCell].state = game.grid.cells[clickedCell].states.selected;
+                game.lastSelectedCellIndex = clickedCell;
+                //console.log(game.lastSelectedCellIndex);
+            }
         }
 
         //set the dragging state to true so we can swap if needed.
@@ -311,9 +325,10 @@ class Game
         let game = this;
 
         game.DrawBackground();
-        game.DrawGrid();
-        game.DrawCells();
+        //game.DrawGrid();
+        
         game.DrawGridLines();
+        game.DrawCells();
         game.DrawScoreMenu();
     }
 
@@ -472,10 +487,15 @@ class Game
         let gridCellWidth = gridWidth / cols;
         let gridCellHeight = gridHeight / rows;
 
+        //drawAlphaBackground
+        game.context.fillStyle = "rgba(0, 0, 100, 0.2)";
+        game.context.fillRect(gridX, gridY, gridWidth, gridHeight);
+
         //draw the grid lines
-        for(let row = 1; row < rows; row++)
+        for(let row = 0; row <= rows; row++)
         {
-            game.context.strokeStyle = "gray";
+            game.context.strokeStyle = "#C0C0C0";
+            game.context.lineWidth = 1;
             game.context.beginPath();
             game.context.moveTo(gridX, gridY + gridCellHeight * row);
             game.context.lineTo(gridWidth + gridX, gridY + gridCellHeight * row);
@@ -483,9 +503,9 @@ class Game
             
         }
 
-        for(let col = 1; col < cols; col++)
+        for(let col = 0; col <= cols; col++)
         {
-            game.context.strokeStyle = "gray";
+            //game.context.strokeStyle = "white";
             game.context.beginPath();
             game.context.moveTo(gridX + gridCellWidth * col, gridY);
             game.context.lineTo(gridX + gridCellWidth * col, gridHeight + gridY);

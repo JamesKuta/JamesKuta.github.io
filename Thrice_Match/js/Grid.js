@@ -58,11 +58,12 @@ class Grid
 
         for(let i = 0; i < grid.cols * grid.rows; i++)
         {
+            let cellIndex = i;
             let randomType = Utilities.RandomIntegerBetweenMinMax(grid.cellImg.length);
             let cellImg = grid.cellImg[randomType];
             let cellAnimationSet = grid.cellAnimationSet[randomType];
             //console.log(cellAnimationSet);
-            let cell = new Cell(grid.canvas, cellImg, cellAnimationSet);
+            let cell = new Cell(grid.canvas, randomType, cellImg, cellIndex, cellAnimationSet);
             grid.cells.push(cell);
         }
     }
