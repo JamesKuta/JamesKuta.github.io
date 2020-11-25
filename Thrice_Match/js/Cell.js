@@ -18,14 +18,14 @@ class Cell
         //console.log(cell.animations);
         
         //animation states
-        cell.animationStates = 
+        cell.states = 
         {
             notSelected: 0,
             selected: 1,
             matched: 2
         };
 
-        cell.animationState = cell.animationStates.matched;
+        cell.state = cell.states.matched;
         cell.animationTimer = 0;
         cell.animationIntervalSelected = 30; // 1/2 second
         cell.animationIntervalMatched = 5; // 1/12 second
@@ -49,17 +49,20 @@ class Cell
         //reference to self
         let cell = this;
 
-        if(cell.animationState == cell.animationStates.notSelected)
+        if(cell.state == cell.states.notSelected)
         {
             cell.currentType = cell.type;
             cell.animationTimer = 0;
+
+            //Make the cell.x 5% over from left of grid space
+            
         }
         
         //Selected Animation
 
 
         //Matched Animation
-        if(cell.animationState == cell.animationStates.matched)
+        if(cell.state == cell.states.matched)
         {   
             if(cell.animationTimer % cell.animationIntervalMatched == 0)
             {
@@ -70,7 +73,7 @@ class Cell
                 } else
                 {
                     cell.currentAnimationIndex = - 1;
-                    cell.animationState = cell.animationStates.notSelected;
+                    cell.state = cell.states.notSelected;
                 }
             }
         }

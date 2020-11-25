@@ -170,8 +170,7 @@ class Game
     ScreenResize()
     {
         let game = this;
-        console.log("I'm here");
-
+        
         //update game canvas size Properties
         game.canvas.width = window.innerWidth;
         game.canvas.height = window.innerHeight;
@@ -183,8 +182,58 @@ class Game
     MouseDown(e)
     {
         let game = this;
-        //console.log(e);
+
+        let pointClickedX = game.mouse.x;
+        let pointClickedY = game.mouse.y;
+
+        //Is the click within the grid of cells?
+        let pointClickedXInsideGrid = game.IsMouseXInGrid(pointClickedX);
+        let pointClickedYInsideGrid = game.IsMouseYInGrid(pointClickedY);
+        
+        //If it is within the grid figure out the row and column
+        if(game.IsPointClickedInsideGrid(pointClickedX, pointClickedY))
+        {
+            //Figure out the row and col. REMEMBER to subtract grid position as an offset!
+            let cellWidth = game.grid.width / game.grid.cols;
+            let cellHeight = game.grid.height / game.grid.rows;
+            let col = Utilities.GetGridColFromPoint(pointClickedX - game.grid.x, cellWidth);
+            let row = Utilities.GetGridRowFromPoint(pointClickedY - game.grid.y, cellHeight);
+            
+            // select the cell at Col and Row
+            let clickedCell = Utilities.GetElementFromRowCol(row, col, game.grid.cols);
+            //set the animation state to selected if not already selected.
+            //TODO rewrite for selected animation, just testing with matched for now.
+            game.grid.cells[clickedCell].state = game.grid.cells[clickedCell].states.matched;
+        }
+
+        //set the dragging state to true so we can swap if needed.
         game.dragging = true;
+    }
+
+    IsPointClickedInsideGrid(x, y)
+    {
+        let game = this;
+        if(game.IsMouseXInGrid(x) && game.IsMouseYInGrid(y))
+        {
+            return true;
+        } else
+        {
+            return false;
+        }
+    }
+
+    IsMouseXInGrid(x)
+    {
+        let game = this;
+        //Is the the mouse click point inside of the game grid?
+        return (x > game.grid.x && x < game.grid.x + game.grid.width);
+    }
+
+    IsMouseYInGrid(y)
+    {
+        let game = this;
+
+        return (y > game.grid.y && y < (game.grid.y + game.grid.height));
     }
 
     MouseUp(e)
@@ -197,7 +246,10 @@ class Game
     MousePositionUpdate(e)
     {
         let game = this;
-        //console.log(e);
+        let rect = game.canvas.getBoundingClientRect();
+        game.mouse.x = e.clientX - rect.left;
+        game.mouse.y = e.clientY - rect.top;
+        //console.log(Math.floor(game.grid.x) + ": " + game.mouse.x + ", " + game.mouse.y);
     }
 
     Start()
@@ -261,6 +313,7 @@ class Game
         game.DrawBackground();
         game.DrawGrid();
         game.DrawCells();
+        game.DrawGridLines();
         game.DrawScoreMenu();
     }
 
@@ -275,12 +328,23 @@ class Game
         //Set if screen is wide or tall
         game.wideScreen = (game.canvas.width >= game.canvas.height) ? true : false;
 
+        game.InitImages();
+
+    }
+
+    InitImages()
+    {
+        let game = this;
+
+        // IMPORTANT! Keep order of ImagesForCells
+        // and animationImagesForCell the same.
+
         game.ImagesForCells = 
         [
             game.blueSwirl, 
-            game.redBean, 
-            game.yellowDrop, 
-            game.greenWrapper,
+            game.redBean,
+            game.greenWrapper, 
+            game.yellowDrop,
             game.purpleFlower,
         ];
 
@@ -288,8 +352,8 @@ class Game
         game.animationImagesForCells =
         [
             [game.explosionBlue1, game.explosionBlue2, game.explosionBlue3, game.explosionBlue4, game.explosionBlue5],
-            [game.explosionGreen1, game.explosionGreen2, game.explosionGreen3, game.explosionGreen4, game.explosionGreen5],
             [game.explosionPink1, game.explosionPink2, game.explosionPink3, game.explosionPink4, game.explosionPink5],
+            [game.explosionGreen1, game.explosionGreen2, game.explosionGreen3, game.explosionGreen4, game.explosionGreen5],
             [game.explosionBlue1, game.explosionBlue2, game.explosionBlue3, game.explosionBlue4, game.explosionBlue5],
             [game.explosionBlue1, game.explosionBlue2, game.explosionBlue3, game.explosionBlue4, game.explosionBlue5]
         ]
@@ -340,18 +404,92 @@ class Game
     DrawCells()
     {
         let game = this;
+
+        //Some constents to use for calculations
+        const diffPercentage = 0.50;
+        const cellObjectPercentage = 0.80;
+
+        //What is the x and y postions of the grid?
+        let gridX = game.grid.x;
+        let gridY = game.grid.y;
+        
+        //What is the width and height of the grid
+        let gridWidth = game.grid.width;
+        let gridHeight = game.grid.height;
+
+        //How many columns and rows are there in the grid
+        let gridCols = game.grid.cols;
+        let gridRows = game.grid.rows;
+
+        //What is the width and height of each cell in the grid
+        let gridCellWidth = gridWidth / gridCols;
+        let gridCellHeight = gridHeight / gridRows;
+        
+        //Set the Width and Height of the cell object to draw in the grid cell
+        let cellObjectWidth = gridCellWidth * cellObjectPercentage; // x% of gridCellWidth
+        let cellObjectHeight = gridCellHeight * cellObjectPercentage; // x% of gridCellHeight
+
+        //Get the difference between the gridCellWidth/gricCellHeight and cellObjectWidth/cellObjectHeight
+        let gridCellWidthGridObjectWidthDiff = gridCellWidth - cellObjectWidth;
+        let gridCellHeightGridObjectHeightDiff = gridCellHeight - cellObjectHeight;
+
+        //Get half of the differences as an offset to center the cellObjects in the gridCells
+        let offsetWidth = gridCellWidthGridObjectWidthDiff * diffPercentage;
+        let offsetHeight = gridCellHeightGridObjectHeightDiff * diffPercentage;
+
+        // Set the Cell Object Properties for Drawing and draw
         for(let row = 0; row < game.grid.rows; row++)
         {
             for(let col = 0; col < game.grid.cols; col++)
             {
                 let currentIndex = Utilities.GetElementFromRowCol(row,col,game.grid.cols);
-                game.grid.cells[currentIndex].width = game.grid.width / game.grid.cols;
-                game.grid.cells[currentIndex].height = game.grid.height / game.grid.rows;
-                game.grid.cells[currentIndex].x = game.grid.x + game.grid.cells[currentIndex].width * col;
-                game.grid.cells[currentIndex].y = game.grid.y + game.grid.cells[currentIndex].height * row;
-                //game.grid.cells[5].animationState = 2;
+                game.grid.cells[currentIndex].width = cellObjectWidth; 
+                game.grid.cells[currentIndex].height = cellObjectHeight; 
+                game.grid.cells[currentIndex].x = (gridX + offsetWidth) + gridCellWidth * col; 
+                game.grid.cells[currentIndex].y = (gridY + offsetHeight) + gridCellHeight * row;  
                 game.grid.cells[currentIndex].Draw();
             }
+        }
+    }
+
+    DrawGridLines()
+    {
+        let game = this;
+
+        //get the x and y point of the grid
+        let gridX = game.grid.x;
+        let gridY = game.grid.y;
+
+        //get the width and height of the grid
+        let gridWidth = game.grid.width;
+        let gridHeight = game.grid.height;
+
+        //get the number of columns and rows for the grid
+        let cols = game.grid.cols;
+        let rows = game.grid.rows;
+
+        //get the cell size for the grid cells
+        let gridCellWidth = gridWidth / cols;
+        let gridCellHeight = gridHeight / rows;
+
+        //draw the grid lines
+        for(let row = 1; row < rows; row++)
+        {
+            game.context.strokeStyle = "gray";
+            game.context.beginPath();
+            game.context.moveTo(gridX, gridY + gridCellHeight * row);
+            game.context.lineTo(gridWidth + gridX, gridY + gridCellHeight * row);
+            game.context.stroke();
+            
+        }
+
+        for(let col = 1; col < cols; col++)
+        {
+            game.context.strokeStyle = "gray";
+            game.context.beginPath();
+            game.context.moveTo(gridX + gridCellWidth * col, gridY);
+            game.context.lineTo(gridX + gridCellWidth * col, gridHeight + gridY);
+            game.context.stroke();
         }
     }
 

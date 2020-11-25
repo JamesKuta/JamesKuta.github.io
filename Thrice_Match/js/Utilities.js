@@ -2,9 +2,9 @@ class Utilities
 {
     //returns the index number for the position on a grid or in an array
     //given the current row, column and width of the grid
-    static GetElementFromRowCol(row, col, gridWidth)
+    static GetElementFromRowCol(row, col, numberOfColumns)
     {
-        return (row * gridWidth) + col;
+        return (row * numberOfColumns) + col;
     }
 
     static GetGridColFromPoint(point, cellWidth)

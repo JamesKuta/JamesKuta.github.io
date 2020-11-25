@@ -76,7 +76,6 @@ class Grid
         {
             grid.context.drawImage(grid.backgroundImg, grid.x, grid.y, grid.width, grid.height);
         }
-
         
         /// TO DO: MAKE THIS DRAWING IN THE CELL OBJECT, GAME OBJECT TO TELL WHERE TO DRAW
         // for(let row = 0; row < grid.rows; row++)
@@ -94,9 +93,10 @@ class Grid
         //Figure out why these won't show correctly.
         // if(grid.showGridLines)
         // {
-        //     for (let col = 0; col < grid.cols; col++)
+        //     for (let col = 1; col < grid.cols; col++)
         //     {
-        //         let horizontalPosition = grid.x + (col * grid.width);
+        //         let horizontalPosition = grid.x + (col * grid.width / grid.cols);
+        //         //console.log(horizontalPosition);
         //         let verticalPosition = grid.y;
         //         grid.context.strokeStyle = "white";
         //         grid.context.beginPath();
@@ -105,17 +105,17 @@ class Grid
         //         grid.context.stroke();
         //     }
 
-        //     for(let row = 0; row < grid.rows; row++)
-        //     {
-        //         let horizontalPosition = grid.x;
-        //         let verticalPosition = grid.y + (row * grid.height);
-        //         grid.context.lineWidth = 1;
-        //         grid.context.strokeStyle = "white";
-        //         grid.context.beginPath();
-        //         grid.context.moveTo(horizontalPosition, verticalPosition);
-        //         grid.context.lineTo(grid.width, verticalPosition);
-        //         grid.context.stroke();
-        //     }
-        // }
+            // for(let row = 0; row < grid.rows; row++)
+            // {
+            //     let horizontalPosition = grid.x;
+            //     let verticalPosition = grid.y + (row * grid.height / grid.rows);
+            //     grid.context.lineWidth = 1;
+            //     grid.context.strokeStyle = "white";
+            //     grid.context.beginPath();
+            //     grid.context.moveTo(horizontalPosition, verticalPosition);
+            //     grid.context.lineTo(grid.width, verticalPosition);
+            //     grid.context.stroke();
+            // }
+        //}
     }
 }
