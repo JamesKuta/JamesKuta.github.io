@@ -144,9 +144,10 @@ class Game
         let game = this;
 
         //Create Objects
-        game.background = new Background(game.canvas, game.backgroundImg);
+        game.background1 = new Background(game.canvas, game.backgroundImg);
+        game.background2 = new Background(game.canvas, game.backgroundImg);
         //game.background = new Background(game.canvas, "img/background/clouds.png");
-        game.grid = new Grid(game.canvas, "img/grid/grid_playing_field.png", game.ImagesForCells, game.animationImagesForCells);
+        game.grid = new Grid(game.canvas, game.ImagesForCells, game.animationImagesForCells);
         game.score = new Menu(game.canvas, game.menuUI);
     }
 
@@ -187,59 +188,86 @@ class Game
         let pointClickedX = game.mouse.x;
         let pointClickedY = game.mouse.y;
 
-        //Is the click within the grid of cells?
-        //If it is within the grid figure out the row and column
+        //Is the click within the grid figure out the row and column
         if(game.IsPointClickedInsideGrid(pointClickedX, pointClickedY))
         {
-            //Figure out the row and col. REMEMBER to subtract grid position as an offset!
-            let cellWidth = game.grid.width / game.grid.cols;
-            let cellHeight = game.grid.height / game.grid.rows;
-            let col = Utilities.GetGridColFromPoint(pointClickedX - game.grid.x, cellWidth);
-            let row = Utilities.GetGridRowFromPoint(pointClickedY - game.grid.y, cellHeight);
-            
-            // select the cell at Col and Row
-            let clickedCell = Utilities.GetElementFromRowCol(row, col, game.grid.cols);
-            //set the animation state to selected if not already selected.
-            //TODO rewrite for selected animation, just testing with matched for now.
-            if(game.grid.cells[clickedCell].state == game.grid.cells[clickedCell].states.selected)
-            {
-               //unselect the cell
-               game.grid.cells[clickedCell].state = game.grid.cells[clickedCell].states.notSelected
-               game.lastSelectedCellIndex = -1;
-               //console.log(game.lastSelectedCellIndex);
-            }else
-            {
-                //select the cell
-                if(game.lastSelectedCellIndex != -1)
-                {
-                    game.grid.cells[game.lastSelectedCellIndex].state = game.grid.cells[game.lastSelectedCellIndex].states.notSelected;
-                }
-                game.grid.cells[clickedCell].state = game.grid.cells[clickedCell].states.selected;
-                game.lastSelectedCellIndex = clickedCell;
-                //console.log(game.lastSelectedCellIndex);
-            }
+            //point clicked is inside the grid so act on it
+            game.ActOnCellAtPointClicked(pointClickedX, pointClickedY);
         }
 
         //set the dragging state to true so we can swap if needed.
         game.dragging = true;
     }
 
+    ActOnCellAtPointClicked(pointClickedX, pointClickedY)
+    {
+        let game = this;
+        
+        //Figure out the row and col. REMEMBER to subtract grid position as an offset!
+        let cellWidth = game.grid.width / game.grid.cols;
+        let cellHeight = game.grid.height / game.grid.rows;
+        let col = Utilities.GetGridColFromPoint(pointClickedX - game.grid.x, cellWidth);
+        let row = Utilities.GetGridRowFromPoint(pointClickedY - game.grid.y, cellHeight);
+        
+        // select the cell at Col and Row
+        let clickedCell = Utilities.GetElementFromRowCol(row, col, game.grid.cols);
+        
+        //set the animation state to selected if not already selected.
+        if(game.IsCellSelected(clickedCell))
+        {
+            game.UnSelectCell(clickedCell);
+        }else
+        {
+            game.SelectCell(clickedCell);
+        }
+    }
+
+    SelectCell(cell)
+    {
+        let game = this;
+
+        if(game.lastSelectedCellIndex != -1)
+        {
+            //Change the state of the currently selected cell to not be selected
+            game.UnSelectCell(game.lastSelectedCellIndex);
+        }
+        
+        //Set the cells state to be selected
+        game.grid.cells[cell].state = game.grid.cells[cell].states.selected;
+
+        //Have the game remember the index of the selected cell
+        game.lastSelectedCellIndex = cell;
+    }
+
+    UnSelectCell(cell)
+    {
+        let game = this;
+
+        //change the state of the cell to not be selected
+        game.grid.cells[cell].state = game.grid.cells[cell].states.notSelected;
+
+        //there are no more selected cells
+        game.lastSelectedCellIndex = -1;
+    }
+
+    IsCellSelected(cell)
+    {
+        let game = this;
+
+        return (game.grid.cells[cell].state == game.grid.cells[cell].states.selected);
+    }
+
     IsPointClickedInsideGrid(x, y)
     {
         let game = this;
-        if(game.IsMouseXInGrid(x) && game.IsMouseYInGrid(y))
-        {
-            return true;
-        } else
-        {
-            return false;
-        }
+
+        return (game.IsMouseXInGrid(x) && game.IsMouseYInGrid(y));
     }
 
     IsMouseXInGrid(x)
     {
         let game = this;
-        //Is the the mouse click point inside of the game grid?
+        
         return (x > game.grid.x && x < game.grid.x + game.grid.width);
     }
 
@@ -253,17 +281,17 @@ class Game
     MouseUp(e)
     {
         let game = this;
-        //console.log(e)
+        
         game.dragging = false;
     }
 
     MousePositionUpdate(e)
     {
         let game = this;
+        
         let rect = game.canvas.getBoundingClientRect();
         game.mouse.x = e.clientX - rect.left;
         game.mouse.y = e.clientY - rect.top;
-        //console.log(Math.floor(game.grid.x) + ": " + game.mouse.x + ", " + game.mouse.y);
     }
 
     Start()
@@ -316,6 +344,7 @@ class Game
 
         game.UpdateBackground();
         game.UpdateGridPositionOnScreen();
+        game.UpdateCells();
         game.UpdateScoreMenu();
     }
 
@@ -325,9 +354,8 @@ class Game
         let game = this;
 
         game.DrawBackground();
-        //game.DrawGrid();
-        
         game.DrawGridLines();
+        game.DrawGrid();
         game.DrawCells();
         game.DrawScoreMenu();
     }
@@ -380,8 +408,9 @@ class Game
         let game = this;
 
         //Set properties of background object
-        game.background.width = game.canvas.width;
-        game.background.height = game.canvas.height;
+        game.background1.width = game.canvas.width;
+        //console.log(game.background1.x, game.background1.width);
+        game.background1.height = game.canvas.height;
     }
 
     //Drawing Functions for Game Screen
@@ -391,7 +420,7 @@ class Game
         let game = this;
 
         //Draw the background object
-        game.background.Draw();
+        game.background1.Draw();
     }
 
     UpdateGridPositionOnScreen()
@@ -416,7 +445,7 @@ class Game
         game.grid.Draw();
     }
 
-    DrawCells()
+    UpdateCells()
     {
         let game = this;
 
@@ -452,7 +481,7 @@ class Game
         let offsetWidth = gridCellWidthGridObjectWidthDiff * diffPercentage;
         let offsetHeight = gridCellHeightGridObjectHeightDiff * diffPercentage;
 
-        // Set the Cell Object Properties for Drawing and draw
+        // Set the Cell Object Properties for Drawing
         for(let row = 0; row < game.grid.rows; row++)
         {
             for(let col = 0; col < game.grid.cols; col++)
@@ -461,10 +490,16 @@ class Game
                 game.grid.cells[currentIndex].width = cellObjectWidth; 
                 game.grid.cells[currentIndex].height = cellObjectHeight; 
                 game.grid.cells[currentIndex].x = (gridX + offsetWidth) + gridCellWidth * col; 
-                game.grid.cells[currentIndex].y = (gridY + offsetHeight) + gridCellHeight * row;  
-                game.grid.cells[currentIndex].Draw();
+                game.grid.cells[currentIndex].y = (gridY + offsetHeight) + gridCellHeight * row;
             }
         }
+    }
+
+    DrawCells()
+    {
+        let game = this;
+        
+        game.grid.cells.forEach(cell => cell.Draw());
     }
 
     DrawGridLines()
@@ -488,8 +523,8 @@ class Game
         let gridCellHeight = gridHeight / rows;
 
         //drawAlphaBackground
-        game.context.fillStyle = "rgba(0, 0, 100, 0.2)";
-        game.context.fillRect(gridX, gridY, gridWidth, gridHeight);
+        // game.context.fillStyle = "rgba(0, 0, 100, 0.2)";
+        // game.context.fillRect(gridX, gridY, gridWidth, gridHeight);
 
         //draw the grid lines
         for(let row = 0; row <= rows; row++)

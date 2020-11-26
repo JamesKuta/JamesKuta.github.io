@@ -38,7 +38,7 @@ class Cell
         };
         
         cell.animationTimer = 0;
-        cell.animationIntervalSelected = 5; // 1/2 second
+        cell.animationIntervalSelected = 3; // 1/2 second
         cell.animationIntervalMatched = 5; // 1/12 second
         cell.selectedAlphas = 
         [
