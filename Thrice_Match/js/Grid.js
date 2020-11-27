@@ -55,7 +55,7 @@ class Grid
         //reference to self
         let grid = this;
 
-        grid.context.fillStyle = "rgba(0, 0, 100, 0.4)";
+        grid.context.fillStyle = "rgba(0, 0, 100, 0.2)";
         grid.context.fillRect(grid.x, grid.y, grid.width, grid.height);    
     }
 }

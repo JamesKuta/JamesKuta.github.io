@@ -29,6 +29,7 @@ class Game
         //Graphics Assets
         game.menuUI = new Image();
         game.backgroundImg = new Image();
+        game.backgroundImg2 = new Image();
         game.blueSwirl = new Image();
         game.redBean = new Image();
         game.yellowDrop = new Image();
@@ -84,6 +85,7 @@ class Game
             [
                 { imgName: game.menuUI, source: "img/menu/score_menu.png" },
                 { imgName: game.backgroundImg, source: "img/background/clouds.png" },
+                { imgName: game.backgroundImg2, source: "img/background/clouds-mirror.png" },
                 { imgName: game.blueSwirl, source: "img/assets/size3/swirl_blue.png" },
                 { imgName: game.redBean, source: "img/assets/size3/bean_red.png" },
                 { imgName: game.yellowDrop, source: "img/assets/size3/jelly_yellow.png" },
@@ -145,10 +147,14 @@ class Game
 
         //Create Objects
         game.background1 = new Background(game.canvas, game.backgroundImg);
-        game.background2 = new Background(game.canvas, game.backgroundImg);
+        game.background2 = new Background(game.canvas, game.backgroundImg2);
+        game.background2.x = game.canvas.width;
+        //game.background2.y = game.canvas.width;
         //game.background = new Background(game.canvas, "img/background/clouds.png");
         game.grid = new Grid(game.canvas, game.ImagesForCells, game.animationImagesForCells);
         game.score = new Menu(game.canvas, game.menuUI);
+
+        
     }
 
     Events()
@@ -176,6 +182,11 @@ class Game
         //update game canvas size Properties
         game.canvas.width = window.innerWidth;
         game.canvas.height = window.innerHeight;
+
+        game.background1.width = game.canvas.width;
+        game.background1.height = game.canvas.height;
+        game.background2.width = game.canvas.width;
+        game.background2.height = game.canvas.height;
 
         //set the screen aspect state
         game.wideScreen = (game.canvas.width >= game.canvas.height) ? true : false;
@@ -371,6 +382,8 @@ class Game
         //Set if screen is wide or tall
         game.wideScreen = (game.canvas.width >= game.canvas.height) ? true : false;
 
+        
+
         game.InitImages();
 
     }
@@ -406,11 +419,22 @@ class Game
     {
         //reference to self
         let game = this;
+        
+        const cloudVelocity = 0.1;
+
+        game.background1.x -= cloudVelocity;
+        game.background2.x = game.background1.x + game.background1.width; 
+
+        if(Math.abs(game.background1.x) > game.canvas.width)
+        {
+            game.background1.x = 0;
+            game.background2.x = game.background1.width;
+        }
 
         //Set properties of background object
-        game.background1.width = game.canvas.width;
+        //game.background1.width = game.canvas.width;
         //console.log(game.background1.x, game.background1.width);
-        game.background1.height = game.canvas.height;
+        //game.background1.height = game.canvas.height;
     }
 
     //Drawing Functions for Game Screen
@@ -421,6 +445,7 @@ class Game
 
         //Draw the background object
         game.background1.Draw();
+        game.background2.Draw();
     }
 
     UpdateGridPositionOnScreen()
