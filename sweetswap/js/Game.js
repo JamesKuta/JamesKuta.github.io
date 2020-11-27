@@ -173,6 +173,9 @@ class Game
 
         // Screen Size Change Event
         window.onresize = game.ScreenResize.bind(game);
+
+        //Mobile orientation change
+        window.onorientationchange = game.ScreenResize.bind(game);
     }
 
     ScreenResize()
