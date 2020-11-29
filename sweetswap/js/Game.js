@@ -75,6 +75,8 @@ class Game
         
         //Set Event Listeners for Game
         game.Events();
+
+       
     }
 
     loadImages()
@@ -153,8 +155,6 @@ class Game
         //game.background = new Background(game.canvas, "img/background/clouds.png");
         game.grid = new Grid(game.canvas, game.ImagesForCells, game.animationImagesForCells);
         game.score = new Menu(game.canvas, game.menuUI);
-
-        
     }
 
     Events()
@@ -224,7 +224,7 @@ class Game
         let row = Utilities.GetGridRowFromPoint(pointClickedY - game.grid.y, cellHeight);
         
         // select the cell at Col and Row
-        let clickedCell = Utilities.GetElementFromRowCol(row, col, game.grid.cols);
+        let clickedCell = game.grid.cells[row][col];
         
         //set the animation state to selected if not already selected.
         if(game.IsCellSelected(clickedCell))
@@ -247,7 +247,7 @@ class Game
         }
         
         //Set the cells state to be selected
-        game.grid.cells[cell].state = game.grid.cells[cell].states.selected;
+        cell.state = cell.states.selected;
 
         //Have the game remember the index of the selected cell
         game.lastSelectedCellIndex = cell;
@@ -258,7 +258,7 @@ class Game
         let game = this;
 
         //change the state of the cell to not be selected
-        game.grid.cells[cell].state = game.grid.cells[cell].states.notSelected;
+        cell.state = cell.states.notSelected;
 
         //there are no more selected cells
         game.lastSelectedCellIndex = -1;
@@ -268,7 +268,9 @@ class Game
     {
         let game = this;
 
-        return (game.grid.cells[cell].state == game.grid.cells[cell].states.selected);
+        //console.log(game.lastSelectedCellIndex);
+        return (cell.state == cell.states.selected);
+        
     }
 
     IsPointClickedInsideGrid(x, y)
@@ -385,8 +387,6 @@ class Game
         //Set if screen is wide or tall
         game.wideScreen = (game.canvas.width >= game.canvas.height) ? true : false;
 
-        
-
         game.InitImages();
 
     }
@@ -423,14 +423,19 @@ class Game
         //reference to self
         let game = this;
         
-        const cloudVelocity = 0.1;
+        const cloudVelocity = 0.5;
 
         game.background1.x -= cloudVelocity;
-        game.background2.x = game.background1.x + game.background1.width; 
+        game.background2.x -= cloudVelocity; 
 
         if(Math.abs(game.background1.x) > game.canvas.width)
         {
-            game.background1.x = 0;
+            game.background1.x = game.background2.width;
+            
+        }
+
+        if(Math.abs(game.background2.x) > game.canvas.width)
+        {
             game.background2.x = game.background1.width;
         }
 
@@ -514,11 +519,11 @@ class Game
         {
             for(let col = 0; col < game.grid.cols; col++)
             {
-                let currentIndex = Utilities.GetElementFromRowCol(row,col,game.grid.cols);
-                game.grid.cells[currentIndex].width = cellObjectWidth; 
-                game.grid.cells[currentIndex].height = cellObjectHeight; 
-                game.grid.cells[currentIndex].x = (gridX + offsetWidth) + gridCellWidth * col; 
-                game.grid.cells[currentIndex].y = (gridY + offsetHeight) + gridCellHeight * row;
+                //let currentIndex = Utilities.GetElementFromRowCol(row,col,game.grid.cols);
+                game.grid.cells[row][col].width = cellObjectWidth; 
+                game.grid.cells[row][col].height = cellObjectHeight; 
+                game.grid.cells[row][col].x = (gridX + offsetWidth) + gridCellWidth * col; 
+                game.grid.cells[row][col].y = (gridY + offsetHeight) + gridCellHeight * row;
             }
         }
     }
@@ -527,7 +532,14 @@ class Game
     {
         let game = this;
         
-        game.grid.cells.forEach(cell => cell.Draw());
+        for(let row = 0; row < game.grid.rows; row++)
+        {
+            for(let col = 0; col < game.grid.cols; col++)
+            {
+                //let currentIndex = Utilities.GetElementFromRowCol(row,col,game.grid.cols);
+                game.grid.cells[row][col].Draw();
+            }
+        }
     }
 
     DrawGridLines()

@@ -29,8 +29,13 @@ class Grid
 
         //For storing matches
         grid.matches = []; //{cells}
+        
+        //For storing valide moves
+        grid.validMoves = []; //{cells}
 
         grid.FillGridWithCells();
+        //grid.FindMatches();
+        //console.log(grid.matches);
     }
 
     FillGridWithCells()
@@ -38,16 +43,80 @@ class Grid
         //reference to self
         let grid = this;
 
-        for(let i = 0; i < grid.cols * grid.rows; i++)
+        let finished = false;
+        //Need to create a grid with no 3 in a row, but at least one possible move
+        while(!finished)
         {
-            let cellIndex = i;
-            let randomType = Utilities.RandomIntegerBetweenMinMax(grid.cellImg.length);
-            let cellImg = grid.cellImg[randomType];
-            let cellAnimationSet = grid.cellAnimationSet[randomType];
-            //console.log(cellAnimationSet);
-            let cell = new Cell(grid.canvas, randomType, cellImg, cellIndex, cellAnimationSet);
-            grid.cells.push(cell);
+            //Generate cells to fill the grid randomly
+            for(let i = 0; i < grid.rows; i++)
+            {
+                grid.cells[i] = [];
+                for(let j = 0; j < grid.cols; j++)
+                {
+                    
+                    let randomType = Utilities.RandomIntegerBetweenMinMax(grid.cellImg.length);
+                    let cellImg = grid.cellImg[randomType];
+                    let cellAnimationSet = grid.cellAnimationSet[randomType];
+                    //console.log(cellAnimationSet);
+                    let cell = new Cell(grid.canvas, randomType, cellImg, cellAnimationSet);
+                    grid.cells[i][j] = cell;
+                }
+            }
+            
+            grid.HandleMatches();
+
+            grid.FindValidSwaps();
+
+            // if(validMoves.length > 0)
+            // {
+            //     finished = true;
+            // }
+
+            finished = true;
         }
+    }
+
+    HandleMatches()
+    {
+        let grid = this;
+
+        //Find the matches in the grid
+        grid.FindMatches();
+
+        //If we find matches act on them
+        while(grid.matches.length > 0)
+        {
+            grid.ResolveMatches();
+
+            grid.MoveCellsDown();
+
+            grid.FindMatches()
+        }
+    }
+
+    FindMatches()
+    {
+        let grid = this;
+    }
+
+    ResolveMatches()
+    {
+        let grid = this;
+    }
+
+    MoveCellsDown()
+    {
+        let grid = this;
+    }
+
+    FindMatches()
+    {
+        let grid = this;
+    }
+
+    FindValidSwaps()
+    {
+        let grid = this;
     }
 
     Draw()

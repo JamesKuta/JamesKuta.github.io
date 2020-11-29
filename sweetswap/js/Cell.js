@@ -1,6 +1,6 @@
 class Cell
 {
-    constructor(canvas, matchNum, type, index, animations)
+    constructor(canvas, matchNum, type, animations)
     {
         //TODO ADD ANIMATION SET TO CONSTRUCTOR AND PROPERTIES
 
@@ -16,7 +16,7 @@ class Cell
         cell.currentType = cell.type;
 
         //Keep the index in the grid of the cell for matching and moving
-        cell.index = index;
+        //cell.index = index;
         
         cell.animations = animations;
         cell.currentAnimationIndex = 0;
@@ -38,7 +38,7 @@ class Cell
         };
         
         cell.animationTimer = 0;
-        cell.animationIntervalSelected = 3; // 1/2 second
+        cell.animationIntervalSelected = 5; // 1/2 second
         cell.animationIntervalMatched = 5; // 1/12 second
         cell.selectedAlphas = 
         [
