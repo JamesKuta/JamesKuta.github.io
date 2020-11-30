@@ -182,7 +182,9 @@ class Game
     {
         let game = this;
         
-        //update game canvas size Properties
+        //update game canvas size and position
+        //I should create a function for this or figure out
+        //how to make it part of the background objects.
         game.canvas.width = window.innerWidth;
         game.canvas.height = window.innerHeight;
 
@@ -190,6 +192,9 @@ class Game
         game.background1.height = game.canvas.height;
         game.background2.width = game.canvas.width;
         game.background2.height = game.canvas.height;
+
+        game.background1.x = game.canvas.width - game.canvas.width;
+        game.background2.x = game.background1.width;
 
         //set the screen aspect state
         game.wideScreen = (game.canvas.width >= game.canvas.height) ? true : false;
@@ -423,7 +428,7 @@ class Game
         //reference to self
         let game = this;
         
-        const cloudVelocity = 0.5;
+        const cloudVelocity = 0.1;
 
         game.background1.x -= cloudVelocity;
         game.background2.x -= cloudVelocity; 
@@ -438,11 +443,6 @@ class Game
         {
             game.background2.x = game.background1.width;
         }
-
-        //Set properties of background object
-        //game.background1.width = game.canvas.width;
-        //console.log(game.background1.x, game.background1.width);
-        //game.background1.height = game.canvas.height;
     }
 
     //Drawing Functions for Game Screen

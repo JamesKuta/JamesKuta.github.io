@@ -2,22 +2,17 @@ class Cell
 {
     constructor(canvas, matchNum, type, animations)
     {
-        //TODO ADD ANIMATION SET TO CONSTRUCTOR AND PROPERTIES
-
         //reference to self
         let cell = this;
 
         cell.canvas = canvas;
         cell.context = cell.canvas.getContext("2d");
 
-        //cell type
-        cell.type = type;
+        //cell type information
         cell.matchNum = matchNum;
+        cell.type = type;
         cell.currentType = cell.type;
 
-        //Keep the index in the grid of the cell for matching and moving
-        //cell.index = index;
-        
         cell.animations = animations;
         cell.currentAnimationIndex = 0;
         
@@ -61,6 +56,8 @@ class Cell
         //cell state properties
         cell.empty = false;
         cell.selected = false;
+
+        cell.moveDownCount = 0;
     }
 
     Draw()
