@@ -69,6 +69,8 @@ class Game
         //Keep Track Of Selected Cell
         game.lastSelectedCellIndex = -1;
 
+        game.selectedRowCol = {row: -1, col: -1};
+
         //mouse position
         game.mouse = {x: null, y: null};
         game.dragging = false;
@@ -212,10 +214,38 @@ class Game
         {
             //point clicked is inside the grid so act on it
             game.ActOnCellAtPointClicked(pointClickedX, pointClickedY);
+            
         }
 
         //set the dragging state to true so we can swap if needed.
         game.dragging = true;
+    }
+
+    MouseUp(e)
+    {
+        let game = this;
+        let pointClickedX = game.mouse.x;
+        let pointClickedY = game.mouse.y;
+
+        let cellWidth = game.grid.width / game.grid.cols;
+        let cellHeight = game.grid.height / game.grid.rows;
+
+        let row = Utilities.GetGridRowFromPoint(pointClickedY - game.grid.y, cellHeight);
+        let col = Utilities.GetGridColFromPoint(pointClickedX - game.grid.x, cellWidth);
+
+        //Is the click within the grid figure out the row and column
+        if(game.selectedRowCol.row != - 1 && game.selectedRowCol.col != -1)
+        {
+            if(game.dragging = true && 
+                game.IsPointClickedInsideGrid(pointClickedX, pointClickedY) && 
+                game.grid.cells[row][col] != game.grid.cells[game.selectedRowCol.row][game.selectedRowCol.col])
+            {
+                //point clicked is inside the grid so act on it
+                game.ActOnCellAtPointClicked(pointClickedX, pointClickedY);
+            } 
+        }
+        
+        game.dragging = false;
     }
 
     ActOnCellAtPointClicked(pointClickedX, pointClickedY)
@@ -225,56 +255,71 @@ class Game
         //Figure out the row and col. REMEMBER to subtract grid position as an offset!
         let cellWidth = game.grid.width / game.grid.cols;
         let cellHeight = game.grid.height / game.grid.rows;
-        let col = Utilities.GetGridColFromPoint(pointClickedX - game.grid.x, cellWidth);
         let row = Utilities.GetGridRowFromPoint(pointClickedY - game.grid.y, cellHeight);
+        let col = Utilities.GetGridColFromPoint(pointClickedX - game.grid.x, cellWidth);
+        
         
         // select the cell at Col and Row
         let clickedCell = game.grid.cells[row][col];
         
         //set the animation state to selected if not already selected.
-        if(game.IsCellSelected(clickedCell))
+        if(game.IsCellSelected(row, col))
         {
-            game.UnSelectCell(clickedCell);
+            game.UnSelectCell(row, col);
         }else
         {
-            game.SelectCell(clickedCell);
+            game.SelectCell(row, col);
         }
+        
     }
 
-    SelectCell(cell)
+    SelectCell(row, col)
     {
         let game = this;
-
-        if(game.lastSelectedCellIndex != -1)
+        
+        if(game.selectedRowCol.row != -1 && game.selectedRowCol.col != -1)
         {
+            //See if we can swap the cells
+            if((game.selectedRowCol.row + 1 == row || game.selectedRowCol.row - 1 == row) && game.selectedRowCol.col == col)
+            {
+                game.grid.Swap(game.selectedRowCol.row, game.selectedRowCol.col, row, col);
+            }
+
+            if((game.selectedRowCol.col + 1 == col || game.selectedRowCol.col - 1 == col) && game.selectedRowCol.row == row)
+            {
+                game.grid.Swap(game.selectedRowCol.row, game.selectedRowCol.col, row, col);
+            }
+
             //Change the state of the currently selected cell to not be selected
-            game.UnSelectCell(game.lastSelectedCellIndex);
+            game.UnSelectCell(game.selectedRowCol.row, game.selectedRowCol.col);
         }
         
         //Set the cells state to be selected
-        cell.state = cell.states.selected;
+        game.grid.cells[row][col].state = game.grid.cells[row][col].states.selected;
 
-        //Have the game remember the index of the selected cell
-        game.lastSelectedCellIndex = cell;
+        //Have the game remember the Row and Col of the selected cell
+        game.selectedRowCol.row = row;
+        game.selectedRowCol.col = col;
     }
 
-    UnSelectCell(cell)
+    UnSelectCell(row, col)
     {
         let game = this;
 
         //change the state of the cell to not be selected
-        cell.state = cell.states.notSelected;
+        game.grid.cells[row][col].state = game.grid.cells[row][col].states.notSelected;
 
         //there are no more selected cells
-        game.lastSelectedCellIndex = -1;
+        game.selectedRowCol.row = -1;
+        game.selectedRowCol.col = -1;
     }
 
-    IsCellSelected(cell)
+    IsCellSelected(row, col)
     {
         let game = this;
 
         //console.log(game.lastSelectedCellIndex);
-        return (cell.state == cell.states.selected);
+        return (game.grid.cells[row][col].state == game.grid.cells[row][col].states.selected);
         
     }
 
@@ -299,12 +344,7 @@ class Game
         return (y > game.grid.y && y < (game.grid.y + game.grid.height));
     }
 
-    MouseUp(e)
-    {
-        let game = this;
-        
-        game.dragging = false;
-    }
+    
 
     MousePositionUpdate(e)
     {

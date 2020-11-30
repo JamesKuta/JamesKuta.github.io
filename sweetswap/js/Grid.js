@@ -274,7 +274,7 @@ class Grid
         }
     }
 
-    Switch(row1, col1, row2, col2)
+    Swap(row1, col1, row2, col2)
     {
         let grid = this;
         let copyOfCell1 = grid.cells[row1][col1];
@@ -291,9 +291,9 @@ class Grid
         {
             for(let col = 0; col < grid.cols - 1; col++)
             {
-                grid.Switch(row, col, row, col+1);
+                grid.Swap(row, col, row, col+1);
                 grid.FindMatches();
-                grid.Switch(row, col, row, col+1);
+                grid.Swap(row, col, row, col+1);
 
                 if(grid.matches.length > 0)
                 {
