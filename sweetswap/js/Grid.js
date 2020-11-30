@@ -31,18 +31,30 @@ class Grid
         grid.matches = []; //{cells}
 
         //For storing valide moves
-        grid.validMoves = []; //{cells}
+        grid.validSwaps = []; //{cells}
 
+        grid.CreateGrid();
         grid.FillGridWithCells();
-        //grid.FindMatches();
-        console.log(grid.matches);
+    }
+
+    CreateGrid()
+    {
+        let grid = this;
+        for (let row = 0; row < grid.rows; row++)
+        {
+            grid.cells[row] = [];
+            for (let col = 0; col < grid.cols; col++)
+            {
+                grid.cells[row][col] = null;
+            }
+        }
     }
 
     FillGridWithCells()
     {
         //reference to self
         let grid = this;
-
+        
         let finished = false;
         //Need to create a grid with no 3 in a row, but at least one possible move
         while (!finished)
@@ -50,7 +62,6 @@ class Grid
             //Generate cells to fill the grid randomly
             for (let row = 0; row < grid.rows; row++)
             {
-                grid.cells[row] = [];
                 for (let col = 0; col < grid.cols; col++)
                 {
                     let randomType = Utilities.RandomIntegerBetweenMinMax(grid.cellImg.length);
@@ -63,31 +74,28 @@ class Grid
 
             grid.HandleMatches();
 
-            //grid.FindValidSwaps();
-
-            // if(validMoves.length > 0)
-            // {
-            //     finished = true;
-            // }
-
-            finished = true;
+            grid.FindValidSwaps();
+            
+            if(grid.validSwaps.length > 0)
+            {
+                finished = true;
+            }
         }
     }
 
     HandleMatches()
     {
         let grid = this;
+        
         grid.FindMatches();
 
-        // while(grid.matches.length > 0)
-        // {
-        //     grid.ResolveMatches();
-        //     grid.MoveCellsDown();
-        //     grid.FindMatches();
-
-        // }
-        grid.ResolveMatches();
-        grid.MoveCellsDown();
+        while(grid.matches.length > 0)
+        {
+            grid.ResolveMatches();
+            grid.CheckMoveCellsDown();
+            grid.FillEmptyCells();
+            grid.FindMatches();
+        }
     }
 
     FindMatches()
@@ -200,27 +208,33 @@ class Grid
         })
     }
 
-    MoveCellsDown()
+    CheckMoveCellsDown()
     {
         let grid = this;
 
         //start with the second to last row and move up
-        for (let row = grid.rows - 2; row > 0; row--)
+        for (let row = grid.rows - 2; row >= 0; row--)
         {
             for (let col = 0; col < grid.cols; col++)
             {
                 let countEmptyBelow = true;
                 let counter = 1;
-                while (countEmptyBelow && row + counter < grid.rows)
+                while (countEmptyBelow && row + counter <= grid.rows)
                 {
                     if (grid.cells[row][col].empty == false && grid.cells[row + counter][col].empty == true)
                     {
                         grid.cells[row][col].moveDownCount += 1;
-                        counter++;
-                        console.log(grid.cells[row][col].moveDownCount);
-                        //figure out how many down to move create a movedowncount
+                        counter += 1;
+                        //console.log(grid.cells[row][col].moveDownCount);
+                        if(row + counter == grid.rows)
+                        {
+                            grid.MoveCellsDown(row, col);
+                            countEmptyBelow = false;
+                            
+                        }
                     } else
                     {
+                        grid.MoveCellsDown(row, col);
                         countEmptyBelow = false;
                     }
                 }
@@ -228,9 +242,65 @@ class Grid
         }
     }
 
+    MoveCellsDown(row, col)
+    {
+        let grid = this;
+        if(grid.cells[row][col].moveDownCount > 0)
+        {
+            let count = grid.cells[row][col].moveDownCount;
+            grid.cells[row + count][col] = grid.cells[row][col];
+            grid.cells[row][col].empty = true;
+            //grid.cells[row][col].moveDownCount = 0;
+        }
+    }
+
+    FillEmptyCells()
+    {
+        let grid = this;
+
+        for(let row = 0; row < grid.rows; row++)
+        {
+            for(let col = 0; col < grid.cols; col++)
+            {
+                if(grid.cells[row][col].empty == true)
+                {
+                let randomType = Utilities.RandomIntegerBetweenMinMax(grid.cellImg.length);
+                let cellImg = grid.cellImg[randomType];
+                let cellAnimationSet = grid.cellAnimationSet[randomType];
+                let cell = new Cell(grid.canvas, randomType, cellImg, cellAnimationSet);
+                grid.cells[row][col] = cell;
+                }
+            }
+        }
+    }
+
+    Switch(row1, col1, row2, col2)
+    {
+        let grid = this;
+        let copyOfCell1 = grid.cells[row1][col1];
+        grid.cells[row1][col1] = grid.cells[row2][col2];
+        grid.cells[row2][col2] = copyOfCell1;
+    }
+
     FindValidSwaps()
     {
         let grid = this;
+
+        grid.validSwaps = [];
+        for(let row = 0; row < grid.rows; row++)
+        {
+            for(let col = 0; col < grid.cols - 1; col++)
+            {
+                grid.Switch(row, col, row, col+1);
+                grid.FindMatches();
+                grid.Switch(row, col, row, col+1);
+
+                if(grid.matches.length > 0)
+                {
+                    grid.validSwaps.push({rowNum1: row, colNum1: col, rowNum2: row, colNum2: col + 1});
+                }
+            }
+        }
     }
 
     Draw()
