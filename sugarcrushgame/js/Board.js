@@ -15,6 +15,8 @@ class Board
         board.explosionImages = explosionImages;
         board.level = levels[0];
         board.cells = [];
+        board.explodeCells = [];
+        board.particleAnimationData = [];
         board.selectedCell = {row: null, col: null};
         board.swapData = {row1: null, row2: null, col1: null, col2: null};
         board.mouseIsDragging = false;
@@ -38,15 +40,18 @@ class Board
         board.thereIsASelectedCell = false;
 
         board.explodeAnimationTimeAccum = 0;
-        board.explodeAnimationDurationMS = 2000;
+        board.explodeAnimationDurationMS = 500;
+
+        board.particleEffectAnimationTimeAccum = 0;
+        board.particleEffectAnimationDurationMS = 500;
 
         
         
         board.boardIsReady = false;
         board.CreateInitialBoardFromLevelData();
         board.GenerateNewCellsForBoard();
-
-        //TODO: Create Explostion and Change Reset of Matches
+        
+        //TODO: Fix Explosion Size and Position, Fix the odd swap cell glitch
     }
 
     CreateInitialBoardFromLevelData()
@@ -591,14 +596,49 @@ class Board
         }
     }
 
-    
+    AddMatchesToParticleEffects()
+    {
+        let board = this;
+        let frameChangeMS = 100;
+        let images = board.explosionImages[0];
+        
+        for(let i = 0; i < board.matches.length; i++)
+        {
+            if(board.matches[i].horizontal == true)
+            {
+                for(let j = 0; j < board.matches[i].length; j++)
+                {
+                    let cell = {};
+                    cell.row = board.matches[i].row;
+                    cell.col = board.matches[i].col + j;
+                    cell.currentAminIndex = 0;
+                    cell.frameChangeMS = frameChangeMS;
+                    cell.frameTimeAccum = 0;
+                    cell.images = images;
+                    board.particleAnimationData.push(cell);
+                }
+            }else if(board.matches[i].horizontal == false)
+            {
+                for(let j = 0; j < board.matches[i].length; j++)
+                {
+                    let cell = {};
+                    cell.row = board.matches[i].row + j;
+                    cell.col = board.matches[i].col;
+                    cell.currentAminIndex = 0;
+                    cell.frameChangeMS = frameChangeMS;
+                    cell.frameTimeAccum = 0;
+                    cell.images = images;
+                    board.particleAnimationData.push(cell);
+                }
+            }
+        }
+        //console.log(board.particleAnimationData);
+    }
 
     Update(dt)
     {
         let board = this;
-        //console.log(board.matches);
-        
-        //grid item positions
+
         if(board.state == board.states.wait)
         {
             for(let row = 0; row < board.level.rows; row++)
@@ -650,21 +690,13 @@ class Board
                     //Reset Selected Cell
                     board.selectedCell.row = null;
                     board.selectedCell.col = null;
-                    //create explostion data from match data
-                    //remove matches
                     board.state = board.states.explode;
                     board.explodeAnimationTimeAccum = 0;
-                    //IMPORTANT DON'T LOSE NEXT TWO LINES!!!!
-                    //board.state = board.states.drop;
-                    //board.moveDownAnimationTimeAccum = 0;
-                    
                 }else //not valid so revert it
                 {
-                    
                     board.SwapCells(board.swapData.row1, board.swapData.row2, board.swapData.col1, board.swapData.col2);
                     board.selectedCell.row = null;
                     board.selectedCell.col = null;
-                    //console.log(board.selectedCell);
                     board.state = board.states.wait;
                 } 
             }
@@ -672,12 +704,46 @@ class Board
 
         if(board.state == board.states.explode)
         {
+            //reset explodeCells each call to avoid run away growth!
+            board.explodeCells = [];
+            
+            // create expload data structure
+            for(let i = 0; i < board.matches.length; i++)
+            {
+                if(board.matches[i].horizontal == true)
+                {
+                    for(let j = 0; j < board.matches[i].length; j++)
+                    {
+                        let cell = {};
+                        cell.row = board.matches[i].row;
+                        cell.col = board.matches[i].col + j;
+                        board.explodeCells.push(cell);
+                    }
+                }else if(board.matches[i].horizontal == false)
+                {
+                    for(let j = 0; j < board.matches[i].length; j++)
+                    {
+                        let cell = {};
+                        cell.row = board.matches[i].row + j;
+                        cell.col = board.matches[i].col;
+                        board.explodeCells.push(cell);
+                    }
+                }
+            }
+
             //make a little larger over a short time
             if(board.explodeAnimationTimeAccum < board.explodeAnimationDurationMS)
             {
-                for(let matchData = 0; matchData < board.matches.length; matchData++)
+                for(let i = 0; i < board.explodeCells.length; i++)
                 {
-                    //console.log(board.matches);
+                    let row = board.explodeCells[i].row;
+                    let col = board.explodeCells[i].col;
+                    let growWidth = (board.width * 0.05) * (dt / board.explodeAnimationDurationMS);
+                    let growHeight = (board.height * 0.05) * (dt / board.explodeAnimationDurationMS);
+                    board.cells[row][col].width += growWidth;
+                    board.cells[row][col].height += growHeight;
+                    board.cells[row][col].x -= growWidth / 2;
+                    board.cells[row][col].y -= growHeight / 2;
                 }
             }else
             {
@@ -696,11 +762,10 @@ class Board
 
         if(board.state == board.states.drop)
         {
-            
+            board.AddMatchesToParticleEffects();
             board.RemoveMatches();
             board.MoveCellsDown();
             
-            //board.CreateNewCells();
             if(board.moveDownAnimationTimeAccum < board.moveDownAnimationDurationMS)
             {
                 for(let row = 0; row < board.level.rows; row++)
@@ -716,13 +781,11 @@ class Board
             {
                 board.UpdateBoardAfterMove();
                 board.MakeBoardCurrent();
-                
                 board.FindMatches()
                 if(board.matches.length > 0)
                 {
                     board.state = board.states.explode;
                     board.explodeAnimationTimeAccum = 0;
-                    //board.moveDownAnimationTimeAccum = 0;
                     return;
                 }else
                 {
@@ -756,14 +819,36 @@ class Board
             board.thereIsASelectedCell = false;
             board.alphaIndex = 0;
         }
-    }
 
+        if(board.particleAnimationData.length > 0)
+        {
+            for(let i = board.particleAnimationData.length - 1; i >= 0; i--)
+            {
+                if(board.particleAnimationData[i].frameTimeAccum >= board.particleAnimationData[i].frameChangeMS)
+                {
+                    if(board.particleAnimationData[i].currentAminIndex < board.particleAnimationData[i].images.length - 1)
+                    {
+                        board.particleAnimationData[i].currentAminIndex++;
+                        board.particleAnimationData[i].frameTimeAccum = 0;
+                    }else
+                    {
+                        board.particleAnimationData.splice(i, 1);
+                    }
+                }else
+                {
+                    board.particleAnimationData[i].frameTimeAccum += dt;
+                }
+            }
+            //loop over particles
+            //if index is less than image frames advance next
+            //if not less remove from particles array
+        }
+    }
 
     Draw()
     {
         let board = this;
-        //board.context.clearRect(0,0,board.context.canvas.width, board.context.canvas.height);
-
+        
         //Draw Grid Lines
         for(let row = 0; row <= board.level.rows; row++)
         {
@@ -789,7 +874,6 @@ class Board
         board.context.fillRect(board.x, board.y, board.width, board.height);
 
         //Draw the cells
-
         for(let row = 0; row < board.level.rows; row++)
         {
             for(let col = 0; col < board.level.cols; col++)
@@ -811,6 +895,20 @@ class Board
             let x = (board.selectedCell.col * board.cellWidth) + board.x;
 
             board.context.strokeRect(x, y, board.cellWidth, board.cellHeight);
+        }
+
+        if(board.particleAnimationData.length > 0)
+        {
+            let explosionWidth = board.cellWidth;
+            let explosionHeight = board.cellHeight;
+            
+            for(let i = 0; i < board.particleAnimationData.length; i++)
+            {
+                let x = ((board.particleAnimationData[i].col * board.cellWidth) + board.x);
+                let y = ((board.particleAnimationData[i].row * board.cellHeight) + board.y);
+                board.context.drawImage(board.particleAnimationData[i].images[board.particleAnimationData[i].currentAminIndex],
+                                        x, y, explosionWidth, explosionHeight);
+            }
         }
     }
 }
