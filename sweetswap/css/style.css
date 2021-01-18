@@ -23,6 +23,7 @@ body
 {
     width: 100vw;
     height: 100vh;
+    
 }
 
 
@@ -34,7 +35,9 @@ body
     animation-name: title-colors;
     animation-duration: 3s;
     animation-iteration-count: infinite;
-    height: 50vh;
+    width: 100vw;
+    height: 33vh;
+    
 }
 
 .menu-container
@@ -44,7 +47,19 @@ body
     flex-direction: column;
     align-items: center;
     justify-content: center;
-    height: 50vh;
+    height: 33vh;
+    
+}
+
+.footer
+{
+    position: absolute;
+    width: 100vw;
+    height: 34vh;
+    font-size: 2vh;
+    color: rgb(47, 64, 82);
+    
+
 }
 
 
@@ -71,10 +86,10 @@ body
 a
 {
     display: inline-block;
-    width: 40vh;
+    width: 33vh;
     height: 7vh;
     background-color:hsla(243, 100%, 70%, 1);
-    margin-bottom: 0vmin;
+    margin-bottom: 1vmin;
     border-radius: 10px;
     cursor: pointer;
     font-size: 5vh;
@@ -105,14 +120,7 @@ a:hover
     100% {color: hsla(243, 100%, 70%, 1)}
 }
 
-.footer
-{
-    position: absolute;
-    bottom: 10%;
-    font-size: 2vh;
-    color: rgb(47, 64, 82);
 
-}
 
 .back-btn
 {
