@@ -11,6 +11,7 @@
 body
 {
     background-image: url("/img/background/clouds.png");
+    background-repeat: no-repeat;
     background-size: cover;
     /*background: linear-gradient(180deg, rgba(2,0,36,1) 13%, rgba(9,105,121,1) 100%, rgba(0,212,255,1) 100%);*/
     /*background: linear-gradient(180deg, rgba(36,35,89,1) 17%, rgba(108,112,167,1) 71%, rgba(148,140,209,1) 100%); */
