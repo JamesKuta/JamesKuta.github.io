@@ -107,22 +107,26 @@ class Grid
         //Horizontal Matches
         for (let row = 0; row < grid.rows; row++)
         {
+            //set the matchescount to 1 to start the checking
             let matchesCount = 1;
-
+            //loop over every columin in the current row
             for (let col = 0; col < grid.cols; col++)
             {
+                //Make sure we don't check for matches yet
                 let checkMatches = false;
-
+                //If we get to the last row in the column we want to check for matches
                 if (col == grid.cols - 1)
                 {
                     checkMatches = true;
-                } else
+                } else //Does our current index in the column match the next index in the column
                 {
                     if (grid.cells[row][col].matchNum == grid.cells[row][col + 1].matchNum)
                     {
+                        //They match. Increase the matchesCount by 1
                         matchesCount += 1;
                     } else
                     {
+                        //They don't match. Let's check to see if we have enough matches
                         checkMatches = true;
                     }
                 }
@@ -131,14 +135,15 @@ class Grid
                 {
                     if (matchesCount >= 3)
                     {
+                        //Create an object in the matches array for start col, start row, length of match, direction of match
                         grid.matches.push({
-                            colNum: col + 1 - matchesCount,
+                            colNum: col + 1 - matchesCount, //Figure out the col that started the match
                             rowNum: row,
                             length: matchesCount,
                             horizontal: true
                         });
                     }
-                    matchesCount = 1;
+                    matchesCount = 1; // reset the matches count we may not be done with the row
                 }
             }
         }
@@ -230,7 +235,6 @@ class Grid
                         {
                             grid.MoveCellsDown(row, col);
                             countEmptyBelow = false;
-                            
                         }
                     } else
                     {

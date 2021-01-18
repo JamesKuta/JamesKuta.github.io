@@ -19,6 +19,21 @@ class Game
 
         game.gameState = game.gameStates.loading;
 
+        game.animationStates =
+        {
+            waiting: 0,
+            swap: 1,
+            explode: 2,
+            move: 3,
+        }
+
+        game.animationState = game.animationStates.waiting;
+
+        game.explodeTimer = 5;
+        game.swapTimer = 5;
+        game.moveTimer = 5;
+        game.frameCount = 0;
+
         //Canvas Object
         game.canvas = canvas;
         game.context = game.canvas.getContext("2d");
@@ -265,7 +280,7 @@ class Game
         //set the animation state to selected if not already selected.
         if(game.IsCellSelected(row, col))
         {
-            game.UnSelectCell(row, col);
+            //game.UnSelectCell(row, col);
         }else
         {
             game.SelectCell(row, col);
@@ -283,11 +298,18 @@ class Game
             if((game.selectedRowCol.row + 1 == row || game.selectedRowCol.row - 1 == row) && game.selectedRowCol.col == col)
             {
                 game.grid.Swap(game.selectedRowCol.row, game.selectedRowCol.col, row, col);
+                game.grid.FindMatches();
+                if(game.grid.matches.length > 0)
+                {
+                    console.log(game.grid.matches);
+                }
+                //game.UnSelectCell(row, col);
             }
 
             if((game.selectedRowCol.col + 1 == col || game.selectedRowCol.col - 1 == col) && game.selectedRowCol.row == row)
             {
                 game.grid.Swap(game.selectedRowCol.row, game.selectedRowCol.col, row, col);
+                //game.UnSelectCell(row, col);
             }
 
             //Change the state of the currently selected cell to not be selected
@@ -372,24 +394,11 @@ class Game
     {
         //reference to self
         let game = this;
+ 
+        game.Update();
 
-        if (game.gameState == game.gameStates.loading)
-        {
-            //game.DrawLoadingScreen();
-            game.context.fillStyle = "red";
-            game.context.fillRect(0, 0, canvas.width, canvas.height);
-            game.context.fillStyle = "black";
-            game.context.fillText("LOADING....", 100, 100);
-        }
-
-        if (game.gameState == game.gameStates.start)
-        {
-            //Update Game
-            game.Update();
-
-            //Draw Game
-            game.Draw();
-        }
+        //Add one to the game frame counter
+        game.frameCount++;
 
         //Repeat
         window.requestAnimationFrame(function ()
@@ -402,11 +411,24 @@ class Game
     {
         //reference to self
         let game = this;
+        //console.log(game.frameCount);
 
-        game.UpdateBackground();
-        game.UpdateGridPositionOnScreen();
-        game.UpdateCells();
-        game.UpdateScoreMenu();
+        if (game.gameState == game.gameStates.loading)
+        {
+            //game.DrawLoadingScreen();
+            game.context.fillStyle = "red";
+            game.context.fillRect(0, 0, canvas.width, canvas.height);
+            game.context.fillStyle = "black";
+            game.context.fillText("LOADING....", 100, 100);
+        } else
+        {
+            game.UpdateBackground();
+            game.UpdateGridPositionOnScreen();
+            game.UpdateCells();
+            game.UpdateScoreMenu();
+
+            game.Draw();
+        }
     }
 
     Draw()
@@ -576,7 +598,6 @@ class Game
         {
             for(let col = 0; col < game.grid.cols; col++)
             {
-                //let currentIndex = Utilities.GetElementFromRowCol(row,col,game.grid.cols);
                 game.grid.cells[row][col].Draw();
             }
         }
@@ -602,10 +623,6 @@ class Game
         let gridCellWidth = gridWidth / cols;
         let gridCellHeight = gridHeight / rows;
 
-        //drawAlphaBackground
-        // game.context.fillStyle = "rgba(0, 0, 100, 0.2)";
-        // game.context.fillRect(gridX, gridY, gridWidth, gridHeight);
-
         //draw the grid lines
         for(let row = 0; row <= rows; row++)
         {
@@ -614,8 +631,7 @@ class Game
             game.context.beginPath();
             game.context.moveTo(gridX, gridY + gridCellHeight * row);
             game.context.lineTo(gridWidth + gridX, gridY + gridCellHeight * row);
-            game.context.stroke();
-            
+            game.context.stroke(); 
         }
 
         for(let col = 0; col <= cols; col++)
@@ -657,17 +673,22 @@ class Game
     PositionGridForWideScreen()
     {
         let game = this;
+
+        const topScreenGap = 0.05;
+        const bottomScreenGap = 0.95;
+        const leftScreenGap = 0.30;
+        const rightScreenGap = 0.90;
         //Calculate the placement based on screen size
         //Create Max position to start drawing the top of grid
-        let maxPositionGridTop = game.canvas.height * 0.05;
+        let maxPositionGridTop = game.canvas.height * topScreenGap;
         //Create Max position to start drawing the bottom of grid
-        let maxPositionGridBottom = game.canvas.height * 0.95;
+        let maxPositionGridBottom = game.canvas.height * bottomScreenGap;
 
         //Create Max position to start drawing the left of grid
-        let maxPositionGridLeft = game.canvas.width * 0.30;
+        let maxPositionGridLeft = game.canvas.width * leftScreenGap;
 
         //Create Max position to start drawing the right of grid
-        let maxPositionGridRight = game.canvas.width * 0.90;
+        let maxPositionGridRight = game.canvas.width * rightScreenGap;
 
         let gridWidth = maxPositionGridRight - maxPositionGridLeft;
 

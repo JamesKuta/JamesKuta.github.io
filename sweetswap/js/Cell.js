@@ -97,7 +97,6 @@ class Cell
             {
                 if(cell.currentAnimationIndex < cell.animations.length - 1)
                 {
-                    
                     cell.currentType = cell.animations[cell.currentAnimationIndex];
                     cell.currentAnimationIndex++;
                 } else
