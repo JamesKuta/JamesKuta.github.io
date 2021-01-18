@@ -74,7 +74,7 @@ a
     width: 40vh;
     height: 7vh;
     background-color:hsla(243, 100%, 70%, 1);
-    margin-bottom: 5vmin;
+    margin-bottom: 0vmin;
     border-radius: 10px;
     cursor: pointer;
     font-size: 5vh;
@@ -107,9 +107,19 @@ a:hover
 
 .footer
 {
+    position: absolute;
+    bottom: 10%;
     font-size: 2vh;
     color: rgb(47, 64, 82);
 
+}
+
+.back-btn
+{
+    position: absolute;
+    bottom: 0%;
+    margin: 0;
+    padding: 0;
 }
 
 
