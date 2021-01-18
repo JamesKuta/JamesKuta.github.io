@@ -1,7 +1,114 @@
 *
 {
     margin: 0px;
+    padding: 0px;
     overflow: hidden;
+    box-sizing: border-box;
+    text-align: center;
+    font-family: 'Ranchers', cursive;
+}
+
+body
+{
+    background-image: url("/img/background/clouds.png");
+    background-size: cover;
+    /*background: linear-gradient(180deg, rgba(2,0,36,1) 13%, rgba(9,105,121,1) 100%, rgba(0,212,255,1) 100%);*/
+    /*background: linear-gradient(180deg, rgba(36,35,89,1) 17%, rgba(108,112,167,1) 71%, rgba(148,140,209,1) 100%); */
+}
+
+
+
+.container
+{
+    width: 100vw;
+    height: 100vh;
+}
+
+
+
+.title-text
+{
+   /* text-transform: uppercase; */
+    color: rgb(135, 145, 175);
+    animation-name: title-colors;
+    animation-duration: 3s;
+    animation-iteration-count: infinite;
+    height: 50vh;
+}
+
+.menu-container
+{   
+    
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    height: 50vh;
+}
+
+
+.title-text .text
+{
+    font-size: 15vw;
+}
+
+@keyframes title-colors
+{
+    0% {color:hsla(243, 100%, 70%, 1)}
+    10% {color: hsla(243, 100%, 73%, 1)}
+    20% {color:  hsla(243, 100%, 76%, 1)}
+    30% {color:  hsla(243, 100%, 79%, 1)}
+    40% {color: hsla(243, 100%, 82%, 1)}
+    50% {color: hsla(243, 100%, 85%, 1)}
+    60% {color:  hsla(243, 100%, 82%, 1)}
+    70% {color: hsla(243, 100%, 79%, 1)}
+    80% {color:  hsla(243, 100%, 76%, 1)}
+    90% {color:  hsla(243, 100%, 73%, 1)}
+    100% {color: hsla(243, 100%, 70%, 1)}
+}
+
+a
+{
+    display: inline-block;
+    width: 40vh;
+    height: 7vh;
+    background-color:hsla(243, 100%, 70%, 1);
+    margin-bottom: 5vmin;
+    border-radius: 10px;
+    cursor: pointer;
+    font-size: 5vh;
+    text-decoration: none;
+    text-transform: uppercase;
+    color: whitesmoke;
+}
+
+a:hover
+{
+    animation-name: hovering;
+    animation-duration: 2s;
+    animation-iteration-count: infinite;
+}
+
+@keyframes hovering
+{
+    0% {color:hsla(243, 100%, 70%, 1)}
+    10% {color: hsla(243, 100%, 73%, 1)}
+    20% {color:  hsla(243, 100%, 76%, 1)}
+    30% {color:  hsla(243, 100%, 79%, 1)}
+    40% {color: hsla(243, 100%, 82%, 1)}
+    50% {color: hsla(243, 100%, 85%, 1)}
+    60% {color:  hsla(243, 100%, 82%, 1)}
+    70% {color: hsla(243, 100%, 79%, 1)}
+    80% {color:  hsla(243, 100%, 76%, 1)}
+    90% {color:  hsla(243, 100%, 73%, 1)}
+    100% {color: hsla(243, 100%, 70%, 1)}
+}
+
+.footer
+{
+    font-size: 2vh;
+    color: rgb(47, 64, 82);
+
 }
 
 
