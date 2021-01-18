@@ -16,14 +16,14 @@ window.onload = function ()
     let canvas = document.getElementById("canvas");
 
     //Create the Game Object
-    let SweetSwap = new Game(canvas);
+    let SugarCrush = new Game(canvas);
 
     //Loading Images
-    SweetSwap.loadImages();
+    //SugarCrush.loadImages();
     
     //Loading Audio
-    //SweetSwap.loadAudio();
+    //SugarCrush.loadAudio();
 
     //Start the Game
-    SweetSwap.Start();
+    //SugarCrush.Start();
 }

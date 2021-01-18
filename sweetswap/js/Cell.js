@@ -21,7 +21,8 @@ class Cell
         {
             notSelected: 0,
             selected: 1,
-            matched: 2
+            matched: 2,
+            swapping: 3
         };
 
         cell.state = cell.states.matched;
@@ -97,6 +98,7 @@ class Cell
             {
                 if(cell.currentAnimationIndex < cell.animations.length - 1)
                 {
+                    
                     cell.currentType = cell.animations[cell.currentAnimationIndex];
                     cell.currentAnimationIndex++;
                 } else
