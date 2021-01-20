@@ -91,25 +91,26 @@ class Game
         let game = this;
         
 
-        if(game.images.bDoneLoading == true && game.state == 1)
+        if(game.images.bDoneLoading == true && game.state == game.states.playing)
         {
             game.background.Update(fDeltaTime);
             game.board.Update(fDeltaTime);
+            game.info.Update(game.board.currentScore);
             return;
         }
 
-        if(game.images.bDoneLoading == false && game.state == 0)
+        if(game.images.bDoneLoading == false && game.state == game.states.loading)
         {
             game.loadingScreen.Update(fDeltaTime);
         }
 
-        if(game.images.bDoneLoading == true && game.state == 2)
+        if(game.images.bDoneLoading == true && game.state == game.states.gameOver)
         {
             //TODO Game Over Screen
             //game.loadingScreen.Update(fDeltaTime);
         }
 
-        if(game.images.bDoneLoading == true && game.state == 0)
+        if(game.images.bDoneLoading == true && game.state == game.states.loading)
         {
             game.Init();
             game.state = 1;
@@ -141,6 +142,7 @@ class Game
         game.board = new Board(game.canvas, game.images.imagesForCells, game.images.imagesForExplosions);
         game.info = new InfoPane(game.canvas);
         game.background = new Background(game.canvas, game.images.imagesForBackground);
+        game.mainMenuBtn = new MenuUI(game.canvas, "/index.html");
         game.ScreenResize();
 
     }

@@ -22,6 +22,11 @@ class Board
         board.mouseIsDragging = false;
         board.states = {wait: 0, swap: 1, drop: 2, explode: 3};
         board.state = board.states.wait;
+        
+        //Figure Out Scoring Values and how they work
+        board.currentScore = 0;
+        board.regularMatchScoreValue = 100;
+        board.specialMatchMultiplyer = 5;
 
         //for storing matches and swap data
         board.matches = [];
@@ -33,17 +38,18 @@ class Board
         board.moveDownAnimationTimeAccum = 0; // total time in state
         board.swapAnimationTimeAccum = 0; // total time in state
 
-        board.selectedAnimationAlphas = [0.1, 0.3, 0.5, 0.7, 0.9, 1, 0.7, 0.5, 0.3];
+        board.selectedAnimationAlphas = [0.4, 0.5, 0.6, 0.7, 0.8, 0.9, 1.0,
+                                         1.0, 0.9, 0.8, 0.7, 0.6, 0.5, 0.4];
         board.alphaIndex = 0;
-        board.selectedAnimationInterval = 150;
+        board.selectedAnimationInterval = 75;
         board.selectedAnimationAccum = 0;
         board.thereIsASelectedCell = false;
 
         board.explodeAnimationTimeAccum = 0;
-        board.explodeAnimationDurationMS = 500;
+        board.explodeAnimationDurationMS = 100;
 
-        board.particleEffectAnimationTimeAccum = 0;
-        board.particleEffectAnimationDurationMS = 500;
+        // board.particleEffectAnimationTimeAccum = 0;
+        // board.particleEffectAnimationDurationMS = 500;
 
         
         
@@ -408,44 +414,87 @@ class Board
     {
         let board = this;
         //Left Side of Board
-        let defaultXPosLeft = board.context.canvas.width * 0.30;
-        let tempLeftPos = defaultXPosLeft;
 
-        //Top Side of Board
-        let defaultYPosTop = board.context.canvas.height * 0.02;
-        let tempTopPos = defaultYPosTop;
-
-        //Right Side of Board
-        let defaultXPosRight = board.context.canvas.width * 0.95;
-        let tempRightPos = defaultXPosRight;
-
-        //Bottom side of Board
-        let defaultYPosBottom = board.context.canvas.height * 0.95;
-        let tempBottomPos = defaultYPosBottom;
-
-        //Width of Board
-        let tempWidth = tempRightPos - tempLeftPos;
-        
-        //Height of Board
-        let tempHeight = tempBottomPos - tempTopPos;
-
-        //Calculate board position from temp data
-        if(tempWidth > tempHeight)
+        if(bWideScreen)
         {
-            //set the width and height to be the height
-            board.width = tempHeight;
-            board.height = tempHeight;
-            board.x = tempLeftPos;
-            board.y = tempTopPos;
+            let defaultXPosLeft = board.context.canvas.width * 0.30;
+            let tempLeftPos = defaultXPosLeft;
 
-            //Center the board vertically and horizontally on the screen
-            board.x = (defaultXPosRight - defaultXPosLeft) / 2;
+            //Top Side of Board
+            let defaultYPosTop = board.context.canvas.height * 0.02;
+            let tempTopPos = defaultYPosTop;
 
-            //Set board cell size
-            board.cellWidth = board.width / board.level.cols;
-            board.cellHeight = board.height / board.level.rows;
+            //Right Side of Board
+            let defaultXPosRight = board.context.canvas.width * 0.95;
+            let tempRightPos = defaultXPosRight;
+
+            //Bottom side of Board
+            let defaultYPosBottom = board.context.canvas.height * 0.95;
+            let tempBottomPos = defaultYPosBottom;
+
+            //Width of Board
+            let tempWidth = tempRightPos - tempLeftPos;
+        
+            //Height of Board
+            let tempHeight = tempBottomPos - tempTopPos;
+
+            //Calculate board position from temp data
+            if(tempWidth > tempHeight)
+            {
+                //set the width and height to be the height
+                board.width = tempHeight;
+                board.height = tempHeight;
+                board.x = tempLeftPos;
+                board.y = tempTopPos;
+
+                //Center the board vertically and horizontally on the screen
+                board.x = (defaultXPosRight - defaultXPosLeft) / 2;
+
+                //Set board cell size
+                board.cellWidth = board.width / board.level.cols;
+                board.cellHeight = board.height / board.level.rows;
+            }
+        }else
+        {
+            let defaultXPosLeft = board.context.canvas.width * 0.0;
+            let tempLeftPos = defaultXPosLeft;
+
+            //Top Side of Board
+            let defaultYPosTop = board.context.canvas.height * 0.02;
+            let tempTopPos = defaultYPosTop;
+
+            //Right Side of Board
+            let defaultXPosRight = board.context.canvas.width * 0.95;
+            let tempRightPos = defaultXPosRight;
+
+            //Bottom side of Board
+            let defaultYPosBottom = board.context.canvas.height * 0.95;
+            let tempBottomPos = defaultYPosBottom;
+
+            //Width of Board
+            let tempWidth = tempRightPos - tempLeftPos;
+        
+            //Height of Board
+            let tempHeight = tempBottomPos - tempTopPos;
+
+            //Calculate board position from temp data
+            if(tempWidth > tempHeight)
+            {
+                //set the width and height to be the height
+                board.width = tempHeight;
+                board.height = tempHeight;
+                board.x = tempLeftPos;
+                board.y = tempTopPos;
+
+                //Center the board vertically and horizontally on the screen
+                board.x = (defaultXPosRight - defaultXPosLeft) / 2;
+
+                //Set board cell size
+                board.cellWidth = board.width / board.level.cols;
+                board.cellHeight = board.height / board.level.rows;
+            }
         }
-
+        
         board.Update();
     }
 
@@ -539,8 +588,6 @@ class Board
         board.SetSwapData(row, col);
         board.SetMoveValueForCells();
         board.StartSwapAnimation();
-
-        
     }
 
     SetSwapData(row, col)
@@ -635,6 +682,35 @@ class Board
         //console.log(board.particleAnimationData);
     }
 
+    IncreaseScore()
+    {
+        let board = this;
+        for(let i = 0; i < board.matches.length; i++)
+        {
+            switch (board.matches[i].length)
+            {
+                case 3:
+                {
+                    board.currentScore += board.regularMatchScoreValue;
+                    break;
+                }
+                case 4:
+                {
+                    board.currentScore += board.regularMatchScoreValue * board.specialMatchMultiplyer;
+                    break;
+                }
+                case 5:
+                {
+                    board.currentScore += board.regularMatchScoreValue * 50; //board.specialMatchMultiplyer * 2;
+                }
+                default:
+                {
+                    board.currentScore += board.regularMatchScoreValue * 10;
+                }
+            }
+        }
+    }
+
     Update(dt)
     {
         let board = this;
@@ -687,6 +763,8 @@ class Board
                 //Valid Swap so clean it up
                 if(board.matches.length > 0)
                 {
+                    //Increase Score
+                    board.IncreaseScore();
                     //Reset Selected Cell
                     board.selectedCell.row = null;
                     board.selectedCell.col = null;
@@ -784,6 +862,8 @@ class Board
                 board.FindMatches()
                 if(board.matches.length > 0)
                 {
+                    //Increase Score
+                    board.IncreaseScore();
                     board.state = board.states.explode;
                     board.explodeAnimationTimeAccum = 0;
                     return;
@@ -832,6 +912,7 @@ class Board
                         board.particleAnimationData[i].frameTimeAccum = 0;
                     }else
                     {
+                        //board.currentScore += board.regularMatchScoreValue;
                         board.particleAnimationData.splice(i, 1);
                     }
                 }else
@@ -889,12 +970,14 @@ class Board
         //Draw the cell selected outline
         if(board.thereIsASelectedCell)
         {
+            board.context.save();
             board.context.strokeStyle = `rgba(255,255,255,${board.selectedAnimationAlphas[board.alphaIndex]})`;
             board.context.lineWidth = board.width * 0.01;
             let y = (board.selectedCell.row * board.cellHeight) + board.y;
             let x = (board.selectedCell.col * board.cellWidth) + board.x;
 
             board.context.strokeRect(x, y, board.cellWidth, board.cellHeight);
+            board.context.restore();
         }
 
         if(board.particleAnimationData.length > 0)
