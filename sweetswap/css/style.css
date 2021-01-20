@@ -23,10 +23,7 @@ body
 {
     width: 100vw;
     height: 100vh;
-    
 }
-
-
 
 .title-text
 {
@@ -37,7 +34,6 @@ body
     animation-iteration-count: infinite;
     width: 100vw;
     height: 33vh;
-    
 }
 
 .menu-container
@@ -48,7 +44,6 @@ body
     align-items: center;
     justify-content: center;
     height: 33vh;
-    
 }
 
 .footer
@@ -56,16 +51,14 @@ body
     position: absolute;
     width: 100vw;
     height: 34vh;
-    font-size: 2vh;
+    font-size: 4vmin;
     color: rgb(47, 64, 82);
-    
-
 }
 
 
 .title-text .text
 {
-    font-size: 15vw;
+    font-size: 15vmin;
 }
 
 @keyframes title-colors
@@ -86,16 +79,21 @@ body
 a
 {
     display: inline-block;
-    width: 33vh;
-    height: 7vh;
+    width: 50vmin;
+    height: 7vmin;
     background-color:hsla(243, 100%, 70%, 1);
     margin-bottom: 1vmin;
     border-radius: 10px;
     cursor: pointer;
-    font-size: 5vh;
+    font-size: 5vmin;
     text-decoration: none;
     text-transform: uppercase;
     color: whitesmoke;
+}
+
+h3
+{
+    font-size: 3vmin;
 }
 
 a:hover
@@ -122,12 +120,6 @@ a:hover
 
 
 
-.back-btn
-{
-    position: absolute;
-    bottom: 0%;
-    margin: 0;
-    padding: 0;
-}
+
 
 
