@@ -33,7 +33,7 @@ class Board
         board.swaps = [];
 
         //Animation Timing
-        board.moveDownAnimationDurationMS = 350;
+        board.moveDownAnimationDurationMS = 250;
         board.swapAnimationDurationMS = 250;
         board.moveDownAnimationTimeAccum = 0; // total time in state
         board.swapAnimationTimeAccum = 0; // total time in state
@@ -536,14 +536,16 @@ class Board
         if(board.selectedCell.row == null && board.selectedCell.col == null)
         {
             board.MarkCellAsSelected(row, col);
+            return;
         }
-        else if(board.selectedCell.row == row && board.selectedCell.col == col)
+        
+        if(board.selectedCell.row == row && board.selectedCell.col == col)
         {
             board.UnmarkSelectedCell(row, col);
-        }else
-        {
-            board.SwapCellsOrChangeSelectedCells(row, col);
+            return;
         }
+        
+        board.SwapCellsOrChangeSelectedCells(row, col);
     }
 
     MarkCellAsSelected(row, col)
@@ -566,20 +568,24 @@ class Board
     SwapCellsOrChangeSelectedCells(row, col)
     {
         let board = this;
+        
         //Are we swapping up or down?
-        if(board.selectedCell.row + 1 == row || board.selectedCell.row - 1 == row)
+        if((board.selectedCell.row + 1 == row || board.selectedCell.row - 1 == row) && (board.selectedCell.col == col))
         {
             board.PerformTheSwapActions(row, col);
+            return;
         } 
+        
         //Are we swapping lefr or right?
-        else if(board.selectedCell.col + 1 == col || board.selectedCell.col - 1 == col)
+        if((board.selectedCell.col + 1 == col || board.selectedCell.col - 1 == col) && (board.selectedCell.row == row))
         {
             board.PerformTheSwapActions(row, col)
-        }else
-        {
-            board.selectedCell.row = row;
-            board.selectedCell.col = col;
+            return;
         }
+
+        board.selectedCell.row = row;
+        board.selectedCell.col = col;
+        
     }
 
     PerformTheSwapActions(row, col)

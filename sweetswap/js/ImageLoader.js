@@ -17,6 +17,7 @@ class ImageLoader
         loader.yellowDrop = new Image();
         loader.greenWrapper = new Image();
         loader.purpleFlower = new Image();
+        loader.pinkStar = new Image();
         loader.cookie = new Image();
 
         loader.explosionBlue1 = new Image();
@@ -37,6 +38,8 @@ class ImageLoader
         loader.explosionPink4 = new Image();
         loader.explosionPink5 = new Image();
 
+        loader.skyBackgroundImg = new Image();
+
         loader.LoadImages();
     }
 
@@ -54,6 +57,7 @@ class ImageLoader
                 { imgName: loader.yellowDrop, source: "img/assets/size3/jelly_yellow.png" },
                 { imgName: loader.greenWrapper, source: "img/assets/size3/wrappedsolid_green.png" },
                 { imgName: loader.purpleFlower, source: "img/assets/size3/lollipop_purple.png" },
+                { imgName: loader.pinkStar, source: "img/assets/size3/star_red.png" },
                 { imgName: loader.cookie, source: "img/assets/size3/mm_brown.png" },
 
                 { imgName: loader.explosionBlue1, source: "img/assets/size3/explosionblue01.png" },
@@ -72,7 +76,9 @@ class ImageLoader
                 { imgName: loader.explosionPink2, source: "img/assets/size3/explosionpink02.png" },
                 { imgName: loader.explosionPink3, source: "img/assets/size3/explosionpink03.png" },
                 { imgName: loader.explosionPink4, source: "img/assets/size3/explosionpink04.png" },
-                { imgName: loader.explosionPink5, source: "img/assets/size3/explosionpink05.png" }
+                { imgName: loader.explosionPink5, source: "img/assets/size3/explosionpink05.png" },
+
+                {imgName: loader.skyBackgroundImg, source: "img/levelbackground/sky.png"}
             ];
 
         loader.imageCount = imageList.length;
@@ -112,6 +118,7 @@ class ImageLoader
             loader.greenWrapper, 
             loader.yellowDrop,
             loader.purpleFlower,
+            loader.pinkStar
         ];
 
         loader.imagesForExplosions =
@@ -124,6 +131,8 @@ class ImageLoader
         ]
 
         loader.imagesForBackground = [loader.backgroundImg, loader.backgroundImg2];
+
+        loader.imagesForLevelBackground = [loader.skyBackgroundImg];
         
     }
 }

@@ -7,7 +7,17 @@ class Game
         //game screen drawing area properties
         game.canvas = canvas;
         game.context = game.canvas.getContext("2d");
+        
+        game.screen = document.documentElement;
         game.wideScreen = true;
+
+        //Fixed Time Step for Game Update and Drawing
+        game.timeStep = 1000/60;
+        game.accumTime = 0;
+        game.elapsedTime = 0;
+        game.doDraw = false;
+
+        
 
         //game states
         game.states = {loading: 0, playing: 1, gameOver: 2};
@@ -64,9 +74,9 @@ class Game
     ScreenResize()
     {
         let game = this;
-        game.canvas.width = window.innerWidth;
-        game.canvas.height = window.innerHeight;
-
+        game.canvas.width = game.screen.clientWidth;//window.innerWidth;
+        game.canvas.height = game.screen.clientHeight;//window.innerHeight;
+       
         //set the screen aspect state
         game.wideScreen = (game.canvas.width >= game.canvas.height) ? true : false;
         
