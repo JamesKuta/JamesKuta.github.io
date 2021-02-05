@@ -33,7 +33,7 @@ class Board
         board.swaps = [];
 
         //Animation Timing
-        board.moveDownAnimationDurationMS = 250;
+        board.moveDownAnimationDurationMS = 300;
         board.swapAnimationDurationMS = 250;
         board.moveDownAnimationTimeAccum = 0; // total time in state
         board.swapAnimationTimeAccum = 0; // total time in state
@@ -46,7 +46,7 @@ class Board
         board.thereIsASelectedCell = false;
 
         board.explodeAnimationTimeAccum = 0;
-        board.explodeAnimationDurationMS = 100;
+        board.explodeAnimationDurationMS = 250;
 
         // board.particleEffectAnimationTimeAccum = 0;
         // board.particleEffectAnimationDurationMS = 500;
@@ -836,12 +836,6 @@ class Board
             }
 
             board.explodeAnimationTimeAccum += dt;
-
-            //create explosion data
-
-            //reset explosion timer
-
-            //pass along to drop state
         }
 
         if(board.state == board.states.drop)
@@ -926,9 +920,6 @@ class Board
                     board.particleAnimationData[i].frameTimeAccum += dt;
                 }
             }
-            //loop over particles
-            //if index is less than image frames advance next
-            //if not less remove from particles array
         }
     }
 

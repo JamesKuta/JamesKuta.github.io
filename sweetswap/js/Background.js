@@ -49,7 +49,7 @@ class Background
     Update(dt)
     {
         let background = this;
-        const velocity = dt * 0.01;
+        const velocity =  (background.context.canvas.width * 0.01) * (dt/2000); //move 1% of screen width every 2 seconds;
 
         if(Math.abs(background.background1.x) > background.context.canvas.width)
         {

@@ -15,6 +15,7 @@ class Game
         game.timeStep = 1000/60;
         game.accumTime = 0;
         game.elapsedTime = 0;
+        game.currentTime = 0;
         game.doDraw = false;
 
         
@@ -34,7 +35,7 @@ class Game
         game.images = new ImageLoader();
         game.board = null;
         
-        game.GameLoop();
+        window.requestAnimationFrame(game.GameLoop.bind(game));
     }
 
     CreateEvents()
@@ -164,17 +165,32 @@ class Game
         //console.log("here");
     }
 
-    GameLoop(fFrameTime)
+    GameLoop(timestamp)
     {
         let game = this;
-        let fDeltaTime = 0;
-        if(game.fLastFrameTime > 0)
+
+        game.elapsedTime = timestamp - game.currentTime;
+        game.accumTime += game.elapsedTime;
+        game.currentTime = timestamp;
+        game.doDraw = false;
+
+        if(game.accumTime > 60)
         {
-            fDeltaTime = fFrameTime - game.fLastFrameTime
+            game.accumTime = 0;
         }
-        game.fLastFrameTime = fFrameTime;
-        game.Update(fDeltaTime);
-        game.Draw();
+
+        while(game.accumTime >= game.timeStep)
+        {
+            game.Update(game.elapsedTime);
+            game.doDraw = true;
+            game.accumTime -= game.timeStep;
+        }
+        
+        if(game.doDraw)
+        {
+            game.Draw();
+        }
+        
         window.requestAnimationFrame(game.GameLoop.bind(game));
     }
 }
