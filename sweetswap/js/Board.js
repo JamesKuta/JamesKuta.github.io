@@ -926,7 +926,7 @@ class Board
     Draw()
     {
         let board = this;
-        
+        board.context.imageSmoothingEnabled = false;
         //Draw Grid Lines
         for(let row = 0; row <= board.level.rows; row++)
         {
