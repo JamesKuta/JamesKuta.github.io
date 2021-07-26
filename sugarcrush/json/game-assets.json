@@ -1,0 +1,202 @@
+{
+    "images": {
+        "background": {
+            "img": null,
+            "src": "./img/assets/sky.png",
+            "w": 0,
+            "h": 0
+        },
+        "playbtn":
+        {
+            "img": null,
+            "src": "./img/assets/play-btn.png",
+            "w": 0,
+            "h": 0
+        },
+        "bean_orange": {
+            "img": null,
+            "src": "./img/assets/bean_orange.png",
+            "w": 0,
+            "h": 0
+        },
+        "jelly_red": {
+            "img": null,
+            "src": "./img/assets/jelly_red.png",
+            "w": 0,
+            "h": 0
+        },
+        "lollipop_rainbow": {
+            "img": null,
+            "src": "./img/assets/lollipop_rainbow.png",
+            "w": 0,
+            "h": 0
+        },
+        "mm_brown": {
+            "img": null,
+            "src": "./img/assets/mm_brown.png",
+            "w": 0,
+            "h": 0
+        },
+        "star_red": {
+            "img": null,
+            "src": "./img/assets/star_red.png",
+            "w": 0,
+            "h": 0
+        },
+        "explosionblue01": {
+            "img": null,
+            "src": "./img/assets/explosionblue01.png",
+            "w": 0,
+            "h": 0
+        },
+        "explosionblue02": {
+            "img": null,
+            "src": "./img/assets/explosionblue02.png",
+            "w": 0,
+            "h": 0
+        },
+        "explosionblue03": {
+            "img": null,
+            "src": "./img/assets/explosionblue03.png",
+            "w": 0,
+            "h": 0
+        },
+        "explosionblue04": {
+            "img": null,
+            "src": "./img/assets/explosionblue04.png",
+            "w": 0,
+            "h": 0
+        },
+        "explosionblue05": {
+            "img": null,
+            "src": "./img/assets/explosionblue05.png",
+            "w": 0,
+            "h": 0
+        },
+        "explosiongreen01": {
+            "img": null,
+            "src": "./img/assets/explosiongreen01.png",
+            "w": 0,
+            "h": 0
+        },
+        "explosiongreen02": {
+            "img": null,
+            "src": "./img/assets/explosiongreen02.png",
+            "w": 0,
+            "h": 0
+        },
+        "explosiongreen03": {
+            "img": null,
+            "src": "./img/assets/explosiongreen03.png",
+            "w": 0,
+            "h": 0
+        },
+        "explosiongreen04": {
+            "img": null,
+            "src": "./img/assets/explosiongreen04.png",
+            "w": 0,
+            "h": 0
+        },
+        "explosiongreen05": {
+            "img": null,
+            "src": "./img/assets/explosiongreen05.png",
+            "w": 0,
+            "h": 0
+        },
+        "explosionpink01": {
+            "img": null,
+            "src": "./img/assets/explosionpink01.png",
+            "w": 0,
+            "h": 0
+        },
+        "explosionpink02": {
+            "img": null,
+            "src": "./img/assets/explosionpink02.png",
+            "w": 0,
+            "h": 0
+        },
+        "explosionpink03": {
+            "img": null,
+            "src": "./img/assets/explosionpink03.png",
+            "w": 0,
+            "h": 0
+        },
+        "explosionpink04": {
+            "img": null,
+            "src": "./img/assets/explosionpink04.png",
+            "w": 0,
+            "h": 0
+        },
+        "explosionpink05": {
+            "img": null,
+            "src": "./img/assets/explosionpink05.png",
+            "w": 0,
+            "h": 0
+        },
+        "explosionred01": {
+            "img": null,
+            "src": "./img/assets/explosionred01.png",
+            "w": 0,
+            "h": 0
+        },
+        "explosionred02": {
+            "img": null,
+            "src": "./img/assets/explosionred02.png",
+            "w": 0,
+            "h": 0
+        },
+        "explosionred03": {
+            "img": null,
+            "src": "./img/assets/explosionred03.png",
+            "w": 0,
+            "h": 0
+        },
+        "explosionred04": {
+            "img": null,
+            "src": "./img/assets/explosionred04.png",
+            "w": 0,
+            "h": 0
+        },
+        "explosionred05": {
+            "img": null,
+            "src": "./img/assets/explosionred05.png",
+            "w": 0,
+            "h": 0
+        },
+        "options": {
+            "img": null,
+            "src": "./img/assets/options.png",
+            "w": 0,
+            "h": 0
+        },
+        "help": {
+            "img": null,
+            "src": "./img/assets/help.png",
+            "w": 0,
+            "h": 0
+        },
+        "info": {
+            "img": null,
+            "src": "./img/assets/info.png",
+            "w": 0,
+            "h": 0
+        },
+        "exit": {
+            "img": null,
+            "src": "./img/assets/exit.png",
+            "w": 0,
+            "h": 0
+        }
+    },
+
+    "audio":
+    {
+
+    },
+
+    "levels":
+    {
+        
+    }
+
+}
