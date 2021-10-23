@@ -1,0 +1,216 @@
+{
+    "images": {
+        "background": {
+            "img": null,
+            "src": "./img/backgrounds/sky.png",
+            "w": 0,
+            "h": 0
+        },
+        "playbtn":
+        {
+            "img": null,
+            "src": "./img/buttons/play-btn.png",
+            "w": 0,
+            "h": 0
+        },
+        "bean_orange": {
+            "img": null,
+            "src": "./img/candies/bean_orange.png",
+            "w": 0,
+            "h": 0
+        },
+        "jelly_red": {
+            "img": null,
+            "src": "./img/candies/jelly_red.png",
+            "w": 0,
+            "h": 0
+        },
+        "lollipop_rainbow": {
+            "img": null,
+            "src": "./img/candies/lollipop_rainbow.png",
+            "w": 0,
+            "h": 0
+        },
+        "mm_brown": {
+            "img": null,
+            "src": "./img/candies/mm_brown.png",
+            "w": 0,
+            "h": 0
+        },
+        "star_red": {
+            "img": null,
+            "src": "./img/candies/star_red.png",
+            "w": 0,
+            "h": 0
+        },
+        "explosionblue01": {
+            "img": null,
+            "src": "./img/explosions/explosionblue01.png",
+            "w": 0,
+            "h": 0
+        },
+        "explosionblue02": {
+            "img": null,
+            "src": "./img/explosions/explosionblue02.png",
+            "w": 0,
+            "h": 0
+        },
+        "explosionblue03": {
+            "img": null,
+            "src": "./img/explosions/explosionblue03.png",
+            "w": 0,
+            "h": 0
+        },
+        "explosionblue04": {
+            "img": null,
+            "src": "./img/explosions/explosionblue04.png",
+            "w": 0,
+            "h": 0
+        },
+        "explosionblue05": {
+            "img": null,
+            "src": "./img/explosions/explosionblue05.png",
+            "w": 0,
+            "h": 0
+        },
+        "explosiongreen01": {
+            "img": null,
+            "src": "./img/explosions/explosiongreen01.png",
+            "w": 0,
+            "h": 0
+        },
+        "explosiongreen02": {
+            "img": null,
+            "src": "./img/explosions/explosiongreen02.png",
+            "w": 0,
+            "h": 0
+        },
+        "explosiongreen03": {
+            "img": null,
+            "src": "./img/explosions/explosiongreen03.png",
+            "w": 0,
+            "h": 0
+        },
+        "explosiongreen04": {
+            "img": null,
+            "src": "./img/explosions/explosiongreen04.png",
+            "w": 0,
+            "h": 0
+        },
+        "explosiongreen05": {
+            "img": null,
+            "src": "./img/explosions/explosiongreen05.png",
+            "w": 0,
+            "h": 0
+        },
+        "explosionpink01": {
+            "img": null,
+            "src": "./img/explosions/explosionpink01.png",
+            "w": 0,
+            "h": 0
+        },
+        "explosionpink02": {
+            "img": null,
+            "src": "./img/explosions/explosionpink02.png",
+            "w": 0,
+            "h": 0
+        },
+        "explosionpink03": {
+            "img": null,
+            "src": "./img/explosions/explosionpink03.png",
+            "w": 0,
+            "h": 0
+        },
+        "explosionpink04": {
+            "img": null,
+            "src": "./img/explosions/explosionpink04.png",
+            "w": 0,
+            "h": 0
+        },
+        "explosionpink05": {
+            "img": null,
+            "src": "./img/explosions/explosionpink05.png",
+            "w": 0,
+            "h": 0
+        },
+        "explosionred01": {
+            "img": null,
+            "src": "./img/explosions/explosionred01.png",
+            "w": 0,
+            "h": 0
+        },
+        "explosionred02": {
+            "img": null,
+            "src": "./img/explosions/explosionred02.png",
+            "w": 0,
+            "h": 0
+        },
+        "explosionred03": {
+            "img": null,
+            "src": "./img/explosions/explosionred03.png",
+            "w": 0,
+            "h": 0
+        },
+        "explosionred04": {
+            "img": null,
+            "src": "./img/explosions/explosionred04.png",
+            "w": 0,
+            "h": 0
+        },
+        "explosionred05": {
+            "img": null,
+            "src": "./img/explosions/explosionred05.png",
+            "w": 0,
+            "h": 0
+        },
+        "options": {
+            "img": null,
+            "src": "./img/buttons/options.png",
+            "w": 0,
+            "h": 0
+        },
+        "help": {
+            "img": null,
+            "src": "./img/buttons/help.png",
+            "w": 0,
+            "h": 0
+        },
+        "info": {
+            "img": null,
+            "src": "./img/buttons/info.png",
+            "w": 0,
+            "h": 0
+        },
+        "exit": {
+            "img": null,
+            "src": "./img/buttons/exit.png",
+            "w": 0,
+            "h": 0
+        }
+    },
+
+    "audio":
+    {
+        "menu":
+        {
+            "aud": null,
+            "src": "./sound/test.mp3"
+        },
+        "menu1a":
+        {
+            "aud": null,
+            "src": "./sound/Menu1A.wav"
+        },
+        "theme":
+        {
+            "aud": null,
+            "src": "./sound/Soliloquy.mp3"
+        }
+    },
+
+    "levels":
+    {
+        
+    }
+
+}
